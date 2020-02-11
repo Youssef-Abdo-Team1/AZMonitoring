@@ -31,7 +31,6 @@ namespace AZMonitoring
             InitializeComponent();
             DB = new DAL.DAL();
             DB.CreateConnection();
-            MainPageFrameContainer.Content = new Views.Prov_Page();
         }
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -188,10 +187,7 @@ namespace AZMonitoring
 
         public static Brush Getbfroms(string hex)
         {
-            try
-            {
-                return (SolidColorBrush)(new BrushConverter()).ConvertFromString(hex);
-            }
+            try { return (SolidColorBrush)(new BrushConverter()).ConvertFromString(hex); }
             catch { return Brushes.White; }
         }
 
@@ -202,23 +198,51 @@ namespace AZMonitoring
                 var p = (Province)MainListViewProv.SelectedItem;
             }
         }
-
+        void resetControlers()
+        {
+            if (ocprovlist) { CloseMainProvListView(); }
+            MainSettingsBTN.Background = MainSysManageBTN.Background = MainAboutPBTN.Background = Getbfroms("#0c000000");
+        }
         private void MainProvBTN_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (ocprovlist)
-            {
-                MainProvBTN.BeginAnimation(Border.MaxHeightProperty, GetCDAnim(300, 300, 40));
-                ocprovlist = false;
-                TXTProvOpenClose.Text = "";
-                MainProvBTN.Background = Getbfroms("#0c000000");
-            }
+            if (ocprovlist) { CloseMainProvListView(); }
             else
             {
+                resetControlers();
                 MainProvBTN.BeginAnimation(Border.MaxHeightProperty, GetCDAnim(300, 40, 300));
                 ocprovlist = true;
                 TXTProvOpenClose.Text = "";
                 MainProvBTN.Background = Getbfroms("#33000000");
             }
+        }
+
+        private void MainSysManageBTN_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            MainFrameContainer.Content = new Views.SysManage.SysManageMainPage();
+            resetControlers();
+            MainSysManageBTN.Background = Getbfroms("#33000000");
+        }
+
+        private void MainSettingsBTN_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            MainFrameContainer.Content = new Views.Setting.SettingMainPage();
+            resetControlers();
+            MainSettingsBTN.Background = Getbfroms("#33000000");
+        }
+
+        private void MainAboutPBTN_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            MainFrameContainer.Content = new Views.AboutPage();
+            resetControlers();
+            MainAboutPBTN.Background = Getbfroms("#33000000");
+        }
+
+        void CloseMainProvListView()
+        {
+            MainProvBTN.BeginAnimation(Border.MaxHeightProperty, GetCDAnim(300, 300, 40));
+            ocprovlist = false;
+            TXTProvOpenClose.Text = "";
+            MainProvBTN.Background = Getbfroms("#0c000000");
         }
         public void OCFrame(bool openclose, int time = 400)
         {
