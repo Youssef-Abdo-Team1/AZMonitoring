@@ -1,0 +1,97 @@
+﻿<Window x:Class="AZMonitoring.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AZMonitoring"
+        mc:Ignorable="d"
+        FontFamily="Tahoma"
+        BorderBrush="Teal"
+        Closing="Window_Closing"
+        MinHeight="400"
+        MinWidth="600"
+        BorderThickness="2"
+        FontSize="16" Background="#FFE4E4E4"
+        Title="MainWindow" Height="600" Width="800" WindowStyle="None" AllowsTransparency="True" ResizeMode="CanResizeWithGrip">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Resources/BG.png" Stretch="Uniform" AlignmentX="Left" AlignmentY="Top" ViewportUnits="Absolute" Viewport="0,0,400,400" Opacity="0.95" TileMode="Tile"/>
+        </Grid.Background>
+        <DockPanel x:Name="MainDockPanel" LastChildFill="True" >
+            <Grid DockPanel.Dock="Top" Height="30" Background="Teal">
+                <Grid.Effect>
+                    <DropShadowEffect BlurRadius="15" ShadowDepth="0" Opacity="0.8"/>
+                </Grid.Effect>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <TextBlock x:Name="TXTOpenLastChatBTN" MouseLeftButtonUp="TXTOpenLastChatBTN_MouseLeftButtonUp" Style="{DynamicResource TXT1}" Padding="5,0" Text="" Background="Teal" Foreground="Gainsboro"/>
+                    <TextBlock x:Name="TXTAllChatsBTN" MouseLeftButtonUp="TXTAllChatsBTN_MouseLeftButtonUp" Style="{DynamicResource TXT1}" Padding="5,0" Text="" Background="Teal" Foreground="Gainsboro"/>
+                </StackPanel>
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" FlowDirection="RightToLeft">
+                    <TextBlock x:Name="TXTExitBTN" MouseLeftButtonUp="TXTExitBTN_MouseLeftButtonUp" ToolTip="خروج" Style="{DynamicResource TXT1}" Padding="5,0" Text="" Background="Teal" Foreground="Gainsboro"/>
+                    <TextBlock x:Name="TXTMaxiMiniBTN" MouseLeftButtonUp="TXTMaxMinBTN_MouseLeftButtonUp" ToolTip="تكبر\تصغير الشاشة" Style="{DynamicResource TXT1}" Padding="5,0" Text="" Background="Teal" Foreground="Gainsboro"/>
+                    <TextBlock x:Name="TXTMiniBTN" MouseLeftButtonUp="TXTMiniBTN_MouseLeftButtonUp" ToolTip="تصغير الشاشة" Style="{DynamicResource TXT1}" Padding="5,0" Text="" Background="Teal" Foreground="Gainsboro"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" MouseLeftButtonDown="Grid_MouseLeftButtonDown"  Background="Teal" />
+            </Grid>
+            <Frame x:Name="ChatingFrame" NavigationUIVisibility="Hidden" DockPanel.Dock="Left" Width="0" BorderBrush="Teal" BorderThickness="1" Background="#4C383838">
+                <Frame.Effect>
+                    <DropShadowEffect Color="Teal" Direction="0" Opacity="0.8" BlurRadius="15" ShadowDepth="0"/>
+                </Frame.Effect>
+
+            </Frame>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="1" >
+                </StackPanel>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Frame x:Name="MainPageFrameContainer" NavigationUIVisibility="Hidden">
+                        
+                    </Frame>
+                </ScrollViewer>
+            </Grid>
+        </DockPanel>
+        <Grid x:Name="MainLoginPanel" Opacity="0" Visibility="Hidden" IsEnabled="False">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Background="Teal" MouseLeftButtonDown="Grid_MouseLeftButtonDown"/>
+            <StackPanel Orientation="Horizontal" Background="Teal" HorizontalAlignment="Right" FlowDirection="RightToLeft">
+                <TextBlock x:Name="TXTExit1BTN" MouseLeftButtonUp="TXTExitBTN_MouseLeftButtonUp" ToolTip="خروج" Style="{DynamicResource TXT1}" Padding="5,0" Text="" Background="Teal" Foreground="Gainsboro"/>
+                <TextBlock x:Name="TXTMaxiMini1BTN" MouseLeftButtonUp="TXTMaxMinBTN_MouseLeftButtonUp" ToolTip="تكبر\تصغير الشاشة" Style="{DynamicResource TXT1}" Padding="5,0" Text="" Background="Teal" Foreground="Gainsboro"/>
+                <TextBlock x:Name="TXTMini1BTN" MouseLeftButtonUp="TXTMiniBTN_MouseLeftButtonUp" ToolTip="تصغير الشاشة" Style="{DynamicResource TXT1}" Padding="5,0" Text="" Background="Teal" Foreground="Gainsboro"/>
+            </StackPanel>
+            <Border x:Name="LoginBorder" Grid.Row="1" Padding="15" Background="#BF008080" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="0" BlurRadius="13" Opacity="1"/>
+                </Border.Effect>
+                <StackPanel Width="200" FlowDirection="RightToLeft">
+                    <Image Source="Resources/ARE.png" Height="150" />
+                    <TextBlock Text="رقم السجل:" Foreground="White" Margin="15,0" FontWeight="Bold"/>
+                    <Border Style="{DynamicResource BRD1}">
+                        <TextBox x:Name="TXTLoginUsername" Background="{x:Null}" BorderThickness="0" BorderBrush="{x:Null}"/>
+                    </Border>
+                    <TextBlock Text="كلمة السر :" Foreground="White" Margin="15,0" FontWeight="Bold"/>
+                    <Border Style="{DynamicResource BRD1}">
+                        <PasswordBox x:Name="TXTLoginPass" Background="{x:Null}" BorderThickness="0" BorderBrush="{x:Null}"/>
+                    </Border>
+                    <Button x:Name="BTNLoginBTN" Click="BTNLoginBTN_Click" Content="تسجيل الدخول" Margin="5" Padding="5"/>
+                    <TextBlock x:Name="TXTLogingotoSignup" MouseLeftButtonUp="TXTLogingotoSignup_MouseLeftButtonUp" Text="اذا كونت لا تملك حساب بالفعل إضغط هنا" Style="{DynamicResource TXT2}"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="90">
+                        <Image Height="80" Source="Resources/az.png" Margin="5"/>
+                        <Image Height="80" Source="Resources/ARE.png" Margin="5"/>
+                    </StackPanel>
+                    <TextBlock Text="جميع الحقوق الفكرية محفوظة للدكتور مؤمن عزالدين." FontSize="10" FontWeight="Bold" Foreground="White" TextWrapping="WrapWithOverflow"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

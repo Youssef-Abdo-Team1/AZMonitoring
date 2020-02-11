@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Levels&#xD;&#xA;0 admin&#xD;&#xA;1 HCAdministration&#xD;&#xA;2 CulturalAgent - Legalagent -sWelfare&#xD;&#xA;3 GenealInstructor - firstinstructor&#xD;&#xA;4 instruction heads&#xD;&#xA;5 administration intuctors&#xD;&#xA;6 sheikh&#xD;&#xA;7 teacher">
+    <Position X="16.063" Y="6.691" Height="1.725" Width="2.602" />
+  </Comment>
+  <Comment CommentText="المحافظة--&gt;&#xD;&#xA;">
+    <Position X="13.365" Y="2.552" Height="1.635" Width="1.304" />
+  </Comment>
+  <Class Name="AZMonitoring.Person">
+    <Position X="5" Y="4.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>EQAAAAAACAAggCAAAAAAAAQAAAAAAAACAAAQAAAAAAA=</HashCode>
+      <FileName>Structures\Person.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AZMonitoring.Province">
+    <Position X="11.25" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AABACAAAAAAigAQAAAAAgAQAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Structures\Province.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AZMonitoring.Administration">
+    <Position X="10.5" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAggAAAAAAAAAQCAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Structures\Administration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AZMonitoring.Position">
+    <Position X="7.75" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAIBAAAgAAAAAAAAAQAAAAAAAABgAAAAAAAABA=</HashCode>
+      <FileName>Structures\Position.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AZMonitoring.Institution">
+    <Position X="9.25" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAggAAAAAAAAEQAAAAAAAAAAQiAQAAAAAA=</HashCode>
+      <FileName>Structures\Institution.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Stage" />
+      <Property Name="Type" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="AZMonitoring.GInstruct">
+    <Position X="13" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAggAAEAAAAgAQAAAAAAAAQAAAAAAAQAAA=</HashCode>
+      <FileName>Structures\GInstruct.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AZMonitoring.Job">
+    <Position X="7.75" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAggAAAAAAAAAQAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Structures\Job.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AZMonitoring.Work">
+    <Position X="7.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAggAAAAAAAAAQAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Structures\Work.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AZMonitoring.Admin">
+    <Position X="11.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Structures\Admin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AZMonitoring.Message">
+    <Position X="5" Y="10.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAgAAAAAAAAAAAAAAAAAABAQAAAAAAAAA=</HashCode>
+      <FileName>Structures\Message.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AZMonitoring.Chat">
+    <Position X="5" Y="7.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAEAAAAACAAAAAAAA=</HashCode>
+      <FileName>Structures\Chat.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AZMonitoring.DMessage">
+    <Position X="2.75" Y="10.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAABIAgAAAABAAAAAgCAAAAAA=</HashCode>
+      <FileName>Structures\DMeeage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AZMonitoring.DChat">
+    <Position X="3" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAACAAAAAAAAUAAAAACBAAAAAAAQAAAAA=</HashCode>
+      <FileName>Structures\DChat.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AZMonitoring.DPerson">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Structures\DPerson.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AZMonitoring.Instruct">
+    <Position X="11.75" Y="8" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgACAAAACAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Structures\Instruct.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="AZMonitoring.Stages">
+    <Position X="10.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Structures\Stages.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AZMonitoring.Type">
+    <Position X="9" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAEAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Structures\Type.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AZMonitoring.MessageType">
+    <Position X="7" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAACAAAAAAAAAAAAAEAAAAAAAACAAAAAg=</HashCode>
+      <FileName>Structures\MessageType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

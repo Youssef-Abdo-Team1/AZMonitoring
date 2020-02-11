@@ -1,0 +1,39 @@
+﻿<Page x:Class="AZMonitoring.Views.Prov_Page"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AZMonitoring.Views"
+      mc:Ignorable="d" 
+      FontFamily="Tahoma"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Prov_Page">
+    <StackPanel Margin="16">
+        <GroupBox x:Name="GBGAdmin"  FlowDirection="RightToLeft" Padding="10" Header="الادارة المركزية لمحافظة القاهرة" Foreground="White">
+            <ListView x:Name="ListGAdmin">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Height="90">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Border CornerRadius="50" Grid.RowSpan="2">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding Image}"/>
+                                </Border.Background>
+                            </Border>
+                            <TextBlock Text="{Binding PositionName}" Grid.Column="1"/>
+                            <TextBlock Text="{Binding PersonName}" Grid.Column="1" Grid.Row="1"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </GroupBox>
+        
+    </StackPanel>
+</Page>
