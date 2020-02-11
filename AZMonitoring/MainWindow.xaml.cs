@@ -22,7 +22,7 @@ namespace AZMonitoring
     /// </summary>
     public partial class MainWindow : Window
     {
-        bool fro = false,ch = false,chts = false;
+        bool fro = false,ch = false,chts = false,ocprovlist = false;
         DPerson LogedPerson;
         public readonly Views.ChatingPage chatingPage = new Views.ChatingPage();
         private DAL.DAL DB;
@@ -31,7 +31,6 @@ namespace AZMonitoring
             InitializeComponent();
             DB = new DAL.DAL();
             DB.CreateConnection();
-            DB.tesst();
             MainPageFrameContainer.Content = new Views.Prov_Page();
         }
 
@@ -138,14 +137,14 @@ namespace AZMonitoring
         }
         async void Logingin()
         {
-            //if (await DB.AddPerson(new Person { Description = "", DOB = DateTime.Now.ToString(), ChatsID = new string[] { "", "" }, ID = "ysf123", IDPosition = "", Name = "Youssef Shaaban", SSN = "wewa", Password = "123", Photo = "" }))
-            //{
+            if (await DB.AddPerson(new Person { Description = "", DOB = DateTime.Now.ToString(), ChatsID = new string[] { "", "" }, ID = "ysf123", IDPosition = "", Name = "Youssef Shaaban", SSN = "wewa", Password = "123", Photo = "" }))
+            {
 
-            //}
-            //else
-            //{
-            //    MessageBox.Show($"فشل في تسجيل الدخول", "فشل", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
+            }
+            else
+            {
+                MessageBox.Show($"فشل في تسجيل الدخول", "فشل", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         async Task MainDockVisibility(bool openorclose, int d = 400)
         {
@@ -187,6 +186,40 @@ namespace AZMonitoring
             MessageBox.Show("برجاء الاتصال بالإدارة المختصة بالمشروع\n01000000000","لا تملك حساب؟",MessageBoxButton.OK);
         }
 
+        public static Brush Getbfroms(string hex)
+        {
+            try
+            {
+                return (SolidColorBrush)(new BrushConverter()).ConvertFromString(hex);
+            }
+            catch { return Brushes.White; }
+        }
+
+        private void MainListViewProv_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(MainListViewProv.SelectedItem != null)
+            {
+                var p = (Province)MainListViewProv.SelectedItem;
+            }
+        }
+
+        private void MainProvBTN_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (ocprovlist)
+            {
+                MainProvBTN.BeginAnimation(Border.MaxHeightProperty, GetCDAnim(300, 300, 40));
+                ocprovlist = false;
+                TXTProvOpenClose.Text = "";
+                MainProvBTN.Background = Getbfroms("#0c000000");
+            }
+            else
+            {
+                MainProvBTN.BeginAnimation(Border.MaxHeightProperty, GetCDAnim(300, 40, 300));
+                ocprovlist = true;
+                TXTProvOpenClose.Text = "";
+                MainProvBTN.Background = Getbfroms("#33000000");
+            }
+        }
         public void OCFrame(bool openclose, int time = 400)
         {
             if (openclose) { ChatingFrame.BeginAnimation(WidthProperty, GetCDAnim(time, 0, 300)); }

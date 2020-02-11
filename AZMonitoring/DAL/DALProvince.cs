@@ -8,5 +8,6 @@ namespace AZMonitoring.DAL
 {
     partial class DAL
     {
+
     }
 }
