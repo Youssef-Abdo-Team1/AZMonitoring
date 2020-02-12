@@ -91,6 +91,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DAL\DAL.cs" />
+    <Compile Include="DAL\DALChat.cs" />
     <Compile Include="DAL\DALPerson.cs" />
     <Compile Include="DAL\DALProvince.cs" />
     <Compile Include="Structures\Admin.cs" />

@@ -11,10 +11,10 @@ namespace AZMonitoring
         public string Name { get; set; }
         public string Password { get; set; }
         public string Photo { get; set; }
-        public string[] ChatsID { get; set; }
+        public List<string> ChatsID { get; set; }
         public string IDPosition { get; set; }
         public string Description { get; set; }
         public string SSN { get; set; }
-        public string DOB { get; set; }
+        public DateTime DOB { get; set; }
     }
 }

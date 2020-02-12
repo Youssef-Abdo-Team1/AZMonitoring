@@ -8,6 +8,9 @@ namespace AZMonitoring.DAL
 {
     partial class DAL
     {
-        
+        public Task<bool> AddChat(Chat newchat)
+        {
+
+        }
     }
 }

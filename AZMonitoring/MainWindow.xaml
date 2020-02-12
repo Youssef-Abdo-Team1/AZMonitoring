@@ -54,9 +54,9 @@
                         <DropShadowEffect Color="Teal" Direction="0" Opacity="0.8" BlurRadius="15" ShadowDepth="0"/>
                     </Border.Effect>
                     <StackPanel VerticalAlignment="Center">
-                        <Border x:Name="MainProvBTN" MinHeight="40" Cursor="Hand" BorderThickness="0,1" MaxHeight="40" MouseLeftButtonDown="MainProvBTN_MouseLeftButtonDown" BorderBrush="#33000000" Background="#0C000000">
+                        <Border x:Name="MainProvBTN" MinHeight="40" Cursor="Hand" BorderThickness="0,1" MaxHeight="40" BorderBrush="#33000000" Background="#0C000000">
                             <StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
+                                <StackPanel  MouseLeftButtonDown="MainProvBTN_MouseLeftButtonDown" Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
                                     <TextBlock Text="المحافظات" Style="{DynamicResource TXT2}" FontSize="24"/>
                                     <TextBlock x:Name="TXTProvOpenClose" Text="" Foreground="White"  VerticalAlignment="Center" Style="{DynamicResource TXT1}" FontSize="24" TextAlignment="Center"/>
                                 </StackPanel>

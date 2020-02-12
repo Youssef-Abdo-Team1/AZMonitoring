@@ -18,6 +18,19 @@ namespace AZMonitoring.DAL
     {
 
         private static IFirebaseClient client;
+        private string pathperson = "AZMonitoring/Person/",
+            pathprovince = "AZMonitoring/Province/",
+            pathprovincenames = "AZMonitoring/Province/Names/",
+            pathadministration = "AZMonitoring/Administration/",
+            pathadmin = "AZMonitoring/Admin/",
+            pathginstruct = "AZMonitoring/GInstruct/",
+            pathinstruct = "AZMonitoring/Instruct/",
+            pathinstitution = "AZMonitoring/Institution/",
+            pathposition = "AZMonitoring/Position/",
+            pathjob = "AZMonitoring/Job/",
+            pathwork = "AZMonitoring/Work/",
+            pathchat = "AZMonitoring/Chat/",
+            pathmessage = "AZMonitoring/Message/";
         private readonly static IFirebaseConfig Config = new FireSharp.Config.FirebaseConfig { AuthSecret = "IZLDtMrlpCiu25KHovLrbZzLirslRdoTvuj7wsZ7", BasePath = "https://fir-test1-fb35d.firebaseio.com/" };
         public void CreateConnection(string emailAddress = null,string password = null)
         {
@@ -27,5 +40,38 @@ namespace AZMonitoring.DAL
             }
             catch(Exception ex) { MessageBox.Show($"الخطأ: \n{ex.Message}", "حدث خطأ اثناء الاتصال", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
+        public void kjhkj()
+        {
+            statics.staticframe.Content = new Views.AboutPage();
+        }
+        public async void test()
+        {
+            var x = new Product
+            {
+                Name = "abc",
+                sizes = new List<string>(),
+                prices = new List<int>()
+            };
+            x.sizes.Add("s");
+            x.sizes.Add("M");
+            x.sizes.Add("L");
+            x.sizes.Add("xL");
+            x.prices.Add(56);
+            x.prices.Add(53);
+            x.prices.Add(52);
+            x.prices.Add(53);
+            await client.SetAsync("test/clothing/abc", x);
+            var y = (await client.GetAsync("test/clothing/abc")).ResultAs<Product>();
+            y.sizes.Add("xxL");
+            y.prices.Add(65);
+            await client.UpdateAsync("test/clothing/abc", y);
+        }
+    }
+
+    class Product
+    {
+        public string Name { get; set; }
+        public List<string> sizes { get; set; }
+        public List<int> prices { get; set; }
     }
 }

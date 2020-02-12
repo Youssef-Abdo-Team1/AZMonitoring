@@ -17,6 +17,11 @@ using System.Windows.Shapes;
 
 namespace AZMonitoring
 {
+    public class statics
+    {
+        public static Frame staticframe { get; set; }
+    }
+    
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -26,11 +31,13 @@ namespace AZMonitoring
         DPerson LogedPerson;
         public readonly Views.ChatingPage chatingPage = new Views.ChatingPage();
         private DAL.DAL DB;
+        
         public MainWindow()
         {
             InitializeComponent();
             DB = new DAL.DAL();
             DB.CreateConnection();
+            statics.staticframe = MainFrameContainer;
         }
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -136,7 +143,7 @@ namespace AZMonitoring
         }
         async void Logingin()
         {
-            if (await DB.AddPerson(new Person { Description = "", DOB = DateTime.Now.ToString(), ChatsID = new string[] { "", "" }, ID = "ysf123", IDPosition = "", Name = "Youssef Shaaban", SSN = "wewa", Password = "123", Photo = "" }))
+            if (await DB.AddPerson(new Person { Description = "", DOB = DateTime.Now, ChatsID = new List<string>(), ID = "ysf123", IDPosition = "", Name = "Youssef Shaaban", SSN = "wewa", Password = "123", Photo = "" }))
             {
 
             }
