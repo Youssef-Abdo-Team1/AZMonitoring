@@ -47,7 +47,6 @@ namespace AZMonitoring
         {
             this.DragMove();
         }
-
         private void TXTOpenLastChatBTN_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (!ch)
@@ -104,7 +103,6 @@ namespace AZMonitoring
                 fro = chts = chts = false;
             }
         }
-
         public void ResetColors()
         {
             TXTOpenLastChatBTN.Background = Brushes.Teal;
@@ -112,12 +110,10 @@ namespace AZMonitoring
             TXTOpenLastChatBTN.Foreground = Brushes.Gainsboro;
             TXTAllChatsBTN.Foreground = Brushes.Gainsboro;
         }
-
         private void TXTExitBTN_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             Close();
         }
-
         private void TXTMaxMinBTN_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if(WindowState != WindowState.Maximized)
@@ -129,17 +125,14 @@ namespace AZMonitoring
                 WindowState = WindowState.Normal;
             }
         }
-
         private void TXTMiniBTN_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
-
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (MessageBox.Show("هل تريد الخروج من النظام الأن!!", "خروج", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes){ e.Cancel = true; }
         }
-
         private void BTNLoginBTN_Click(object sender, RoutedEventArgs e)
         {
             Logingin();
@@ -189,23 +182,25 @@ namespace AZMonitoring
                 MainLoginPanel.Visibility = Visibility.Hidden;
             }
         }
-
         private void TXTLogingotoSignup_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show("برجاء الاتصال بالإدارة المختصة بالمشروع\n01000000000","لا تملك حساب؟",MessageBoxButton.OK);
         }
-
         public static Brush Getbfroms(string hex)
         {
             try { return (SolidColorBrush)(new BrushConverter()).ConvertFromString(hex); }
             catch { return Brushes.White; }
         }
-
         private void MainListViewProv_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(MainListViewProv.SelectedItem != null)
             {
-                var p = (Province)MainListViewProv.SelectedItem;
+                try
+                {
+                    MainFrameContainer.Content = new Views.Prov_Page((Province)MainListViewProv.SelectedItem);
+                }
+                catch { }
+
             }
         }
         void resetControlers()
@@ -225,28 +220,24 @@ namespace AZMonitoring
                 MainProvBTN.Background = Getbfroms("#33000000");
             }
         }
-
         private void MainSysManageBTN_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             MainFrameContainer.Content = new Views.SysManage.SysManageMainPage();
             resetControlers();
             MainSysManageBTN.Background = Getbfroms("#33000000");
         }
-
         private void MainSettingsBTN_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             MainFrameContainer.Content = new Views.Setting.SettingMainPage();
             resetControlers();
             MainSettingsBTN.Background = Getbfroms("#33000000");
         }
-
         private void MainAboutPBTN_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             MainFrameContainer.Content = new Views.AboutPage();
             resetControlers();
             MainAboutPBTN.Background = Getbfroms("#33000000");
         }
-
         void CloseMainProvListView()
         {
             MainProvBTN.BeginAnimation(Border.MaxHeightProperty, GetCDAnim(300, 300, 40));
@@ -259,7 +250,6 @@ namespace AZMonitoring
             if (openclose) { ChatingFrame.BeginAnimation(WidthProperty, GetCDAnim(time, 0, 300)); }
             else { ChatingFrame.BeginAnimation(WidthProperty, GetCDAnim(time, 300, 0)); }
         }
-
         public static DoubleAnimationUsingKeyFrames GetCDAnim(int Time,int invalue,int outvalue)
         {
             var anim = new DoubleAnimationUsingKeyFrames();

@@ -7,7 +7,7 @@
     <Position X="13.365" Y="2.552" Height="1.635" Width="1.304" />
   </Comment>
   <Class Name="AZMonitoring.Person">
-    <Position X="5" Y="4.75" Width="1.75" />
+    <Position X="4" Y="4.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>EQAAAAAACAAggCAAAAAAAAQAAAAAAAACAAAQAAAAAAA=</HashCode>
       <FileName>Structures\Person.cs</FileName>
@@ -28,7 +28,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AZMonitoring.Position">
-    <Position X="7.75" Y="4.5" Width="1.75" />
+    <Position X="8.25" Y="4.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>QAAAAAAIBAAAgAAAAAAAAAQAAAAAAAABgAAAAAAAABA=</HashCode>
       <FileName>Structures\Position.cs</FileName>
@@ -53,7 +53,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AZMonitoring.Job">
-    <Position X="7.75" Y="2.5" Width="1.75" />
+    <Position X="7.75" Y="2.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAggAAAAAAAAAQAAAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>Structures\Job.cs</FileName>
@@ -102,7 +102,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AZMonitoring.DPerson">
-    <Position X="2.75" Y="4.75" Width="1.5" />
+    <Position X="2" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAAAAA=</HashCode>
       <FileName>Structures\DPerson.cs</FileName>
@@ -116,9 +116,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AZMonitoring.DPosition">
-    <Position X="5" Y="2.5" Width="1.75" />
+    <Position X="6.25" Y="4.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAAAAAAAAAAAIAAAAAAAAABAAAACAIAAAAAA=</HashCode>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Structures\DPosition.cs</FileName>
     </TypeIdentifier>
   </Class>

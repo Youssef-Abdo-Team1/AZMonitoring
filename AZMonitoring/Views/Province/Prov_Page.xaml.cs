@@ -25,10 +25,13 @@ namespace AZMonitoring.Views
         {
             InitializeComponent();
             this.prov = prov;
+            InitializeFields();
         }
         async void InitializeFields()
         {
-            var testlist = new List<Position>();
+            GBGA.Header = $"الإدارة المركزية لمحافظة {prov.Name}";
+            GBA.Header = $"الادارات التعليمية لمحافظة {prov.Name}";
+            GBI.Header = $"توجيه محافظة {prov.Name}";
             ListGAdmin.ItemsSource = testlist;
             ListGAdmin.Items.Refresh();
         }

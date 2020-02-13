@@ -6,13 +6,8 @@ using System.Windows.Media;
 
 namespace AZMonitoring
 {
-    public class DPosition
+    public class DPosition : Position
     {
-        public string IDPosition { get; set; }
-        public string PositionName { get; set; }
-        public string PersonName { get; set; }
-        public ImageSource Image { get; set; }
-        public string IDPerson { get; set; }
-        public string Photo { get; set; }
+        public DPerson Person { get; set; }
     }
 }

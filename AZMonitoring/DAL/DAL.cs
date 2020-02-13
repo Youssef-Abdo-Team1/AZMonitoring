@@ -64,12 +64,12 @@ namespace AZMonitoring.DAL
         }
         public async void test_addProvinces()
         {
-            await addProvince(new Province { Name = "القاهرة", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
-            await addProvince(new Province { Name = "الجيزة", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
-            await addProvince(new Province { Name = "الاسكندرية", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
-            await addProvince(new Province { Name = "الفيوم", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
-            await addProvince(new Province { Name = "البحيرة", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
-            await addProvince(new Province { Name = "المنصورة", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
+            await AddProvince(new Province { Name = "القاهرة", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
+            await AddProvince(new Province { Name = "الجيزة", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
+            await AddProvince(new Province { Name = "الاسكندرية", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
+            await AddProvince(new Province { Name = "الفيوم", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
+            await AddProvince(new Province { Name = "البحيرة", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
+            await AddProvince(new Province { Name = "المنصورة", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
         }
     }
 

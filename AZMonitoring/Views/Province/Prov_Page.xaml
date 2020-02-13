@@ -9,7 +9,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Prov_Page">
     <StackPanel Margin="16">
-        <GroupBox x:Name="GBGAdmin"  FlowDirection="RightToLeft" Padding="10" Header="الادارة المركزية لمحافظة القاهرة" Foreground="White">
+        <GroupBox x:Name="GBGA"  FlowDirection="RightToLeft" Padding="10" Header="الادارة المركزية لمحافظة القاهرة" Foreground="White">
             <ListView x:Name="ListGAdmin">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -34,6 +34,11 @@
                 </ListView.ItemTemplate>
             </ListView>
         </GroupBox>
-        
+        <GroupBox x:Name="GBA"  FlowDirection="RightToLeft" Padding="10" Header=" الادارات العليمية لمحافظة القاهرة" Foreground="White">
+
+        </GroupBox>
+        <GroupBox x:Name="GBI"  FlowDirection="RightToLeft" Padding="10" Header="توجيه لمحافظة القاهرة" Foreground="White">
+
+        </GroupBox>
     </StackPanel>
 </Page>

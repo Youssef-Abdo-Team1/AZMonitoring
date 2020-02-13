@@ -93,6 +93,7 @@
     <Compile Include="DAL\DAL.cs" />
     <Compile Include="DAL\DALChat.cs" />
     <Compile Include="DAL\DALPerson.cs" />
+    <Compile Include="DAL\DALPosition.cs" />
     <Compile Include="DAL\DALProvince.cs" />
     <Compile Include="Statics.cs" />
     <Compile Include="Structures\DPosition.cs" />
