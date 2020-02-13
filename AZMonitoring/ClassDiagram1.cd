@@ -16,7 +16,7 @@
   <Class Name="AZMonitoring.Province">
     <Position X="11.25" Y="2.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AABACAAAAAAigAQAAAAAgAQAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AABACAAAAAAiAAQAAAAAgAQAAACAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Structures\Province.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -113,6 +113,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgACAAAACAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>Structures\Instruct.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AZMonitoring.DPosition">
+    <Position X="5" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAIAAAAAAAAABAAAACAIAAAAAA=</HashCode>
+      <FileName>Structures\DPosition.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="AZMonitoring.Stages">

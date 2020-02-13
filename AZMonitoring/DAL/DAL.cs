@@ -19,7 +19,7 @@ namespace AZMonitoring.DAL
 
         private static IFirebaseClient client;
         private string pathperson = "AZMonitoring/Person/",
-            pathprovince = "AZMonitoring/Province/",
+            pathprovince = "AZMonitoring/Province/Provinces/",
             pathprovincenames = "AZMonitoring/Province/Names/",
             pathadministration = "AZMonitoring/Administration/",
             pathadmin = "AZMonitoring/Admin/",
@@ -39,10 +39,6 @@ namespace AZMonitoring.DAL
                 client = new FireSharp.FirebaseClient(Config);
             }
             catch(Exception ex) { MessageBox.Show($"الخطأ: \n{ex.Message}", "حدث خطأ اثناء الاتصال", MessageBoxButton.OK, MessageBoxImage.Error); }
-        }
-        public void kjhkj()
-        {
-            statics.staticframe.Content = new Views.AboutPage();
         }
         public async void test()
         {
@@ -65,6 +61,15 @@ namespace AZMonitoring.DAL
             y.sizes.Add("xxL");
             y.prices.Add(65);
             await client.UpdateAsync("test/clothing/abc", y);
+        }
+        public async void test_addProvinces()
+        {
+            await addProvince(new Province { Name = "القاهرة", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
+            await addProvince(new Province { Name = "الجيزة", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
+            await addProvince(new Province { Name = "الاسكندرية", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
+            await addProvince(new Province { Name = "الفيوم", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
+            await addProvince(new Province { Name = "البحيرة", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
+            await addProvince(new Province { Name = "المنصورة", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
         }
     }
 

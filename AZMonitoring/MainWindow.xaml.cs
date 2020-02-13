@@ -17,11 +17,6 @@ using System.Windows.Shapes;
 
 namespace AZMonitoring
 {
-    public class statics
-    {
-        public static Frame staticframe { get; set; }
-    }
-    
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -30,6 +25,7 @@ namespace AZMonitoring
         bool fro = false,ch = false,chts = false,ocprovlist = false;
         DPerson LogedPerson;
         public readonly Views.ChatingPage chatingPage = new Views.ChatingPage();
+        List<Province> obj_provinces;
         private DAL.DAL DB;
         
         public MainWindow()
@@ -38,8 +34,15 @@ namespace AZMonitoring
             DB = new DAL.DAL();
             DB.CreateConnection();
             statics.staticframe = MainFrameContainer;
+            Initialize_Prov_Control_List();
         }
-
+        async void Initialize_Prov_Control_List()
+        {
+            obj_provinces = new List<Province>();
+            obj_provinces.AddRange(await DB.GetAllProvinces());
+            MainListViewProv.ItemsSource = obj_provinces;
+            MainListViewProv.Items.Refresh();
+        } 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();

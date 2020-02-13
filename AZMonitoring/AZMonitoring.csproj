@@ -94,6 +94,8 @@
     <Compile Include="DAL\DALChat.cs" />
     <Compile Include="DAL\DALPerson.cs" />
     <Compile Include="DAL\DALProvince.cs" />
+    <Compile Include="Statics.cs" />
+    <Compile Include="Structures\DPosition.cs" />
     <Compile Include="Structures\Admin.cs" />
     <Compile Include="Structures\Administration.cs" />
     <Compile Include="Structures\Chat.cs" />
@@ -116,7 +118,7 @@
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ChatingPage.xaml.cs" />
-    <Compile Include="Views\Prov_Page.xaml.cs" />
+    <Compile Include="Views\Province\Prov_Page.xaml.cs" />
     <Compile Include="Views\Setting\SettingMainPage.xaml.cs">
       <DependentUpon>SettingMainPage.xaml</DependentUpon>
     </Compile>
@@ -143,7 +145,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Prov_Page.xaml">
+    <Page Include="Views\Province\Prov_Page.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

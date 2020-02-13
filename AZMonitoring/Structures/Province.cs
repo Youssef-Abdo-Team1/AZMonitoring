@@ -11,7 +11,6 @@ namespace AZMonitoring
         public string LegalAgentDGID { get; set; }
         public string CulturalAgentDGID { get; set; }
         public string SWelfareDID { get; set; }
-        public string ID { get; set; }
         public string Name { get; set; }
         public List<string> InstructsID { get; set; }
         public string Description { get; set; }

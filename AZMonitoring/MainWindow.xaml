@@ -17,7 +17,7 @@
         <Grid.Background>
             <ImageBrush ImageSource="Resources/BG.png" Stretch="Uniform" AlignmentX="Left" AlignmentY="Top" ViewportUnits="Absolute" Viewport="0,0,400,400" Opacity="0.95" TileMode="Tile"/>
         </Grid.Background>
-        <DockPanel x:Name="MainDockPanel" LastChildFill="True" >
+        <DockPanel x:Name="MainDockPanel" LastChildFill="True"  >
             <Grid DockPanel.Dock="Top" Height="30" Background="Teal">
                 <Grid.Effect>
                     <DropShadowEffect BlurRadius="15" ShadowDepth="0" Opacity="0.8"/>
@@ -60,10 +60,10 @@
                                     <TextBlock Text="المحافظات" Style="{DynamicResource TXT2}" FontSize="24"/>
                                     <TextBlock x:Name="TXTProvOpenClose" Text="" Foreground="White"  VerticalAlignment="Center" Style="{DynamicResource TXT1}" FontSize="24" TextAlignment="Center"/>
                                 </StackPanel>
-                                <ListView x:Name="MainListViewProv" Height="300" SelectionChanged="MainListViewProv_SelectionChanged" Background="{x:Null}" FlowDirection="RightToLeft" BorderBrush="{x:Null}" Foreground="White" Margin="0,0,20,0">
+                                <ListView x:Name="MainListViewProv" SelectionChanged="MainListViewProv_SelectionChanged" Background="{x:Null}" FlowDirection="RightToLeft" BorderBrush="{x:Null}" Foreground="White" Margin="0,0,20,0">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock Style="{DynamicResource TXT2}" Text="{Binding Name}"/>
+                                            <TextBlock Style="{DynamicResource TXT2}" Text="{Binding Name}" FontSize="14"/>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                 </ListView>
@@ -87,12 +87,16 @@
                 </ScrollViewer>
             </Grid>
         </DockPanel>
-        <Grid x:Name="MainLoginPanel" Opacity="0" Visibility="Hidden" IsEnabled="False">
+        <Grid x:Name="MainLoginPanel"  Opacity="0" Visibility="Hidden" IsEnabled="False">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <StackPanel Background="Teal" MouseLeftButtonDown="Grid_MouseLeftButtonDown"/>
+            <StackPanel Background="Teal" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+                <StackPanel.Effect>
+                    <DropShadowEffect BlurRadius="15" ShadowDepth="0" Opacity="0.8"/>
+                </StackPanel.Effect>
+            </StackPanel>
             <StackPanel Orientation="Horizontal" Background="Teal" HorizontalAlignment="Right" FlowDirection="RightToLeft">
                 <TextBlock x:Name="TXTExit1BTN" MouseLeftButtonUp="TXTExitBTN_MouseLeftButtonUp" ToolTip="خروج" Style="{DynamicResource TXT1}" Padding="5,0" Text="" Background="Teal" Foreground="Gainsboro"/>
                 <TextBlock x:Name="TXTMaxiMini1BTN" MouseLeftButtonUp="TXTMaxMinBTN_MouseLeftButtonUp" ToolTip="تكبر\تصغير الشاشة" Style="{DynamicResource TXT1}" Padding="5,0" Text="" Background="Teal" Foreground="Gainsboro"/>
