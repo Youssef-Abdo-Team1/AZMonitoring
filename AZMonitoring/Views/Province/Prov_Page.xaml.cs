@@ -32,6 +32,7 @@ namespace AZMonitoring.Views
             GBGA.Header = $"الإدارة المركزية لمحافظة {prov.Name}";
             GBA.Header = $"الادارات التعليمية لمحافظة {prov.Name}";
             GBI.Header = $"توجيه محافظة {prov.Name}";
+            var testlist = new List<DPosition>();
             ListGAdmin.ItemsSource = testlist;
             ListGAdmin.Items.Refresh();
         }

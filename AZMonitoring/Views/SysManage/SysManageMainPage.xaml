@@ -5,10 +5,30 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AZMonitoring.Views.SysManage"
       mc:Ignorable="d" 
+      FontFamily="Tahoma"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SysManageMainPage">
-
     <Grid>
-        <TextBlock Text="system maganement section | main page" FontSize="36"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ListView x:Name="PagesListView" SelectionChanged="PagesListView_SelectionChanged"  Background="{x:Null}" BorderBrush="{x:Null}" >
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" Height="40" Background="#66FFFFFF"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="10,0" BorderBrush="#66000000">
+                        <TextBlock Text="{Binding Header}" VerticalAlignment="Center" TextAlignment="Center" Style="{DynamicResource TXT2}" FontFamily="Tahoma" FontSize="14" Foreground="Black"/>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Frame x:Name="ContinerFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Margin="5,0">
+            
+        </Frame>
     </Grid>
 </Page>

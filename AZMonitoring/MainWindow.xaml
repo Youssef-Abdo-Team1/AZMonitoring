@@ -80,7 +80,10 @@
                         </Border>
                     </StackPanel>
                 </Border>
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="15" BorderThickness="1" Background="#72FFFFFF" BorderBrush="Teal">
+                    <ScrollViewer.Effect>
+                        <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.5" Color="Teal"/>
+                    </ScrollViewer.Effect>
                     <Frame x:Name="MainFrameContainer" NavigationUIVisibility="Hidden">
                         
                     </Frame>

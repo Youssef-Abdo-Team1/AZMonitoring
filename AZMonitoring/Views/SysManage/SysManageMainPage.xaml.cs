@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AZMonitoring.Structures.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,26 @@ namespace AZMonitoring.Views.SysManage
     /// </summary>
     public partial class SysManageMainPage : Page
     {
+        List<StPages> Pages = new List<StPages>();
         public SysManageMainPage()
         {
             InitializeComponent();
+            InitializeFields();
+        }
+        void InitializeFields()
+        {
+            Pages.Add(new StPages { Page = new Views.SysManage.Prov_manage_Page(), Header = "صفحة إدارة المحافظات" });
+            PagesListView.ItemsSource = Pages;
+            PagesListView.Items.Refresh();
+            PagesListView.SelectedIndex = 0;
+        }
+
+        private void PagesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(PagesListView.SelectedItem != null)
+            {
+                ContinerFrame.Content = ((StPages)PagesListView.SelectedItem).Page;
+            }
         }
     }
 }

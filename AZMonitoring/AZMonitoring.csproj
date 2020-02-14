@@ -109,10 +109,12 @@
     <Compile Include="Structures\Job.cs" />
     <Compile Include="Structures\Message.cs" />
     <Compile Include="Structures\MessageType.cs" />
+    <Compile Include="Structures\Pages\StPages.cs" />
     <Compile Include="Structures\Person.cs" />
     <Compile Include="Structures\Position.cs" />
     <Compile Include="Structures\Province.cs" />
     <Compile Include="Structures\Stages.cs" />
+    <Compile Include="Structures\StaticProvinceInfo.cs" />
     <Compile Include="Structures\Type.cs" />
     <Compile Include="Structures\Work.cs" />
     <Compile Include="Views\AboutPage.xaml.cs">
@@ -122,6 +124,9 @@
     <Compile Include="Views\Province\Prov_Page.xaml.cs" />
     <Compile Include="Views\Setting\SettingMainPage.xaml.cs">
       <DependentUpon>SettingMainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SysManage\Prov_manage_Page.xaml.cs">
+      <DependentUpon>Prov_manage_Page.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SysManage\SysManageMainPage.xaml.cs">
       <DependentUpon>SysManageMainPage.xaml</DependentUpon>
@@ -151,6 +156,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Setting\SettingMainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SysManage\Prov_manage_Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -122,6 +122,13 @@
       <FileName>Structures\DPosition.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="AZMonitoring.Structures.StaticProvinceInfo">
+    <Position X="13.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAQAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Structures\StaticProvinceInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Enum Name="AZMonitoring.Stages">
     <Position X="10.75" Y="11.5" Width="1.5" />
     <TypeIdentifier>

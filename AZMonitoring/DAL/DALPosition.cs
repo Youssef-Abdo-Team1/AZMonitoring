@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AZMonitoring.DAL
 {
-    class DALPosition
+    partial class DAL
     {
 
     }

@@ -34,7 +34,8 @@ namespace AZMonitoring
             DB = new DAL.DAL();
             DB.CreateConnection();
             statics.staticframe = MainFrameContainer;
-            Initialize_Prov_Control_List();
+            //DB.test_addProvinces();
+            //Initialize_Prov_Control_List();
         }
         async void Initialize_Prov_Control_List()
         {
