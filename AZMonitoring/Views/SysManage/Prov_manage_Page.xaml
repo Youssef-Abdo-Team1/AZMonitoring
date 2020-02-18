@@ -28,6 +28,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </StackPanel>
+        <TextBlock x:Name="TXTGetingData" Visibility="Hidden" Text="الرجاء الانتظار جاري جلب البيانات من الخادم" HorizontalAlignment="Center"/>
         <GroupBox x:Name="GBAE"
                   Margin="10"
                   Padding="10"

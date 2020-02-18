@@ -67,11 +67,14 @@ namespace AZMonitoring.Views.SysManage
                     {
                         if (hca != null && cag != null && lag != null && wm != null)
                         {
-                            //await DB.UpdateProvince(new Province { Name = TXTName.Text, Description = TXTDes.Text }, hca, lag, cag, wm);
+                            var p = (Province)CBChProv.SelectedItem;
+                            p.Name = TXTName.Text;
+                            p.Description = TXTDes.Text;
+                            await DB.UpdateProvince(p, hca, lag, cag, wm);
                         }
                         else
                         {
-                            MessageBox.Show("هناك خطأ في احد اعضاء الادارة المركزية الرجاء إعادة ادخال رقم السجل و اضغط Enter", "اضافة محافظة", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.RightAlign);
+                            MessageBox.Show("هناك خطأ في احد اعضاء الادارة المركزية الرجاء إعادة ادخال رقم السجل و اضغط Enter", "تعديل محافظة", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.RightAlign);
                         }
                     }
                 }
@@ -79,9 +82,16 @@ namespace AZMonitoring.Views.SysManage
             }
             else if (CBSAED.SelectedIndex == 2)
             {
-                reset();
-                CBChProv.Visibility = TXTChprove.Visibility = Visibility.Visible;
+                try
+                {
+                    if (MessageBox.Show("هل انت تريد حذف المحافظة ؟", "حذف محافظة", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes, MessageBoxOptions.RightAlign) == MessageBoxResult.Yes)
+                    {
+                        await DB.DeleteProvincebyID(((Province)CBChProv.SelectedItem).Name);
+                    }
+                }
+                catch { }
             }
+            CBSAED.SelectedIndex = -1;
             reset();
             IsEnabled = true;
         }
@@ -93,20 +103,22 @@ namespace AZMonitoring.Views.SysManage
                 {
                     try
                     {
+                        TXTGetingData.Visibility = Visibility.Visible;
                         var p = (Province)CBChProv.SelectedItem;
                         GBAE.Header = $"تعديل بيانات محافظة {p.Name}";
                         BTNSave.Content = $"حفظ التعديلات لمحافظة {p.Name}";
-                        BTNSave.Visibility = GBAE.Visibility = Visibility;
                         TXTName.Text = p.Name;
                         TXTDes.Text = p.Description;
-                        TXTCAG.Text = p.CulturalAgentDGID.Name;
-                        TXTHCA.Text = p.HCAdministrationID.Name;
-                        TXTLAG.Text = p.LegalAgentDGID.Name;
-                        TXTWM.Text = p.SWelfareDID.Name;
                         hca = await DB.GetPersonbyPositionID(p.HCAdministrationID.PositionID);
                         cag = await DB.GetPersonbyPositionID(p.CulturalAgentDGID.PositionID);
                         lag = await DB.GetPersonbyPositionID(p.LegalAgentDGID.PositionID);
                         wm = await DB.GetPersonbyPositionID(p.SWelfareDID.PositionID);
+                        TXTCAG.Text = cag.Name;
+                        TXTHCA.Text = hca.Name;
+                        TXTLAG.Text = lag.Name;
+                        TXTWM.Text = wm.Name;
+                        TXTGetingData.Visibility = Visibility.Hidden;
+                        BTNSave.Visibility = GBAE.Visibility = Visibility;
                     }
                     catch { }
                 }

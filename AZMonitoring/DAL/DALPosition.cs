@@ -28,6 +28,17 @@ namespace AZMonitoring.DAL
             }
             catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return false; }
         }
+        internal async Task<bool> UpdatePositionPerson(string id,string PersonID)
+        {
+            try
+            {
+                var p = await GetPositionByID(id);
+                p.PersonID = PersonID;
+                await client.UpdateAsync(pathposition + p.ID, p);
+                return true;
+            }
+            catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return false; }
+        }
         internal async Task<Position> GetPositionByID(string ID)
         {
             try
@@ -56,7 +67,7 @@ namespace AZMonitoring.DAL
         {
             try
             {
-                return (await client.GetAsync(pathposition + ID + "/Person")).ResultAs<string>();
+                return (await client.GetAsync(pathposition + ID + "/PersonID")).ResultAs<string>();
             }
             catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return null; }
         }

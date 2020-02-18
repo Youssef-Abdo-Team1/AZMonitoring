@@ -34,7 +34,9 @@ namespace AZMonitoring.DAL
         {
             try
             {
-                await client.SetAsync(pathperson + id + "/IDPosition", personposition);
+                var p = await GetPersonbyID(id);
+                p.IDPosition = personposition;
+                await client.UpdateAsync(pathperson + id, p);
                 return true;
             }
             catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return false; }
