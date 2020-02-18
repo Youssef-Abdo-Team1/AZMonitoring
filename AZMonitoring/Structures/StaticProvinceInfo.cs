@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AZMonitoring.Structures
+namespace AZMonitoring
 {
     public class StaticProvinceInfo
     {
         public string Name { get; set; }
         public string PositionID { get; set; }
-        public string ImageUrl { get; set; }
+        public string Photo { get; set; }
     }
 }

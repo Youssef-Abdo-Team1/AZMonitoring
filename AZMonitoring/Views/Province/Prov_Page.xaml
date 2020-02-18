@@ -6,39 +6,113 @@
       xmlns:local="clr-namespace:AZMonitoring.Views"
       mc:Ignorable="d" 
       FontFamily="Tahoma"
+      FontSize="18"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Prov_Page">
-    <StackPanel Margin="16">
-        <GroupBox x:Name="GBGA"  FlowDirection="RightToLeft" Padding="10" Header="الادارة المركزية لمحافظة القاهرة" Foreground="White">
-            <ListView x:Name="ListGAdmin">
+    <StackPanel>
+        <GroupBox x:Name="GBGA" FlowDirection="RightToLeft" Padding="10" BorderThickness="0,1,0,0" Header="الادارة المركزية لمحافظة القاهرة" Foreground="White">
+            <Grid Height="180">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Margin="10" Background="#19000000" Cursor="Hand" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="رئيس الادارة المركزية" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
+                    <TextBlock x:Name="TXTHCAdmin" Text="رئيس الادارة المكزية" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="20"/>
+                </Grid>
+                <Grid Margin="10" Grid.Column="1" Background="#19000000" Cursor="Hand" MouseLeftButtonUp="Grid_MouseLeftButtonUp_1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="الوكيل الشرعي (مدير عام)" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
+                    <TextBlock x:Name="TXTLAgent" Text="رئيس الادارة المركزية" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="20"/>
+                </Grid>
+                <Grid Margin="10" Grid.Row="1" Background="#19000000" Cursor="Hand" MouseLeftButtonUp="Grid_MouseLeftButtonUp_2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="الوكيل الثقافي (مدير عام)" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
+                    <TextBlock x:Name="TXTCAgent" Text="رئيس الادارة المكزية" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="20"/>
+                </Grid>
+                <Grid Margin="10" Grid.Column="1" Grid.Row="1" Background="#19000000" Cursor="Hand" MouseLeftButtonUp="Grid_MouseLeftButtonUp_3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="مدير رعاية الطلاب" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
+                    <TextBlock x:Name="TXTSWelfare" Text="رئيس الادارة المكزية" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="20"/>
+                </Grid>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="GBA"  FlowDirection="RightToLeft" Padding="10" BorderThickness="0,1,0,0" Header=" الادارات العليمية لمحافظة القاهرة" Foreground="White">
+            <ListView x:Name="LVAdministrations" BorderBrush="{x:Null}" Background="#26000000">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Background" Value="AliceBlue"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="Height" Value="100"/>
+                        <Setter Property="Width" Value="160"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Height="90">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="2*"/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="90"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Border CornerRadius="50" Grid.RowSpan="2">
-                                <Border.Background>
-                                    <ImageBrush ImageSource="{Binding Image}"/>
-                                </Border.Background>
-                            </Border>
-                            <TextBlock Text="{Binding PositionName}" Grid.Column="1"/>
-                            <TextBlock Text="{Binding PersonName}" Grid.Column="1" Grid.Row="1"/>
-                        </Grid>
+                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Tahoma" FontSize="18" TextAlignment="Center" TextWrapping="WrapWithOverflow"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </GroupBox>
-        <GroupBox x:Name="GBA"  FlowDirection="RightToLeft" Padding="10" Header=" الادارات العليمية لمحافظة القاهرة" Foreground="White">
-
-        </GroupBox>
-        <GroupBox x:Name="GBI"  FlowDirection="RightToLeft" Padding="10" Header="توجيه لمحافظة القاهرة" Foreground="White">
-
+        <GroupBox x:Name="GBI"  FlowDirection="RightToLeft" Padding="10" BorderThickness="0,1,0,0" Header="توجيه لمحافظة القاهرة" Foreground="White">
+            <ListView x:Name="LVInstructs" Background="#26000000" BorderBrush="{x:Null}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Background" Value="AliceBlue"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="Height" Value="100"/>
+                        <Setter Property="Width" Value="160"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Tahoma" FontSize="18" TextAlignment="Center" TextWrapping="WrapWithOverflow"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </GroupBox>
     </StackPanel>
 </Page>

@@ -8,7 +8,7 @@ namespace AZMonitoring.DAL
 {
     partial class DAL
     {
-        public async Task<bool> AddChat(Chat newchat)
+        internal async Task<bool> AddChat(Chat newchat)
         {
             try
             {

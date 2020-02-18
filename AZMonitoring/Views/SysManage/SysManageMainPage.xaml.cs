@@ -21,7 +21,6 @@ namespace AZMonitoring.Views.SysManage
     /// </summary>
     public partial class SysManageMainPage : Page
     {
-        List<StPages> Pages = new List<StPages>();
         public SysManageMainPage()
         {
             InitializeComponent();
@@ -29,8 +28,7 @@ namespace AZMonitoring.Views.SysManage
         }
         void InitializeFields()
         {
-            Pages.Add(new StPages { Page = new Views.SysManage.Prov_manage_Page(), Header = "صفحة إدارة المحافظات" });
-            PagesListView.ItemsSource = Pages;
+            PagesListView.ItemsSource = statics.Data_Mang_Pages;
             PagesListView.Items.Refresh();
             PagesListView.SelectedIndex = 0;
         }

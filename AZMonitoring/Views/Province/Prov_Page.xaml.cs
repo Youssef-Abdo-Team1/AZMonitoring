@@ -32,9 +32,31 @@ namespace AZMonitoring.Views
             GBGA.Header = $"الإدارة المركزية لمحافظة {prov.Name}";
             GBA.Header = $"الادارات التعليمية لمحافظة {prov.Name}";
             GBI.Header = $"توجيه محافظة {prov.Name}";
-            var testlist = new List<DPosition>();
-            ListGAdmin.ItemsSource = testlist;
-            ListGAdmin.Items.Refresh();
+            TXTCAgent.Text = prov.CulturalAgentDGID.Name;
+            TXTHCAdmin.Text = prov.HCAdministrationID.Name;
+            TXTLAgent.Text = prov.LegalAgentDGID.Name;
+            TXTSWelfare.Text = prov.SWelfareDID.Name;
+        }
+
+        private void Grid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            statics.staticframe.Content = new Position_Person_Page(prov.HCAdministrationID.PositionID);
+        }
+
+        private void Grid_MouseLeftButtonUp_1(object sender, MouseButtonEventArgs e)
+        {
+            statics.staticframe.Content = new Position_Person_Page(prov.LegalAgentDGID.PositionID);
+        }
+
+        private void Grid_MouseLeftButtonUp_2(object sender, MouseButtonEventArgs e)
+        {
+
+            statics.staticframe.Content = new Position_Person_Page(prov.CulturalAgentDGID.PositionID);
+        }
+
+        private void Grid_MouseLeftButtonUp_3(object sender, MouseButtonEventArgs e)
+        {
+            statics.staticframe.Content = new Position_Person_Page(prov.SWelfareDID.PositionID);
         }
     }
 }

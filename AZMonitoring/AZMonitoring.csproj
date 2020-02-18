@@ -91,11 +91,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DAL\DAL.cs" />
+    <Compile Include="DAL\DALAdmin.cs" />
     <Compile Include="DAL\DALChat.cs" />
+    <Compile Include="DAL\DALGInstruct.cs" />
     <Compile Include="DAL\DALPerson.cs" />
     <Compile Include="DAL\DALPosition.cs" />
     <Compile Include="DAL\DALProvince.cs" />
     <Compile Include="Statics.cs" />
+    <Compile Include="Structures\DBorder.cs" />
     <Compile Include="Structures\DPosition.cs" />
     <Compile Include="Structures\Admin.cs" />
     <Compile Include="Structures\Administration.cs" />
@@ -121,6 +124,12 @@
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ChatingPage.xaml.cs" />
+    <Compile Include="Views\Dashboard\Dashboard_MainPage.xaml.cs">
+      <DependentUpon>Dashboard_MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Position_Person_Page.xaml.cs">
+      <DependentUpon>Position_Person_Page.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Province\Prov_Page.xaml.cs" />
     <Compile Include="Views\Setting\SettingMainPage.xaml.cs">
       <DependentUpon>SettingMainPage.xaml</DependentUpon>
@@ -150,6 +159,14 @@
     <Page Include="Views\ChatingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dashboard\Dashboard_MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Position_Person_Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Province\Prov_Page.xaml">
       <Generator>MSBuild:Compile</Generator>

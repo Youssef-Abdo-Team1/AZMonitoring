@@ -4,7 +4,7 @@
     <Position X="16.063" Y="6.691" Height="1.725" Width="2.602" />
   </Comment>
   <Comment CommentText="المحافظة--&gt;&#xD;&#xA;">
-    <Position X="13.365" Y="2.552" Height="1.635" Width="1.304" />
+    <Position X="14.804" Y="2.588" Height="2.343" Width="1.304" />
   </Comment>
   <Class Name="AZMonitoring.Person">
     <Position X="4" Y="4.75" Width="1.75" />
@@ -16,7 +16,7 @@
   <Class Name="AZMonitoring.Province">
     <Position X="11.25" Y="2.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AABACAAAAAAiAAQAAAAAgAQAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AABACAAAAAAiAAQAAIAAAAQAAACAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Structures\Province.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -122,10 +122,10 @@
       <FileName>Structures\DPosition.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AZMonitoring.Structures.StaticProvinceInfo">
-    <Position X="13.5" Y="0.5" Width="1.5" />
+  <Class Name="AZMonitoring.StaticProvinceInfo">
+    <Position X="13.75" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAQAAAAAAAAAAAAAAAAAQAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAQAAAAAAAAAgAAAAAAAAAA=</HashCode>
       <FileName>Structures\StaticProvinceInfo.cs</FileName>
     </TypeIdentifier>
   </Class>

@@ -35,7 +35,7 @@ namespace AZMonitoring.Views
         }
         private async void Initialize()
         {
-            Name.Text = currentchat.Name;
+            TXTName.Text = currentchat.Name;
             Img.ImageSource = null;
             LISTCurrentChatMessages.ItemsSource = currentchat.Messages;
             await Task.Run(() => { currentchat.InitializeMessages(userid); });

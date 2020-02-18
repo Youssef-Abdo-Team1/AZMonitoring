@@ -1,0 +1,14 @@
+﻿<Page x:Class="AZMonitoring.Views.Position_Person_Page"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AZMonitoring.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Position_Person_Page">
+    <Grid>
+        <TextBlock x:Name="TXTtest" Text="dfsdfsd" FontSize="36" TextAlignment="Center"/>
+        <TextBlock Style="{DynamicResource TXT1}" MouseLeftButtonUp="FrameBack" Text="" ToolTip="رجوع" Margin="5" Height="30" Width="30" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Background="#19000000" TextAlignment="Center"/>
+    </Grid>
+</Page>

@@ -10,25 +10,57 @@
       Title="SysManageMainPage">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="70"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="65"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <ListView x:Name="PagesListView" SelectionChanged="PagesListView_SelectionChanged"  Background="{x:Null}" BorderBrush="{x:Null}" >
+        <TextBlock Text="إدارة بيانات النظام" 
+                   FontSize="28" 
+                   TextAlignment="Center" 
+                   FontWeight="Bold"/>
+        <ListView x:Name="PagesListView" 
+                  Grid.Row="1" 
+                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                  SelectionChanged="PagesListView_SelectionChanged"  
+                  Background="{x:Null}" 
+                  BorderBrush="{x:Null}" >
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" Height="40" Background="#66FFFFFF"/>
+                    <StackPanel Orientation="Horizontal" 
+                                Height="40" 
+                                Background="#66FFFFFF"/>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="BorderThickness" 
+                            Value="2,0"/>
+                    <Setter Property="BorderBrush" 
+                            Value="Black"/>
+                    <Setter Property="BorderBrush" 
+                            Value="Teal"/>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border Margin="10,0" BorderBrush="#66000000">
-                        <TextBlock Text="{Binding Header}" VerticalAlignment="Center" TextAlignment="Center" Style="{DynamicResource TXT2}" FontFamily="Tahoma" FontSize="14" Foreground="Black"/>
+                    <Border Margin="10,0" 
+                            BorderBrush="#66000000">
+                        <TextBlock Text="{Binding Header}" 
+                                   VerticalAlignment="Center" 
+                                   TextAlignment="Center" 
+                                   Style="{DynamicResource TXT2}" 
+                                   FontFamily="Tahoma" 
+                                   FontSize="14" 
+                                   Foreground="Black"/>
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Frame x:Name="ContinerFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Margin="5,0">
-            
+        <Frame x:Name="ContinerFrame" 
+               Grid.Row="2" 
+               NavigationUIVisibility="Hidden" 
+               Margin="5,63,5,2" Grid.RowSpan="2">
+
         </Frame>
     </Grid>
 </Page>

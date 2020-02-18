@@ -12,51 +12,60 @@ namespace AZMonitoring.DAL
 {
     partial class DAL
     {
-        public async Task<bool> AddPerson(Person newPerson)
+        internal async Task<bool> AddPerson(Person newPerson)
         {
             try
             {
-                await client.SetAsync($"AZMonitoring/Person/{newPerson.ID}", newPerson);
+                await client.SetAsync(pathperson + newPerson.ID, newPerson);
                 return true;
             }
             catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return false; }
         }
-        public async Task<bool> UpdatePersonName(Person person)
+        internal async Task<bool> UpdatePerson(Person person)
         {
             try
             {
-                await client.UpdateAsync($"AZMonitoring/Person/{person.ID}", person);
+                await client.UpdateAsync(pathperson + person.ID, person);
                 return true;
             }
             catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return false; }
         }
-        public async Task<string> GetPositionID(string PersonID)
+        internal async Task<bool> UpdatePersonPosition(string id,string personposition)
         {
             try
             {
-                var snap = await client.GetAsync($"AZMonitoring/Person/{PersonID}/Position");
+                await client.SetAsync(pathperson + id + "/IDPosition", personposition);
+                return true;
+            }
+            catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return false; }
+        }
+        internal async Task<string> GetPositionID(string PersonID)
+        {
+            try
+            {
+                var snap = await client.GetAsync(pathperson + PersonID + "/Position");
                 return snap.ResultAs<string>();
             }
             catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return null; }
         }
-        public async Task<Person> GetLogedPerson(string PersonID,string password)
+        internal async Task<Person> GetLogedPerson(string PersonID,string password)
         {
             try
             {
-                var snap = await client.GetAsync($"AZMonitoring/Person/{PersonID}/Password");
+                var snap = await client.GetAsync(pathperson +  PersonID + "/Password");
                 if(password == snap.ResultAs<string>())
                 {
-                    return (await client.GetAsync($"AZMonitoring/Person/{PersonID}")).ResultAs<Person>();
+                    return (await client.GetAsync(pathperson + PersonID)).ResultAs<Person>();
                 }
                 return null;
             }
             catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return null; }
         }
-        public async Task<Person> GetPersonbyID(string PersonID)
+        internal async Task<Person> GetPersonbyID(string PersonID)
         {
             try
             {
-                var snap = await client.GetAsync($"AZMonitoring/Person/{PersonID}");
+                var snap = await client.GetAsync(pathperson + PersonID);
                 var p = snap.ResultAs<Person>();
                 p.Password = p.SSN = "";
                 p.ChatsID = null;
@@ -64,63 +73,55 @@ namespace AZMonitoring.DAL
             }
             catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return null; }
         }
-        public async Task<bool> AvailableID(string PersonID)
+        internal async Task<bool> AvailableID(string PersonID)
         {
             try
             {
-                var snap = await client.GetAsync($"AZMonitoring/Person/{PersonID}");
+                var snap = await client.GetAsync(pathperson + PersonID);
                 var p = snap.ResultAs<Person>();
                 if (p == null) { return true; }
                 return false;
             }
             catch (Exception ex) { return false; }
         }
-        public async Task<bool> AddChatToPerson(string PersonID, string chatid)
+        internal async Task<bool> AddChatToPerson(string PersonID, string chatid)
         {
             try
             {
-                var snap = await client.GetAsync($"AZMonitoring/Person/{PersonID}/ChatsID");
+                var snap = await client.GetAsync(pathperson + PersonID + "/ChatsID");
                 var chts = snap.ResultAs<List<string>>();
                 chts.Add(chatid);
-                await client.UpdateAsync($"AZMonitoring/Person/{PersonID}/ChatsID", chts);
+                await client.UpdateAsync(pathperson + PersonID + "/ChatsID", chts);
                 return true;
             }
             catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return false; }
         }
-        public async Task<bool> EditPersonImage(string PersonID, FileStream img)
+        internal async Task<string> AddPersonImage(string PersonID, FileStream img)
         {
             try
             {
                 var auth = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyA4FzwRW0vN6Q6IEVJf_GFOAre0uj4zr44"));
                 var a = await auth.SignInAnonymouslyAsync();
-                var task = new FirebaseStorage("fir-test1-fb35d.appspot.com", new FirebaseStorageOptions()
-                {
-                    AuthTokenAsyncFactory = () => Task.FromResult(a.FirebaseToken),
-                    ThrowOnCancel = true
-                }).Child("AZMonitorimg").Child("Person").Child($"{PersonID}.jpg").PutAsync(img);
-                await task;
-                img.Close();
-                return true;
+                return await statics.UploadImage(PersonID, img, "fir-test1-fb35d.appspot.com", a);
             }
-            catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return false; }
+            catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return ""; }
         }
-        public async Task<string> AddPersonImage(string PersonID, FileStream img)
+        internal async Task<Person> GetPersonbyPositionID(string PositionID)
         {
             try
             {
-                var auth = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyA4FzwRW0vN6Q6IEVJf_GFOAre0uj4zr44"));
-                var a = await auth.SignInAnonymouslyAsync();
-                var task = new FirebaseStorage("fir-test1-fb35d.appspot.com", new FirebaseStorageOptions()
-                {
-                    AuthTokenAsyncFactory = () => Task.FromResult(a.FirebaseToken),
-                    ThrowOnCancel = true
-                }).Child("AZMonitorimg").Child("Person").Child($"{PersonID}.jpg").PutAsync(img);
-                var s = await task;
-                img.Close();
-                return s;
+                return await GetPersonbyID(await GetPositionPersonIDByID(PositionID));
             }
             catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return null; }
         }
-
+        internal async Task<bool> DeletePersonbyID(string ID)
+        {
+            try
+            {
+                await client.DeleteAsync(pathperson + ID);
+                return true;
+            }
+            catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return false; }
+        }
     }
 }

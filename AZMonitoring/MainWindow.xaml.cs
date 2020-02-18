@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AZMonitoring.Structures.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,24 +26,34 @@ namespace AZMonitoring
         bool fro = false,ch = false,chts = false,ocprovlist = false;
         DPerson LogedPerson;
         public readonly Views.ChatingPage chatingPage = new Views.ChatingPage();
-        List<Province> obj_provinces;
         private DAL.DAL DB;
         
         public MainWindow()
         {
             InitializeComponent();
             DB = new DAL.DAL();
-            DB.CreateConnection();
+            DB.CreateConnection(this);
             statics.staticframe = MainFrameContainer;
-            //DB.test_addProvinces();
             //Initialize_Prov_Control_List();
+            Initialize_Data_Manage_Pages();
+            //DB.Test_addpersons();
+            //DB.Test_add_positions();
+            //DB.Test_addProvinces();
+            MainFrameContainer.Content = new Views.Dashboard.Dashboard_MainPage();
         }
-        async void Initialize_Prov_Control_List()
+        internal void Initialize_Data_Manage_Pages()
         {
-            obj_provinces = new List<Province>();
-            obj_provinces.AddRange(await DB.GetAllProvinces());
-            MainListViewProv.ItemsSource = obj_provinces;
-            MainListViewProv.Items.Refresh();
+            statics.Data_Mang_Pages = new List<StPages>();
+            statics.Data_Mang_Pages.Add(new StPages { Page = new Views.SysManage.Prov_manage_Page(), Header = "صفحة إدارة المحافظات" });
+        }
+        internal async void Initialize_Prov_Control_List()
+        {
+            await Dispatcher.InvokeAsync(async () => {
+                statics.Provinces = new List<Province>();
+                statics.Provinces.AddRange(await DB.GetAllProvinces());
+                MainListViewProv.ItemsSource = statics.Provinces;
+                MainListViewProv.Items.Refresh();
+            });
         } 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -132,7 +143,7 @@ namespace AZMonitoring
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (MessageBox.Show("هل تريد الخروج من النظام الأن!!", "خروج", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes){ e.Cancel = true; }
+            if (MessageBox.Show("هل تريد الخروج من النظام الأن ؟", "خروج", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No, MessageBoxOptions.RightAlign) != MessageBoxResult.Yes){ e.Cancel = true; }
         }
         private void BTNLoginBTN_Click(object sender, RoutedEventArgs e)
         {
@@ -154,14 +165,14 @@ namespace AZMonitoring
             if (openorclose)
             {
                 MainDockPanel.Visibility = Visibility.Visible;
-                MainDockPanel.BeginAnimation(OpacityProperty, GetCDAnim(d, 0, 1));
+                MainDockPanel.BeginAnimation(OpacityProperty, statics.GetCDAnim(d, 0, 1));
                 await Task.Run(() => { Thread.Sleep(d); });
                 MainDockPanel.IsEnabled = true;
             }
             else
             {
                 MainDockPanel.IsEnabled = false;
-                MainDockPanel.BeginAnimation(OpacityProperty, GetCDAnim(d, 0, 1));
+                MainDockPanel.BeginAnimation(OpacityProperty, statics.GetCDAnim(d, 0, 1));
                 await Task.Run(() => { Thread.Sleep(d); });
                 MainDockPanel.Visibility = Visibility.Hidden;
             }
@@ -171,14 +182,14 @@ namespace AZMonitoring
             if (openorclose)
             {
                 MainLoginPanel.Visibility = Visibility.Visible;
-                MainLoginPanel.BeginAnimation(OpacityProperty, GetCDAnim(d, 0, 1));
+                MainLoginPanel.BeginAnimation(OpacityProperty, statics.GetCDAnim(d, 0, 1));
                 await Task.Run(() => { Thread.Sleep(d); });
                 MainLoginPanel.IsEnabled = true;
             }
             else
             {
                 MainLoginPanel.IsEnabled = false;
-                MainLoginPanel.BeginAnimation(OpacityProperty, GetCDAnim(d, 1, 0));
+                MainLoginPanel.BeginAnimation(OpacityProperty, statics.GetCDAnim(d, 1, 0));
                 await Task.Run(() => { Thread.Sleep(d); });
                 MainLoginPanel.Visibility = Visibility.Hidden;
             }
@@ -207,7 +218,8 @@ namespace AZMonitoring
         void resetControlers()
         {
             if (ocprovlist) { CloseMainProvListView(); }
-            MainSettingsBTN.Background = MainSysManageBTN.Background = MainAboutPBTN.Background = Getbfroms("#0c000000");
+            MainListViewProv.SelectedIndex = -1;
+            MainSettingsBTN.Background = MainDashboardBTN.Background = MainSysManageBTN.Background = MainAboutPBTN.Background = Getbfroms("#0c000000");
         }
         private void MainProvBTN_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -215,7 +227,7 @@ namespace AZMonitoring
             else
             {
                 resetControlers();
-                MainProvBTN.BeginAnimation(Border.MaxHeightProperty, GetCDAnim(300, 40, 300));
+                MainProvBTN.BeginAnimation(Border.MaxHeightProperty, statics.GetCDAnim(300, 40, 300));
                 ocprovlist = true;
                 TXTProvOpenClose.Text = "";
                 MainProvBTN.Background = Getbfroms("#33000000");
@@ -239,26 +251,24 @@ namespace AZMonitoring
             resetControlers();
             MainAboutPBTN.Background = Getbfroms("#33000000");
         }
+        private void MainDashboardBTN_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            MainFrameContainer.Content = new Views.Dashboard.Dashboard_MainPage();
+            resetControlers();
+            MainDashboardBTN.Background = Getbfroms("#33000000");
+        }
         void CloseMainProvListView()
         {
-            MainProvBTN.BeginAnimation(Border.MaxHeightProperty, GetCDAnim(300, 300, 40));
+            MainProvBTN.BeginAnimation(Border.MaxHeightProperty, statics.GetCDAnim(300, 300, 40));
             ocprovlist = false;
             TXTProvOpenClose.Text = "";
             MainProvBTN.Background = Getbfroms("#0c000000");
         }
         public void OCFrame(bool openclose, int time = 400)
         {
-            if (openclose) { ChatingFrame.BeginAnimation(WidthProperty, GetCDAnim(time, 0, 300)); }
-            else { ChatingFrame.BeginAnimation(WidthProperty, GetCDAnim(time, 300, 0)); }
+            if (openclose) { ChatingFrame.BeginAnimation(WidthProperty, statics.GetCDAnim(time, 0, 300)); }
+            else { ChatingFrame.BeginAnimation(WidthProperty, statics.GetCDAnim(time, 300, 0)); }
         }
-        public static DoubleAnimationUsingKeyFrames GetCDAnim(int Time,int invalue,int outvalue)
-        {
-            var anim = new DoubleAnimationUsingKeyFrames();
-            var eas1 = new EasingDoubleKeyFrame(invalue, TimeSpan.FromMilliseconds(0), new CubicEase());
-            var eas2 = new EasingDoubleKeyFrame(outvalue, TimeSpan.FromMilliseconds(Time), new CubicEase());
-            anim.KeyFrames.Add(eas1);
-            anim.KeyFrames.Add(eas2);
-            return anim;
-        }
+        
     }
 }

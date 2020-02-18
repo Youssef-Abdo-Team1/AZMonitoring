@@ -21,7 +21,7 @@
                     <ImageBrush x:Name="Img"/>
                 </Border.Background>
             </Border>
-            <TextBlock x:Name="Name" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="30" TextAlignment="Center"/>
+            <TextBlock x:Name="TXTName" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="30" TextAlignment="Center"/>
         </StackPanel>
         <ListView x:Name="LISTCurrentChatMessages" Grid.Row="1" Background="{x:Null}">
             <ListView.ItemContainerStyle>

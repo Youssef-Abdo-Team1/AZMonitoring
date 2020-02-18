@@ -16,9 +16,7 @@ namespace AZMonitoring.DAL
 {
     partial class DAL
     {
-
-        private static IFirebaseClient client;
-        private string pathperson = "AZMonitoring/Person/",
+        private readonly string pathperson = "AZMonitoring/Person/",
             pathprovince = "AZMonitoring/Province/Provinces/",
             pathprovincenames = "AZMonitoring/Province/Names/",
             pathadministration = "AZMonitoring/Administration/",
@@ -31,16 +29,29 @@ namespace AZMonitoring.DAL
             pathwork = "AZMonitoring/Work/",
             pathchat = "AZMonitoring/Chat/",
             pathmessage = "AZMonitoring/Message/";
+
+
+        private static MainWindow Main { get; set; }
+
+        private static IFirebaseClient client;
         private readonly static IFirebaseConfig Config = new FireSharp.Config.FirebaseConfig { AuthSecret = "IZLDtMrlpCiu25KHovLrbZzLirslRdoTvuj7wsZ7", BasePath = "https://fir-test1-fb35d.firebaseio.com/" };
-        public void CreateConnection(string emailAddress = null,string password = null)
+
+
+        internal void CreateConnection(MainWindow main,string emailAddress = null,string password = null)
         {
             try
             {
                 client = new FireSharp.FirebaseClient(Config);
+                Main = main;
+                SetProvinceListener();
             }
             catch(Exception ex) { MessageBox.Show($"الخطأ: \n{ex.Message}", "حدث خطأ اثناء الاتصال", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
-        public async void test()
+
+
+
+
+        internal async void Test()
         {
             var x = new Product
             {
@@ -62,14 +73,20 @@ namespace AZMonitoring.DAL
             y.prices.Add(65);
             await client.UpdateAsync("test/clothing/abc", y);
         }
-        public async void test_addProvinces()
+        internal async void Test_addProvinces()
         {
-            await AddProvince(new Province { Name = "القاهرة", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
-            await AddProvince(new Province { Name = "الجيزة", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
-            await AddProvince(new Province { Name = "الاسكندرية", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
-            await AddProvince(new Province { Name = "الفيوم", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
-            await AddProvince(new Province { Name = "البحيرة", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
-            await AddProvince(new Province { Name = "المنصورة", AdministrationsID = new List<string>() { "", "" }, CulturalAgentDGID = "", Description = "", HCAdministrationID = "", InstructsID = new List<string>() { "", "" }, LegalAgentDGID = "", SWelfareDID = "" });
+            
+        }
+        internal async void Test_addpersons()
+        {
+            await AddPerson(new Person { ID = "1222", Name = "Youssef", Password = "123" });
+        }
+        internal async void test_add_positions()
+        {
+            string s1 = await AddPosition(new Position { Name = "jkhlk", Level = 6 });
+            string s2= await AddPosition(new Position { Name = "jkdsfhlk", Level = 6 });
+            string s3 = await AddPosition(new Position { Name = "jsaddsfkhlk", Level = 6 });
+            string s4 = await AddPosition(new Position { Name = "jkhfdgfdglk", Level = 6 });
         }
     }
 
