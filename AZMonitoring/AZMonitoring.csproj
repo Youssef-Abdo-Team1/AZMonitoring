@@ -90,8 +90,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Structures\Chats.cs" />
     <Compile Include="DAL\DAL.cs" />
     <Compile Include="DAL\DALAdmin.cs" />
+    <Compile Include="DAL\DALAdministration.cs" />
     <Compile Include="DAL\DALChat.cs" />
     <Compile Include="DAL\DALGInstruct.cs" />
     <Compile Include="DAL\DALPerson.cs" />

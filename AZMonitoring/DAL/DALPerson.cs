@@ -70,7 +70,7 @@ namespace AZMonitoring.DAL
                 var snap = await client.GetAsync(pathperson + PersonID);
                 var p = snap.ResultAs<Person>();
                 p.Password = p.SSN = "";
-                p.ChatsID = null;
+                p.Chats = null;
                 return p;
             }
             catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return null; }
@@ -124,6 +124,26 @@ namespace AZMonitoring.DAL
                 return true;
             }
             catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return false; }
+        }
+        internal async Task<string> GetPersonPhoto(string id)
+        {
+            try
+            {
+                return (await client.GetAsync(pathperson + id + "/Photo")).ResultAs<string>();
+            }
+            catch { return ""; }
+        }
+        internal async Task<bool> AddChatstoPerson(Chats chat , string id)
+        {
+            try
+            {
+                var p = await GetPersonbyID(id);
+                if(p.Chats == null || p.Chats.Count < 1) { p.Chats = new List<Chats>(); }
+                p.Chats.Add(chat);
+                await UpdatePerson(p);
+                return true;
+            }
+            catch { return false; }
         }
     }
 }

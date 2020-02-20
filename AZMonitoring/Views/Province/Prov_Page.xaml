@@ -20,54 +20,81 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid Margin="10" Background="#19000000" Cursor="Hand" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="3*"/>
-                        <RowDefinition Height="2*"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="رئيس الادارة المركزية" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
-                    <TextBlock x:Name="TXTHCAdmin" Text="رئيس الادارة المكزية" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="20"/>
-                </Grid>
-                <Grid Margin="10" Grid.Column="1" Background="#19000000" Cursor="Hand" MouseLeftButtonUp="Grid_MouseLeftButtonUp_1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="3*"/>
-                        <RowDefinition Height="2*"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="الوكيل الشرعي (مدير عام)" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
-                    <TextBlock x:Name="TXTLAgent" Text="رئيس الادارة المركزية" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="20"/>
-                </Grid>
-                <Grid Margin="10" Grid.Row="1" Background="#19000000" Cursor="Hand" MouseLeftButtonUp="Grid_MouseLeftButtonUp_2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="3*"/>
-                        <RowDefinition Height="2*"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="الوكيل الثقافي (مدير عام)" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
-                    <TextBlock x:Name="TXTCAgent" Text="رئيس الادارة المكزية" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="20"/>
-                </Grid>
-                <Grid Margin="10" Grid.Column="1" Grid.Row="1" Background="#19000000" Cursor="Hand" MouseLeftButtonUp="Grid_MouseLeftButtonUp_3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="3*"/>
-                        <RowDefinition Height="2*"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="مدير رعاية الطلاب" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
-                    <TextBlock x:Name="TXTSWelfare" Text="رئيس الادارة المكزية" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="20"/>
-                </Grid>
+                <Border Margin="10"
+                        BorderThickness="1"
+                        BorderBrush="White" Background="#4C000000" Cursor="Hand" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="رئيس الادارة المركزية" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
+                        <TextBlock x:Name="TXTHCAdmin" Text="رئيس الادارة المكزية" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="20"/>
+                    </Grid>
+                </Border>
+                <Border Margin="10" 
+                        BorderThickness="1"
+                        BorderBrush="White" 
+                        Grid.Column="1" 
+                        Background="#4C000000" Cursor="Hand" MouseLeftButtonUp="Grid_MouseLeftButtonUp_1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="الوكيل الشرعي (مدير عام)" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
+                        <TextBlock x:Name="TXTLAgent" Text="رئيس الادارة المركزية" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="20"/>
+                    </Grid>
+                </Border>
+                <Border Margin="10" 
+                        BorderThickness="1"
+                        BorderBrush="White" 
+                        Grid.Row="1" 
+                        Background="#4C000000" 
+                        Cursor="Hand" 
+                        MouseLeftButtonUp="Grid_MouseLeftButtonUp_2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="الوكيل الثقافي (مدير عام)" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
+                        <TextBlock x:Name="TXTCAgent" Text="رئيس الادارة المكزية" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="20"/>
+                    </Grid>
+                </Border>
+                <Border Background="#4C000000" 
+                        Grid.Column="1" 
+                        BorderThickness="1"
+                        BorderBrush="White"
+                        Cursor="Hand"
+                        Margin="10"
+                        Grid.Row="1" 
+                        MouseLeftButtonUp="Grid_MouseLeftButtonUp_3">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="مدير رعاية الطلاب" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
+                        <TextBlock x:Name="TXTSWelfare" Text="رئيس الادارة المكزية" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="20"/>
+                    </Grid>
+                </Border>
             </Grid>
         </GroupBox>
         <GroupBox x:Name="GBA"  FlowDirection="RightToLeft" Padding="10" BorderThickness="0,1,0,0" Header=" الادارات العليمية لمحافظة القاهرة" Foreground="White">
@@ -92,7 +119,7 @@
                 </ListView.ItemTemplate>
             </ListView>
         </GroupBox>
-        <GroupBox x:Name="GBI"  FlowDirection="RightToLeft" Padding="10" BorderThickness="0,1,0,0" Header="توجيه لمحافظة القاهرة" Foreground="White">
+        <GroupBox x:Name="GBI"  FlowDirection="RightToLeft" Padding="10" BorderThickness="0,1,0,0" Header="التوجيه العام بمحافظة القاهرة" Foreground="White">
             <ListView x:Name="LVInstructs" Background="#26000000" BorderBrush="{x:Null}">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>

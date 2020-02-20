@@ -8,13 +8,17 @@ namespace AZMonitoring.DAL
 {
     partial class DAL
     {
-        internal async Task<bool> AddChat(Chat newchat)
+        internal async void AddChat(Chat newchat)
         {
             try
             {
-                await client.SetAsync(pathchat + newchat.ID, newchat);
-                return true;
-            }catch(Exception ex) { return false; }
+                newchat.ID = (await client.PushAsync(pathchat, newchat)).Result.name;
+                UpdateID(pathchat + newchat.ID, newchat.ID);
+                AddChatstoPerson(new Chats { IDChat = newchat.ID, IDPerson = newchat.IDPerson2 }, newchat.IDPerson1).Start();
+                AddChatstoPerson(new Chats { IDChat = newchat.ID, IDPerson = newchat.IDPerson1 }, newchat.IDPerson2).Start();
+            }
+            catch(Exception ex) { }
         }
+
     }
 }

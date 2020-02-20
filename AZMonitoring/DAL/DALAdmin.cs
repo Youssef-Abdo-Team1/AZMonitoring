@@ -14,7 +14,7 @@ namespace AZMonitoring.DAL
             try
             {
                 newadmin.ID = (await client.PushAsync(pathadmin, newadmin)).Result.name;
-                await Updateadmin(newadmin);
+                UpdateID(pathadmin + newadmin.ID, newadmin.ID);
                 return newadmin.ID;
             }
             catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return ""; }

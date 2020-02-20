@@ -38,7 +38,7 @@ namespace AZMonitoring.Views.SysManage
             CBChProv.ItemsSource = statics.Provinces;
             CBChProv.Items.Refresh();
         }
-        private async void BTNSave_Click(object sender, RoutedEventArgs e)
+        private void BTNSave_Click(object sender, RoutedEventArgs e)
         {
             IsEnabled = false;
             if (CBSAED.SelectedIndex == 0)
@@ -49,7 +49,7 @@ namespace AZMonitoring.Views.SysManage
                     {
                         if (hca != null && cag != null && lag != null && wm != null)
                         {
-                            await DB.AddProvince(new Province { Name = TXTName.Text, Description = TXTDes.Text }, hca, lag, cag, wm);
+                            DB.AddProvince(new Province { Name = TXTName.Text, Description = TXTDes.Text }, hca, lag, cag, wm).Start();
                         }
                         else
                         {
@@ -70,7 +70,7 @@ namespace AZMonitoring.Views.SysManage
                             var p = (Province)CBChProv.SelectedItem;
                             p.Name = TXTName.Text;
                             p.Description = TXTDes.Text;
-                            await DB.UpdateProvince(p, hca, lag, cag, wm);
+                            DB.UpdateProvince(p, hca, lag, cag, wm).Start();
                         }
                         else
                         {
@@ -86,7 +86,7 @@ namespace AZMonitoring.Views.SysManage
                 {
                     if (MessageBox.Show("هل انت تريد حذف المحافظة ؟", "حذف محافظة", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes, MessageBoxOptions.RightAlign) == MessageBoxResult.Yes)
                     {
-                        await DB.DeleteProvincebyID(((Province)CBChProv.SelectedItem).Name);
+                        DB.DeleteProvincebyID(((Province)CBChProv.SelectedItem).Name).Start();
                     }
                 }
                 catch { }
@@ -104,6 +104,7 @@ namespace AZMonitoring.Views.SysManage
                     try
                     {
                         TXTGetingData.Visibility = Visibility.Visible;
+                        GBAE.Visibility = BTNSave.Visibility = Visibility.Hidden;
                         var p = (Province)CBChProv.SelectedItem;
                         GBAE.Header = $"تعديل بيانات محافظة {p.Name}";
                         BTNSave.Content = $"حفظ التعديلات لمحافظة {p.Name}";

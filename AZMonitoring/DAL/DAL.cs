@@ -27,8 +27,7 @@ namespace AZMonitoring.DAL
             pathposition = "AZMonitoring/Position/",
             pathjob = "AZMonitoring/Job/",
             pathwork = "AZMonitoring/Work/",
-            pathchat = "AZMonitoring/Chat/",
-            pathmessage = "AZMonitoring/Message/";
+            pathchat = "AZMonitoring/Chat/";
 
 
         private static MainWindow Main { get; set; }
@@ -48,6 +47,14 @@ namespace AZMonitoring.DAL
             catch(Exception ex) { MessageBox.Show($"الخطأ: \n{ex.Message}", "حدث خطأ اثناء الاتصال", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
+        internal void UpdateID(string path,string id)
+        {
+            try
+            {
+                Task.Run(() => { client.Set(path + "/ID", id); });
+            }
+            catch { }
+        }
 
 
 
@@ -79,7 +86,10 @@ namespace AZMonitoring.DAL
         }
         internal async void Test_addpersons()
         {
-            await AddPerson(new Person { ID = "1222", Name = "Youssef", Password = "123" });
+            await AddPerson(new Person { ID = "1222", Name = "يوسف شعبان", Password = "123" });
+            await AddPerson(new Person { ID = "66", Name = "احمد محمد", Password = "123" });
+            await AddPerson(new Person { ID = "77", Name = "خالد عبدالله", Password = "123" });
+            await AddPerson(new Person { ID = "88", Name = "محمد محمود", Password = "123" });
         }
         internal async void test_add_positions()
         {
@@ -87,6 +97,16 @@ namespace AZMonitoring.DAL
             string s2= await AddPosition(new Position { Name = "jkdsfhlk", Level = 6 });
             string s3 = await AddPosition(new Position { Name = "jsaddsfkhlk", Level = 6 });
             string s4 = await AddPosition(new Position { Name = "jkhfdgfdglk", Level = 6 });
+        }
+
+        internal void test_addChats()
+        {
+            AddChat(new Chat { IDPerson1 = "66", IDPerson2 = "77" });
+            AddChat(new Chat { IDPerson1 = "88", IDPerson2 = "77" });
+            AddChat(new Chat { IDPerson1 = "66", IDPerson2 = "88" });
+            AddChat(new Chat { IDPerson1 = "1222", IDPerson2 = "88" });
+            AddChat(new Chat { IDPerson1 = "66", IDPerson2 = "1222" });
+            AddChat(new Chat { IDPerson1 = "1222", IDPerson2 = "77" });
         }
     }
 

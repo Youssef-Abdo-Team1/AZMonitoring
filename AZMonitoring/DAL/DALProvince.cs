@@ -61,26 +61,26 @@ namespace AZMonitoring.DAL
                 //hca
                 mProvince.HCAdministrationID.Name = PHCAID.Name;
                 mProvince.HCAdministrationID.Photo = PHCAID.Photo;
-                await UpdatePositionPerson(mProvince.HCAdministrationID.PositionID, PHCAID.ID);
-                await UpdatePersonPosition(PHCAID.ID, mProvince.HCAdministrationID.PositionID);
+                UpdatePositionPerson(mProvince.HCAdministrationID.PositionID, PHCAID.ID).Start();
+                UpdatePersonPosition(PHCAID.ID, mProvince.HCAdministrationID.PositionID).Start();
 
                 //cag
                 mProvince.CulturalAgentDGID.Name = PCAGID.Name;
                 mProvince.CulturalAgentDGID.Photo = PCAGID.Photo;
-                await UpdatePositionPerson(mProvince.CulturalAgentDGID.PositionID, PCAGID.ID);
-                await UpdatePersonPosition(PCAGID.ID, mProvince.CulturalAgentDGID.PositionID);
+                UpdatePositionPerson(mProvince.CulturalAgentDGID.PositionID, PCAGID.ID).Start();
+                UpdatePersonPosition(PCAGID.ID, mProvince.CulturalAgentDGID.PositionID).Start();
 
                 //lag
                 mProvince.LegalAgentDGID.Name = PLAGID.Name;
                 mProvince.LegalAgentDGID.Photo = PLAGID.Photo;
-                await UpdatePositionPerson(mProvince.LegalAgentDGID.PositionID, PLAGID.ID);
-                await UpdatePersonPosition(PLAGID.ID, mProvince.LegalAgentDGID.PositionID);
+                UpdatePositionPerson(mProvince.LegalAgentDGID.PositionID, PLAGID.ID).Start();
+                UpdatePersonPosition(PLAGID.ID, mProvince.LegalAgentDGID.PositionID).Start();
 
                 //swm
                 mProvince.SWelfareDID.Name = PWMID.Name;
                 mProvince.SWelfareDID.Photo = PWMID.Photo;
-                await UpdatePositionPerson(mProvince.SWelfareDID.PositionID, PWMID.ID);
-                await UpdatePersonPosition(PWMID.ID, mProvince.SWelfareDID.PositionID);
+                UpdatePositionPerson(mProvince.SWelfareDID.PositionID, PWMID.ID).Start();
+                UpdatePersonPosition(PWMID.ID, mProvince.SWelfareDID.PositionID).Start();
 
 
                 await client.UpdateAsync(pathprovince + mProvince.Name, mProvince);

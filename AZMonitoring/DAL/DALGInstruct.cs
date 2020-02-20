@@ -14,7 +14,7 @@ namespace AZMonitoring.DAL
             try
             {
                 newGI.ID = (await client.PushAsync(pathginstruct, newGI)).Result.name;
-                await UpdateGInstruct(newGI);
+                UpdateID(pathginstruct + newGI.ID, newGI.ID);
                 return newGI.ID;
             }
             catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return ""; }

@@ -36,6 +36,7 @@ namespace AZMonitoring
             statics.staticframe = MainFrameContainer;
             //Initialize_Prov_Control_List();
             Initialize_Data_Manage_Pages();
+            DB.test_addChats();
             //DB.Test_addpersons();
             //DB.Test_add_positions();
             //DB.Test_addProvinces();
@@ -151,7 +152,7 @@ namespace AZMonitoring
         }
         async void Logingin()
         {
-            if (await DB.AddPerson(new Person { Description = "", DOB = DateTime.Now, ChatsID = new List<string>(), ID = "ysf123", IDPosition = "", Name = "Youssef Shaaban", SSN = "wewa", Password = "123", Photo = "" }))
+            if (await DB.AddPerson(new Person { Description = "", DOB = DateTime.Now, Chats = new List<Chats>(), ID = "ysf123", IDPosition = "", Name = "Youssef Shaaban", SSN = "wewa", Password = "123", Photo = "" }))
             {
 
             }

@@ -31,7 +31,7 @@ namespace AZMonitoring.Views
         {
             GBGA.Header = $"الإدارة المركزية لمحافظة {prov.Name}";
             GBA.Header = $"الادارات التعليمية لمحافظة {prov.Name}";
-            GBI.Header = $"توجيه محافظة {prov.Name}";
+            GBI.Header = $"التوجيه العام بمحافظة {prov.Name}";
             TXTCAgent.Text = prov.CulturalAgentDGID.Name;
             TXTHCAdmin.Text = prov.HCAdministrationID.Name;
             TXTLAgent.Text = prov.LegalAgentDGID.Name;

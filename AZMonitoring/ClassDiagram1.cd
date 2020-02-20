@@ -9,7 +9,7 @@
   <Class Name="AZMonitoring.Person">
     <Position X="4" Y="4.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>EQAAAAAACAAggCAAAAAAAAQAAAAAAAACAAAQAAAAAAA=</HashCode>
+      <HashCode>EQAAAAAACAAggCABAAAAAAQAAAAAAAACAAAAAAAAAAA=</HashCode>
       <FileName>Structures\Person.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -76,14 +76,14 @@
   <Class Name="AZMonitoring.Message">
     <Position X="5" Y="10.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAgAAAAAAAAAAAAAAAAAABAQAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAgAAgAAAAAAAAAAgAAAAAAABAQAAAAAIAAA=</HashCode>
       <FileName>Structures\Message.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AZMonitoring.Chat">
     <Position X="5" Y="7.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAEAAAAACAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAACAAQAAAAA=</HashCode>
       <FileName>Structures\Chat.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -95,7 +95,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AZMonitoring.DChat">
-    <Position X="3" Y="7.25" Width="1.5" />
+    <Position X="2.75" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAAAAAAAACAAAAAAAAUAAAAACBAAAAAAAQAAAAA=</HashCode>
       <FileName>Structures\DChat.cs</FileName>
@@ -127,6 +127,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAACAAAAAAAAQAAAAAAAAAgAAAAAAAAAA=</HashCode>
       <FileName>Structures\StaticProvinceInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AZMonitoring.Chats">
+    <Position X="2.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Structures\Chats.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="AZMonitoring.Stages">

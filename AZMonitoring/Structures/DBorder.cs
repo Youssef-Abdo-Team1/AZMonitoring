@@ -43,5 +43,67 @@ namespace AZMonitoring.Structures
             gr.Children.Add(btn);
             base.Child = gr;
         }
+        public DBorderAD(GInstruct instruct)
+        {
+            //border
+            Height = 100;
+            Width = 100;
+            Background = statics.GetBrushFromString("#88000000");
+            Margin = new Thickness(10);
+            BorderBrush = Brushes.White;
+            BorderThickness = new Thickness(1);
+
+            //textblock
+            var txt = new TextBlock();
+            txt.Text = instruct.Name;
+            txt.TextWrapping = TextWrapping.WrapWithOverflow;
+            txt.HorizontalAlignment = HorizontalAlignment.Center;
+            txt.VerticalAlignment = VerticalAlignment.Center;
+
+            //button
+            var btn = new Button();
+            btn.HorizontalAlignment = HorizontalAlignment.Right;
+            btn.VerticalAlignment = VerticalAlignment.Top;
+            btn.Content = "X";
+            btn.ToolTip = "حذف";
+            button = btn;
+
+            //grid
+            var gr = new Grid();
+            gr.Children.Add(txt);
+            gr.Children.Add(btn);
+            base.Child = gr;
+        }
+        public DBorderAD(Instruct instruct)
+        {
+            //border
+            Height = 100;
+            Width = 100;
+            Background = statics.GetBrushFromString("#88000000");
+            Margin = new Thickness(10);
+            BorderBrush = Brushes.White;
+            BorderThickness = new Thickness(1);
+
+            //textblock
+            var txt = new TextBlock();
+            txt.Text = instruct.ID;
+            txt.TextWrapping = TextWrapping.WrapWithOverflow;
+            txt.HorizontalAlignment = HorizontalAlignment.Center;
+            txt.VerticalAlignment = VerticalAlignment.Center;
+
+            //button
+            var btn = new Button();
+            btn.HorizontalAlignment = HorizontalAlignment.Right;
+            btn.VerticalAlignment = VerticalAlignment.Top;
+            btn.Content = "X";
+            btn.ToolTip = "حذف";
+            button = btn;
+
+            //grid
+            var gr = new Grid();
+            gr.Children.Add(txt);
+            gr.Children.Add(btn);
+            base.Child = gr;
+        }
     }
 }

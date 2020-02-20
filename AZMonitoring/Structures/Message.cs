@@ -11,5 +11,21 @@ namespace AZMonitoring
         public MessageType Type { get; set; }
         public string Content { get; set; }
         public DateTime Date { get; set; }
+
+        public int Sender
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public bool Read
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }
