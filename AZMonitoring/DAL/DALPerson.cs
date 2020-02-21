@@ -34,12 +34,10 @@ namespace AZMonitoring.DAL
         {
             try
             {
-                var p = await GetPersonbyID(id);
-                p.IDPosition = personposition;
-                await client.UpdateAsync(pathperson + id, p);
+                await client.SetAsync(pathperson + id + "/IDPosition/", personposition);
                 return true;
             }
-            catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return false; }
+            catch (Exception ex) { MessageBox.Show($"حدث خطأ في تعديل وظيفة شخص\nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return false; }
         }
         internal async Task<string> GetPositionID(string PersonID)
         {
@@ -137,10 +135,10 @@ namespace AZMonitoring.DAL
         {
             try
             {
-                var p = await GetPersonbyID(id);
-                if(p.Chats == null || p.Chats.Count < 1) { p.Chats = new List<Chats>(); }
-                p.Chats.Add(chat);
-                await UpdatePerson(p);
+                var p = (await client.GetAsync(pathperson + id + "/Chats/")).ResultAs<List<Chats>>();
+                if(p == null || p.Count < 1) { p = new List<Chats>(); }
+                p.Add(chat);
+                await client.SetAsync(pathperson + id + "/Chats/", p);
                 return true;
             }
             catch { return false; }

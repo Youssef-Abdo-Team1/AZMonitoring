@@ -27,7 +27,8 @@ namespace AZMonitoring.DAL
             pathposition = "AZMonitoring/Position/",
             pathjob = "AZMonitoring/Job/",
             pathwork = "AZMonitoring/Work/",
-            pathchat = "AZMonitoring/Chat/";
+            pathchat = "AZMonitoring/Chat/",
+            pathmessage = "AZMonitoring/Message/";
 
 
         private static MainWindow Main { get; set; }

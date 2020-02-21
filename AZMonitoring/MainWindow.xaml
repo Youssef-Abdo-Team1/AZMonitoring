@@ -17,7 +17,7 @@
         <Grid.Background>
             <ImageBrush ImageSource="Resources/BG.png" Stretch="Uniform" AlignmentX="Left" AlignmentY="Top" ViewportUnits="Absolute" Viewport="0,0,400,400" Opacity="0.95" TileMode="Tile"/>
         </Grid.Background>
-        <DockPanel x:Name="MainDockPanel" LastChildFill="True"  >
+        <DockPanel x:Name="MainDockPanel" LastChildFill="True"    Opacity="0" Visibility="Hidden" IsEnabled="False">
             <Grid DockPanel.Dock="Top" Height="30" Background="Teal">
                 <Grid.Effect>
                     <DropShadowEffect BlurRadius="15" ShadowDepth="0" Opacity="0.8"/>
@@ -25,16 +25,48 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="70"/>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="300"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                     <TextBlock x:Name="TXTOpenLastChatBTN" MouseLeftButtonUp="TXTOpenLastChatBTN_MouseLeftButtonUp" Style="{DynamicResource TXT1}" Padding="5,0" Text="" Background="Teal" Foreground="Gainsboro"/>
-                    <TextBlock x:Name="TXTAllChatsBTN" MouseLeftButtonUp="TXTAllChatsBTN_MouseLeftButtonUp" Style="{DynamicResource TXT1}" Padding="5,0" Text="" Background="Teal" Foreground="Gainsboro"/>
+                    <TextBlock x:Name="TXTAllChatsBTN" MouseLeftButtonUp="TXTAllChatsBTN_MouseLeftButtonUp" Style="{DynamicResource TXT1}" Padding="5,0" Text="" Background="Teal" Foreground="Gainsboro"/>
                 </StackPanel>
                 <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" FlowDirection="RightToLeft">
                     <TextBlock x:Name="TXTExitBTN" MouseLeftButtonUp="TXTExitBTN_MouseLeftButtonUp" ToolTip="خروج" Style="{DynamicResource TXT1}" Padding="5,0" Text="" Background="Teal" Foreground="Gainsboro"/>
                     <TextBlock x:Name="TXTMaxiMiniBTN" MouseLeftButtonUp="TXTMaxMinBTN_MouseLeftButtonUp" ToolTip="تكبر\تصغير الشاشة" Style="{DynamicResource TXT1}" Padding="5,0" Text="" Background="Teal" Foreground="Gainsboro"/>
                     <TextBlock x:Name="TXTMiniBTN" MouseLeftButtonUp="TXTMiniBTN_MouseLeftButtonUp" ToolTip="تصغير الشاشة" Style="{DynamicResource TXT1}" Padding="5,0" Text="" Background="Teal" Foreground="Gainsboro"/>
+                    <Border Background="#66FFFFFF" CornerRadius="15" Margin="1" Cursor="Hand">
+                        <Menu Background="{x:Null}">
+                            <MenuItem BorderBrush="{x:Null}" ToolTip="{Binding Name,Mode=OneWay}" Background="{x:Null}">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Width="24" Height="24" CornerRadius="50" BorderBrush="White" BorderThickness="1">
+                                            <Border.Background>
+                                                <ImageBrush x:Name="IMGLogedUserIMAGE" ImageSource="{Binding Image}" Stretch="UniformToFill"/>
+                                            </Border.Background>
+                                        </Border>
+                                        <TextBlock x:Name="TXTLogedUserName" Text="{Binding SubName, Mode=OneWay}"  VerticalAlignment="Center" FontSize="15" Margin="3" Style="{DynamicResource TXT2}" FontWeight="Normal"/>
+                                        <TextBlock Style="{DynamicResource TXT1}" FontSize="16" VerticalAlignment="Center" Text="" Foreground="White"/>
+                                    </StackPanel>
+                                </MenuItem.Header>
+                                <MenuItem Header="الصفحة الشخصية" Click="MenuItem_Click" Cursor="Hand">
+                                    <MenuItem.Icon>
+                                        <TextBlock Style="{DynamicResource TXT1}" Text="" FontSize="16"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="الرسائل" Click="MenuItem_Click_2" Cursor="Hand">
+                                    <MenuItem.Icon>
+                                        <TextBlock Style="{DynamicResource TXT1}" Text="" FontSize="16"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="تسجيل خروج" Click="MenuItem_Click_1" Cursor="Hand">
+                                    <MenuItem.Icon>
+                                        <TextBlock Style="{DynamicResource TXT1}" Text="" FontSize="16"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </MenuItem>
+                        </Menu>
+                    </Border>
                 </StackPanel>
                 <StackPanel Grid.Column="1" MouseLeftButtonDown="Grid_MouseLeftButtonDown"  Background="Teal" />
             </Grid>
@@ -93,7 +125,7 @@
                 </ScrollViewer>
             </Grid>
         </DockPanel>
-        <Grid x:Name="MainLoginPanel"  Opacity="0" Visibility="Hidden" IsEnabled="False">
+        <Grid x:Name="MainLoginPanel">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition/>

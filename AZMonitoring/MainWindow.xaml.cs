@@ -27,34 +27,48 @@ namespace AZMonitoring
         DPerson LogedPerson;
         public readonly Views.ChatingPage chatingPage = new Views.ChatingPage();
         private DAL.DAL DB;
-        
         public MainWindow()
         {
             InitializeComponent();
             DB = new DAL.DAL();
             DB.CreateConnection(this);
             statics.staticframe = MainFrameContainer;
-            //Initialize_Prov_Control_List();
-            Initialize_Data_Manage_Pages();
-            DB.test_addChats();
+            //DB.test_addChats();
             //DB.Test_addpersons();
             //DB.Test_add_positions();
             //DB.Test_addProvinces();
             MainFrameContainer.Content = new Views.Dashboard.Dashboard_MainPage();
+
         }
         internal void Initialize_Data_Manage_Pages()
         {
             statics.Data_Mang_Pages = new List<StPages>();
-            statics.Data_Mang_Pages.Add(new StPages { Page = new Views.SysManage.Prov_manage_Page(), Header = "صفحة إدارة المحافظات" });
+            //int x = statics.LogedPersonPosition.Level;
+            /*صلاحيات المدير للأشراف علي مستوي الجمهورية*/ statics.Data_Mang_Pages.Add(new StPages { Page = new Views.SysManage.Prov_manage_Page(), Header = "صفحة إدارة المحافظات" });
+            //if (x < 2) { /* صلاحيات مدير الادارة المركزية*/ }
+            //if (x < 3) { /* صلاحيات الوكيل الثقافي - الوكيل الشرعي - مدير رعاية الطلاب*/ }
+            //if (x < 4) { /* صلاحيات الموجه العام - الموجه الاول*/ }
+            //if (x < 5) { /* صلاحيات مسؤلين التوجيه العام*/ }
+            //if (x < 6) { /* صلاحيات الموجهين التابعين للادارت التعليمية*/ }
+            //if (x < 7) { /* صلاحيات شيخ المعهد*/ }
+            //if (x < 8) { /* صلاحيات المعلم في المفهد*/ }
+
         }
         internal async void Initialize_Prov_Control_List()
         {
-            await Dispatcher.InvokeAsync(async () => {
-                statics.Provinces = new List<Province>();
-                statics.Provinces.AddRange(await DB.GetAllProvinces());
+            if (statics.LogedPersonPosition != null)
+            {
+                await Dispatcher.InvokeAsync(async () => {
+                    statics.Provinces = new List<Province>();
+                    if (statics.LogedPersonPosition.Level == 0)
+                    {
+                        statics.Provinces.AddRange(await DB.GetAllProvinces());
+                }
+                    else { statics.Provinces.Add(await DB.GetProvincebyName(statics.LogedPersonPosition.IDProvince)); }
                 MainListViewProv.ItemsSource = statics.Provinces;
-                MainListViewProv.Items.Refresh();
-            });
+                    MainListViewProv.Items.Refresh();
+                });
+            }
         } 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -92,7 +106,11 @@ namespace AZMonitoring
             fro = ch = true;
             chts = false;
         }
-        private async void TXTAllChatsBTN_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void TXTAllChatsBTN_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            AllChatsBTNMethod();
+        }
+        async void AllChatsBTNMethod()
         {
             if (!chts)
             {
@@ -152,13 +170,32 @@ namespace AZMonitoring
         }
         async void Logingin()
         {
-            if (await DB.AddPerson(new Person { Description = "", DOB = DateTime.Now, Chats = new List<Chats>(), ID = "ysf123", IDPosition = "", Name = "Youssef Shaaban", SSN = "wewa", Password = "123", Photo = "" }))
+            MainLoginPanel.IsEnabled = false;
+            var p = await DB.GetLogedPerson(TXTLoginUsername.Text, TXTLoginPass.Password);
+            if (p != null)
             {
+                //initialize loged person
+                statics.LogedPerson = DPerson.GetDPerson(p);
+                DataContext = statics.LogedPerson;
+                var pp = await DB.GetPositionByID(statics.LogedPerson.IDPosition);
+                statics.LogedPersonPosition = pp;
 
+                //initialize components
+                Initialize_Prov_Control_List();
+                Initialize_Data_Manage_Pages();
+
+                MainLoginPanel.BeginAnimation(OpacityProperty, statics.GetCDAnim(300, 1, 0));
+                await Task.Run(() => { Thread.Sleep(300); });
+                MainLoginPanel.Visibility = Visibility.Hidden;
+                MainDockPanel.Visibility = Visibility;
+                MainDockPanel.BeginAnimation(OpacityProperty, statics.GetCDAnim(300, 0, 1));
+                await Task.Run(() => { Thread.Sleep(300); });
+                MainDockPanel.IsEnabled = true;
             }
             else
             {
                 MessageBox.Show($"فشل في تسجيل الدخول", "فشل", MessageBoxButton.OK, MessageBoxImage.Error);
+                MainLoginPanel.IsEnabled = true;
             }
         }
         async Task MainDockVisibility(bool openorclose, int d = 400)
@@ -252,6 +289,30 @@ namespace AZMonitoring
             resetControlers();
             MainAboutPBTN.Background = Getbfroms("#33000000");
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            Logout();
+        }
+
+        private async void Logout()
+        {
+            if(MessageBox.Show("هل تريد تسجيل الخروج الان؟", "تسجيل الخروج", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No, MessageBoxOptions.RtlReading) == MessageBoxResult.Yes)
+            {
+                
+            }
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            AllChatsBTNMethod();
+        }
+
         private void MainDashboardBTN_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             MainFrameContainer.Content = new Views.Dashboard.Dashboard_MainPage();
@@ -272,4 +333,6 @@ namespace AZMonitoring
         }
         
     }
+
+
 }

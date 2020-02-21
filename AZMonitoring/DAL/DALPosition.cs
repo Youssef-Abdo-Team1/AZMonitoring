@@ -14,10 +14,10 @@ namespace AZMonitoring.DAL
             try
             {
                 position.ID = (await client.PushAsync(pathposition, position)).Result.name;
-                await UpdatePosition(position);
+                UpdateID(pathposition + position.ID, position.ID);
                 return position.ID;
             }
-            catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return ""; }
+            catch (Exception ex) { MessageBox.Show($"حدث خطأ في اضافة وظيفة\nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return ""; }
         }
         internal async Task<bool> UpdatePosition(Position position)
         {
@@ -45,7 +45,7 @@ namespace AZMonitoring.DAL
             {
                 return (await client.GetAsync(pathposition + ID)).ResultAs<Position>();
             }
-            catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return null; }
+            catch (Exception ex) { MessageBox.Show($"حدث خطأ في جلب الوظيفة \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return null; }
         }
         internal async Task<Position> GetPositionByPorsonID(string ID)
         {

@@ -11,21 +11,12 @@ namespace AZMonitoring
         public string ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public List<string> InstrutsID { get; set; }
+        public string IDProvince { get; set; }
 
-        public List<string> InstrutsID
+        public override string ToString()
         {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public string IDProvince
-        {
-            get => default;
-            set
-            {
-            }
+            return Name;
         }
     }
 }

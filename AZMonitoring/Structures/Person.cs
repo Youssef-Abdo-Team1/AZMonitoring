@@ -11,7 +11,7 @@ namespace AZMonitoring
         public string Name { get; set; }
         public string Password { get; set; }
         public string Photo { get; set; }
-        public System.Collections.Generic.List<Chats> Chats { get; set; }
+        public List<Chats> Chats { get; set; }
         public string IDPosition { get; set; }
         public string Description { get; set; }
         public string SSN { get; set; }

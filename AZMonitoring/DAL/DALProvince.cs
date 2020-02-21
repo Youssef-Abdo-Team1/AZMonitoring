@@ -13,46 +13,55 @@ namespace AZMonitoring.DAL
         {
             try
             {
-                HashSet<String> provinceNames = (await client.GetAsync(pathprovincenames)).ResultAs<HashSet<String>>();
-                if(provinceNames != null && provinceNames.Count > 0)
+                Task.Run(async() =>
                 {
-                    provinceNames.Add(mProvince.Name);
-                    await client.SetAsync(pathprovincenames, provinceNames);
-                }
-                else
-                {
-                    provinceNames = new HashSet<string>();
-                    provinceNames.Add(mProvince.Name);
-                    await client.SetAsync(pathprovincenames, provinceNames);
-                }
+                    HashSet<String> provinceNames = (await client.GetAsync(pathprovincenames)).ResultAs<HashSet<String>>();
+                    if (provinceNames != null && provinceNames.Count > 0)
+                    {
+                        provinceNames.Add(mProvince.Name);
+                        await client.SetAsync(pathprovincenames, provinceNames);
+                    }
+                    else
+                    {
+                        provinceNames = new HashSet<string>();
+                        provinceNames.Add(mProvince.Name);
+                        await client.SetAsync(pathprovincenames, provinceNames);
+                    }
+                });
                 mProvince.HCAdministrationID = new StaticProvinceInfo();
-                mProvince.HCAdministrationID.PositionID = await AddPosition(new Position { Name = "مدير الادارة المركزية" , PersonID = PHCAID.ID , Level = 1, IDProvince = mProvince.Name, });
-                await UpdatePersonPosition(PHCAID.ID, mProvince.HCAdministrationID.PositionID);
+                mProvince.CulturalAgentDGID = new StaticProvinceInfo();
+                mProvince.LegalAgentDGID = new StaticProvinceInfo();
+                mProvince.SWelfareDID = new StaticProvinceInfo();
+
                 mProvince.HCAdministrationID.Name = PHCAID.Name;
                 mProvince.HCAdministrationID.Photo = PHCAID.Photo;
 
-                mProvince.CulturalAgentDGID = new StaticProvinceInfo();
-                mProvince.CulturalAgentDGID.PositionID = await AddPosition(new Position { Name = "الكويل الثقافي (مدير عام)", PersonID = PCAGID.ID, Level = 2, IDProvince = mProvince.Name, });
-                await UpdatePersonPosition(PCAGID.ID, mProvince.CulturalAgentDGID.PositionID);
+
                 mProvince.CulturalAgentDGID.Name = PCAGID.Name;
                 mProvince.CulturalAgentDGID.Photo = PCAGID.Photo;
 
-                mProvince.LegalAgentDGID = new StaticProvinceInfo();
-                mProvince.LegalAgentDGID.PositionID = await AddPosition(new Position { Name = "الكويل الشرعي (مدير عام)", PersonID = PLAGID.ID, Level = 2, IDProvince = mProvince.Name, });
-                await UpdatePersonPosition(PLAGID.ID, mProvince.LegalAgentDGID.PositionID);
+
                 mProvince.LegalAgentDGID.Name = PLAGID.Name;
                 mProvince.LegalAgentDGID.Photo = PLAGID.Photo;
 
-                mProvince.SWelfareDID = new StaticProvinceInfo();
-                mProvince.SWelfareDID.PositionID = await AddPosition(new Position { Name = "مدير رعاية الطلاب", PersonID = PWMID.ID, Level = 2, IDProvince = mProvince.Name, });
-                await UpdatePersonPosition(PWMID.ID, mProvince.SWelfareDID.PositionID);
+
                 mProvince.SWelfareDID.Name = PWMID.Name;
                 mProvince.SWelfareDID.Photo = PWMID.Photo;
+
+                mProvince.HCAdministrationID.PositionID = await AddPosition(new Position { Name = "مدير الادارة المركزية" , PersonID = PHCAID.ID , Level = 1, IDProvince = mProvince.Name, });
+                mProvince.CulturalAgentDGID.PositionID = await AddPosition(new Position { Name = "الكويل الثقافي (مدير عام)", PersonID = PCAGID.ID, Level = 2, IDProvince = mProvince.Name, });
+                mProvince.LegalAgentDGID.PositionID = await AddPosition(new Position { Name = "الكويل الشرعي (مدير عام)", PersonID = PLAGID.ID, Level = 2, IDProvince = mProvince.Name, });
+                mProvince.SWelfareDID.PositionID = await AddPosition(new Position { Name = "مدير رعاية الطلاب", PersonID = PWMID.ID, Level = 2, IDProvince = mProvince.Name, });
+
+                UpdatePersonPosition(PWMID.ID, mProvince.SWelfareDID.PositionID);
+                UpdatePersonPosition(PHCAID.ID, mProvince.HCAdministrationID.PositionID);
+                UpdatePersonPosition(PCAGID.ID, mProvince.CulturalAgentDGID.PositionID);
+                UpdatePersonPosition(PLAGID.ID, mProvince.LegalAgentDGID.PositionID);
 
                 await client.SetAsync(pathprovince + mProvince.Name, mProvince);
                 return true;
             }
-            catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return false; }
+            catch (Exception ex) { MessageBox.Show($"حدث خطأ اضافة المحافظة\nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return false; }
         }
         internal async Task<bool> UpdateProvince(Province mProvince, Person PHCAID, Person PLAGID, Person PCAGID, Person PWMID)
         {
@@ -137,11 +146,11 @@ namespace AZMonitoring.DAL
             }
             catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return false; }
         }
-
         //listener
         internal async void SetProvinceListener()
         {
-            await client.OnAsync(pathprovince, (obj, snap, cont) => { Main.Initialize_Prov_Control_List(); }, (obj, snap, cont) => { Main.Initialize_Prov_Control_List(); }, (obj, snap, cont) => { Main.Initialize_Prov_Control_List(); });
+            try { await client.OnAsync(pathprovince, (obj, snap, cont) => { Main.Initialize_Prov_Control_List(); }, (obj, snap, cont) => { Main.Initialize_Prov_Control_List(); }, (obj, snap, cont) => { Main.Initialize_Prov_Control_List(); }); }
+            catch { }
         }
     }
 }

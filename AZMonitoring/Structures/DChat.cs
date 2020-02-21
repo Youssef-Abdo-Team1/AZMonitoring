@@ -34,7 +34,7 @@ namespace AZMonitoring
         }
         public async void InitializeMessages(string userID)
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

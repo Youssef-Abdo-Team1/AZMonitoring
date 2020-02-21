@@ -48,9 +48,14 @@ namespace AZMonitoring.Views
             if ((Keyboard.IsKeyDown(Key.RightShift) || Keyboard.IsKeyDown(Key.LeftShift)) && e.Key == Key.Enter)
             {
                 e.Handled = true;
-                //SendMassage(TXTMassage.Text);
+                SendMassage(TXTMassage.Text);
                 TXTMassage.Text = "";
             }
+        }
+
+        private async void SendMassage(string text)
+        {
+            
         }
     }
 }
