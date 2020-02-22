@@ -45,10 +45,6 @@ namespace AZMonitoring
             Task.Run(async () => { Image = await statics.DounloadImage(Content); });
         }
 
-        public DMessage()
-        {
-            
-        }
         internal void Initiate()
         {
             if (Type == MessageType.Text)
@@ -92,6 +88,7 @@ namespace AZMonitoring
             }
             else
             {
+                d = new DMessage();
                 d.ID = item.ID;
                 d.Content = item.Content;
                 d.Date = item.Date;
@@ -99,6 +96,7 @@ namespace AZMonitoring
                 d.Read = item.Read;
                 d.Type = item.Type;
             }
+            d.Initiate();
             return d;
         }
     }

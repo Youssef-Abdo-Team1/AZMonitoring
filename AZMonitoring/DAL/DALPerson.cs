@@ -131,7 +131,7 @@ namespace AZMonitoring.DAL
             }
             catch { return ""; }
         }
-        internal async Task<bool> AddChatstoPerson(Chats chat , string id)
+        internal async void AddChatstoPerson(Chats chat , string id)
         {
             try
             {
@@ -139,9 +139,8 @@ namespace AZMonitoring.DAL
                 if(p == null || p.Count < 1) { p = new List<Chats>(); }
                 p.Add(chat);
                 await client.SetAsync(pathperson + id + "/Chats/", p);
-                return true;
             }
-            catch { return false; }
+            catch {  }
         }
         internal async Task<string> GetPersonName(string id)
         {

@@ -1,4 +1,5 @@
 ﻿using AZMonitoring.Structures.Pages;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace AZMonitoring
     {
         bool fro = false,ch = false,chts = false,ocprovlist = false;
         internal static Views.ChatingPage chatingPage;
+        private Views.All_Chats_Page achsp;
         private DAL.DAL DB;
         public MainWindow()
         {
@@ -32,11 +34,11 @@ namespace AZMonitoring
             DB = new DAL.DAL();
             DB.CreateConnection(this);
             statics.staticframe = MainFrameContainer;
+            achsp = new Views.All_Chats_Page(this);
             //DB.test_addChats();
             //DB.Test_addpersons();
             //DB.Test_add_positions();
             //DB.Test_addProvinces();
-
         }
         internal void Initialize_Data_Manage_Pages()
         {
@@ -61,13 +63,25 @@ namespace AZMonitoring
                     if (statics.LogedPersonPosition.Level == 0)
                     {
                         statics.Provinces.AddRange(await DB.GetAllProvinces());
-                }
+                    }
                     else { statics.Provinces.Add(await DB.GetProvincebyName(statics.LogedPersonPosition.IDProvince)); }
-                MainListViewProv.ItemsSource = statics.Provinces;
+                    MainListViewProv.ItemsSource = statics.Provinces;
                     MainListViewProv.Items.Refresh();
                 });
             }
-        } 
+        }
+        internal async void Initialize_Chat(string snap)
+        {
+            if (statics.LogedPerson != null && statics.DChats != null)
+            {
+                await Dispatcher.InvokeAsync(async () => {
+                    var x = await DB.GetChat(snap);
+                    var y = await DChat.GetDChat(x);
+                    statics.DChats.Add(y);
+                    achsp.Refresh();
+                });
+            }
+        }
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
@@ -117,7 +131,7 @@ namespace AZMonitoring
                     OCFrame(false);
                     await Task.Run(() => { Thread.Sleep(300); });
                 }
-                ChatingFrame.Content = null;
+                ChatingFrame.Content = achsp;
                 ResetColors();
                 TXTAllChatsBTN.Background = Brushes.Gainsboro;
                 TXTAllChatsBTN.Foreground = Brushes.Teal;
@@ -177,6 +191,8 @@ namespace AZMonitoring
                 DataContext = statics.LogedPerson;
                 var pp = await DB.GetPositionByID(statics.LogedPerson.IDPosition);
                 statics.LogedPersonPosition = pp;
+                statics.DChats = new List<DChat>();
+                DB.SetChatsListener(statics.LogedPerson.ID);
 
                 //initialize components
                 Initialize_Prov_Control_List();
@@ -200,6 +216,7 @@ namespace AZMonitoring
             {
                 MessageBox.Show($"فشل في تسجيل الدخول", "فشل", MessageBoxButton.OK, MessageBoxImage.Error);
                 MainLoginPanel.IsEnabled = true;
+                LoginBorder.IsEnabled = true;
             }
         }
         async Task MainDockVisibility(bool openorclose, int d = 400)
@@ -310,6 +327,7 @@ namespace AZMonitoring
                 statics.LogedPersonPosition = null;
                 statics.Provinces = null;
                 statics.Data_Mang_Pages = null;
+                statics.DChats = null;
                 MainDockPanel.IsEnabled = false;
                 MainDockPanel.BeginAnimation(OpacityProperty, statics.GetCDAnim(300, 1, 0));
                 await Task.Run(() => { Thread.Sleep(300); });
@@ -318,6 +336,7 @@ namespace AZMonitoring
                 MainLoginPanel.Visibility = Visibility.Visible;
                 MainLoginPanel.BeginAnimation(OpacityProperty, statics.GetCDAnim(300, 0, 1));
                 MainLoginPanel.IsEnabled = true;
+                LoginBorder.IsEnabled = true;
                 MainFrameContainer.Content = null;
                 resetControlers();
                 ResetColors();
@@ -338,6 +357,12 @@ namespace AZMonitoring
             }
             else { bor.BorderThickness = new Thickness(0); }
         }
+
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void MainDashboardBTN_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             MainFrameContainer.Content = new Views.Dashboard.Dashboard_MainPage();

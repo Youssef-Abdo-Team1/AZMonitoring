@@ -81,10 +81,6 @@ namespace AZMonitoring.DAL
             y.prices.Add(65);
             await client.UpdateAsync("test/clothing/abc", y);
         }
-        internal async void Test_addProvinces()
-        {
-            
-        }
         internal async void Test_addpersons()
         {
             await AddPerson(new Person { ID = "1222", Name = "يوسف شعبان", Password = "123" });
@@ -100,15 +96,16 @@ namespace AZMonitoring.DAL
             string s4 = await AddPosition(new Position { Name = "jkhfdgfdglk", Level = 6 });
         }
 
-        internal void test_addChats()
+        internal async void test_addChats()
         {
-            AddChat(new Chat { IDPerson1 = "66", IDPerson2 = "77" });
-            AddChat(new Chat { IDPerson1 = "88", IDPerson2 = "77" });
-            AddChat(new Chat { IDPerson1 = "66", IDPerson2 = "88" });
-            AddChat(new Chat { IDPerson1 = "1222", IDPerson2 = "88" });
-            AddChat(new Chat { IDPerson1 = "66", IDPerson2 = "1222" });
-            AddChat(new Chat { IDPerson1 = "1222", IDPerson2 = "77" });
+            await AddChat(new Chat { IDPerson1 = "66", IDPerson2 = "77" });
+            await AddChat(new Chat { IDPerson1 = "88", IDPerson2 = "77" });
+            await AddChat(new Chat { IDPerson1 = "66", IDPerson2 = "88" });
+            await AddChat(new Chat { IDPerson1 = "1222", IDPerson2 = "88" });
+            await AddChat(new Chat { IDPerson1 = "66", IDPerson2 = "1222" });
+            await AddChat(new Chat { IDPerson1 = "1222", IDPerson2 = "77" });
         }
+
     }
 
     class Product

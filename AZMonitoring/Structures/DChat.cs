@@ -39,50 +39,40 @@ namespace AZMonitoring
         public string Name { get; set; }
         public string Photo { get; set; }
         public List<DMessage> Messages { get; set; }
-        public string LastMessage { get { return Messages.LastOrDefault().Text; } set { } }
-        public DChat()
-        {
-            Initialize();
-        }
+        public string LastMessage { get { if (Messages != null && Messages.Count > 0) { return Messages.LastOrDefault().Text; }return "لا يوجد رسائل"; } }
         public void SetImage()
         {
             Task.Run(async() => { Image = await statics.DounloadImage(Photo); });
         }
-        public async void Initialize()
+        public async Task Initialize()
         {
             Messages = new List<DMessage>();
-            if(IDPerson1 == statics.LogedPerson.ID)
-            {
-                Photo = await DB.GetPersonPhoto(IDPerson2);
-                Name = await DB.GetPersonName(IDPerson2);
-            }
-            else
+            if(IDPerson1 != statics.LogedPerson.ID)
             {
                 Photo = await DB.GetPersonPhoto(IDPerson1);
                 Name = await DB.GetPersonName(IDPerson1);
             }
-            SetImage();
-            (await DB.GetMessages(MessagesID)).ForEach(item => {
-                Messages.Add(DMessage.GetDMessage(item));
-            });
-        }
-
-
-        public static DChat GetDChat(Chat chat)
-        {
-            var d = chat as DChat;
-            if(d != null)
-            {
-
-            }
             else
             {
-                d = new DChat();
-                d.ID = chat.ID;
-                d.IDPerson1 = chat.IDPerson1;
-                d.IDPerson2 = chat.IDPerson2;
-                d.MessagesID = chat.MessagesID;
+                Photo = await DB.GetPersonPhoto(IDPerson2);
+                Name = await DB.GetPersonName(IDPerson2);
             }
+            SetImage();
+            try {
+                (await DB.GetMessages(MessagesID)).ForEach(item => {
+                    Messages.Add(DMessage.GetDMessage(item));
+                });
+            }
+            catch { }
+        }
+        public async static Task<DChat> GetDChat(Chat chat)
+        {
+            var d = new DChat();
+            d.ID = chat.ID;
+            d.IDPerson1 = chat.IDPerson1;
+            d.IDPerson2 = chat.IDPerson2;
+            d.MessagesID = chat.MessagesID;
+            await d.Initialize();
             return d;
         }
     }

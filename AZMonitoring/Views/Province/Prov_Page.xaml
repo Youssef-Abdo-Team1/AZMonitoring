@@ -25,13 +25,18 @@
                         BorderBrush="White" Background="#4C000000" Cursor="Hand" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="80"/>
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="3*"/>
                             <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
+                        <Border Margin="5" CornerRadius="40" BorderBrush="White" BorderThickness="1" Grid.RowSpan="2">
+                            <Border.Background>
+                                <ImageBrush x:Name="IMGHCA"/>
+                            </Border.Background>
+                        </Border>
                         <TextBlock Text="رئيس الادارة المركزية" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
                         <TextBlock x:Name="TXTHCAdmin" Text="رئيس الادارة المكزية" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="20"/>
                     </Grid>
@@ -43,13 +48,18 @@
                         Background="#4C000000" Cursor="Hand" MouseLeftButtonUp="Grid_MouseLeftButtonUp_1">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="80"/>
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="3*"/>
                             <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
+                        <Border Margin="5" CornerRadius="40" BorderBrush="White" BorderThickness="1" Grid.RowSpan="2">
+                            <Border.Background>
+                                <ImageBrush x:Name="IMGLAG"/>
+                            </Border.Background>
+                        </Border>
                         <TextBlock Text="الوكيل الشرعي (مدير عام)" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
                         <TextBlock x:Name="TXTLAgent" Text="رئيس الادارة المركزية" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="20"/>
                     </Grid>
@@ -63,13 +73,18 @@
                         MouseLeftButtonUp="Grid_MouseLeftButtonUp_2">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="80"/>
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="3*"/>
                             <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
+                        <Border Margin="5" CornerRadius="40" BorderBrush="White" BorderThickness="1" Grid.RowSpan="2">
+                            <Border.Background>
+                                <ImageBrush x:Name="IMGCAG"/>
+                            </Border.Background>
+                        </Border>
                         <TextBlock Text="الوكيل الثقافي (مدير عام)" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
                         <TextBlock x:Name="TXTCAgent" Text="رئيس الادارة المكزية" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="20"/>
                     </Grid>
@@ -84,13 +99,18 @@
                         MouseLeftButtonUp="Grid_MouseLeftButtonUp_3">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="80"/>
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="3*"/>
                             <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
+                        <Border Margin="5" CornerRadius="40" BorderBrush="White" BorderThickness="1" Grid.RowSpan="2">
+                            <Border.Background>
+                                <ImageBrush x:Name="IMGSW"/>
+                            </Border.Background>
+                        </Border>
                         <TextBlock Text="مدير رعاية الطلاب" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
                         <TextBlock x:Name="TXTSWelfare" Text="رئيس الادارة المكزية" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="20"/>
                     </Grid>

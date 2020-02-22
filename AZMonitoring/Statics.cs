@@ -15,11 +15,14 @@ using System.Windows.Media.Imaging;
 
 namespace AZMonitoring
 {
+    public delegate void MyDelegate();
     public class statics
     {
+        internal static MyDelegate MessageRefreshDelegate { get; set; }
         internal static Frame staticframe { get; set; }
         internal static List<StPages> Data_Mang_Pages { get; set; }
         internal static List<Province> Provinces { get; set; }
+        internal static DChat CurrentChat { get; set; }
         internal static DPerson LogedPerson { get; set; }
         internal static Position LogedPersonPosition { get; set; }
         internal static DoubleAnimationUsingKeyFrames GetCDAnim(int Time, int invalue, int outvalue)

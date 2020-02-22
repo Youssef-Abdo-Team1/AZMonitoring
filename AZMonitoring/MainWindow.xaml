@@ -48,7 +48,7 @@
                                                     <ImageBrush x:Name="IMGLogedUserIMAGE" ImageSource="{Binding Image}" Stretch="UniformToFill"/>
                                                 </Border.Background>
                                             </Border>
-                                            <TextBlock x:Name="TXTLogedUserName" Text="{Binding SubName, Mode=OneWay}"  VerticalAlignment="Center" FontSize="15" Margin="3" Style="{DynamicResource TXT2}" FontWeight="Normal"/>
+                                            <TextBlock x:Name="TXTLogedUserName" Text="{Binding Name, Mode=OneWay}"  VerticalAlignment="Center" FontSize="15" Margin="3" Style="{DynamicResource TXT2}" FontWeight="Normal"/>
                                             <TextBlock Style="{DynamicResource TXT1}" FontSize="16" VerticalAlignment="Center" Text="" Foreground="White"/>
                                         </StackPanel>
                                     </MenuItem.Header>
@@ -57,11 +57,17 @@
                                             <TextBlock Style="{DynamicResource TXT1}" Text="" FontSize="16"/>
                                         </MenuItem.Icon>
                                     </MenuItem>
+                                    <MenuItem Header="تعديل البيانات الشخصية" Click="MenuItem_Click_3" Cursor="Hand">
+                                        <MenuItem.Icon>
+                                            <TextBlock Style="{DynamicResource TXT1}" Text="" FontSize="16"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
                                     <MenuItem Header="الرسائل" Click="MenuItem_Click_2" Cursor="Hand">
                                         <MenuItem.Icon>
                                             <TextBlock Style="{DynamicResource TXT1}" Text="" FontSize="16"/>
                                         </MenuItem.Icon>
                                     </MenuItem>
+                                    <Separator/>
                                     <MenuItem Header="تسجيل خروج" Click="MenuItem_Click_1" Cursor="Hand">
                                         <MenuItem.Icon>
                                             <TextBlock Style="{DynamicResource TXT1}" Text="" FontSize="16"/>

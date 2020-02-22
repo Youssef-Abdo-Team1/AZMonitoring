@@ -133,7 +133,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AZMonitoring.Chats">
-    <Position X="2.75" Y="2.5" Width="1.5" />
+    <Position X="4" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
       <FileName>Structures\Chats.cs</FileName>

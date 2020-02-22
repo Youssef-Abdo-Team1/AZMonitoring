@@ -36,6 +36,11 @@ namespace AZMonitoring.Views
             TXTHCAdmin.Text = prov.HCAdministrationID.Name;
             TXTLAgent.Text = prov.LegalAgentDGID.Name;
             TXTSWelfare.Text = prov.SWelfareDID.Name;
+            IMGCAG.ImageSource = IMGHCA.ImageSource = IMGLAG.ImageSource = IMGSW.ImageSource = null;
+            IMGHCA.ImageSource = await statics.DounloadImage(prov.HCAdministrationID.Photo);
+            IMGCAG.ImageSource = await statics.DounloadImage(prov.CulturalAgentDGID.Photo);
+            IMGLAG.ImageSource = await statics.DounloadImage(prov.LegalAgentDGID.Photo);
+            IMGSW.ImageSource = await statics.DounloadImage(prov.SWelfareDID.Photo);
         }
 
         private void Grid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
