@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Windows.Navigation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,25 +23,21 @@ namespace AZMonitoring.Views
     public partial class ChatingPage : Page
     {
         DChat currentchat;
-        string userid;
         public ChatingPage()
         {
             InitializeComponent();
         }
 
-        public void newChatWindow(DChat chat, string userid)
+        public void newChatWindow(DChat chat)
         {
             currentchat = chat;
-            this.userid = userid;
-            Initialize();
+            //Initialize();
         }
-        private async void Initialize()
+        private void Initialize()
         {
             TXTName.Text = currentchat.Name;
             Img.ImageSource = null;
             LISTCurrentChatMessages.ItemsSource = currentchat.Messages;
-            await Task.Run(() => { currentchat.InitializeMessages(userid); });
-            await Task.Run(() => { currentchat.SetImage(); });
             Img.ImageSource = currentchat.Image;
         }
 
@@ -56,6 +54,12 @@ namespace AZMonitoring.Views
         private async void SendMassage(string text)
         {
             
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
         }
     }
 }

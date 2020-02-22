@@ -15,15 +15,15 @@
             <RowDefinition/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
             <Border CornerRadius="50" Height="50" Width="50">
                 <Border.Background>
                     <ImageBrush x:Name="Img"/>
                 </Border.Background>
             </Border>
-            <TextBlock x:Name="TXTName" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="30" TextAlignment="Center"/>
+            <TextBlock x:Name="TXTName" Margin="10,0" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="30" TextAlignment="Center"/>
         </StackPanel>
-        <ListView x:Name="LISTCurrentChatMessages" Grid.Row="1" Background="{x:Null}">
+        <ListView x:Name="LISTCurrentChatMessages" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalAlignment="Bottom" Background="{x:Null}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -32,11 +32,16 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid HorizontalAlignment="Stretch">
-                        <Border CornerRadius="10" Padding="10"  Background="{Binding Background}" HorizontalAlignment="{Binding Alignment}" MaxWidth="{Binding ActualWidth, ElementName=MessagesListview, Mode=OneWay}">
+                        <Border CornerRadius="10" Padding="10"  Background="{Binding Background}" HorizontalAlignment="{Binding Alignment1}" MaxWidth="240">
                             <StackPanel>
+                                <TextBlock Text="{Binding Text}" HorizontalAlignment="{Binding Alignment1}" FlowDirection="RightToLeft" TextWrapping="WrapWithOverflow" Foreground="Black" />
                                 <Image Source="{Binding Image}"/>
-                                <TextBlock Text="{Binding Text}" FlowDirection="RightToLeft" TextWrapping="WrapWithOverflow" />
-                                <TextBlock Text="{Binding Time}" FontSize="10" HorizontalAlignment="{Binding Alignment1}"/>
+                                <TextBlock FontSize="10" HorizontalAlignment="Center" >
+                                    <Hyperlink NavigateUri="{Binding Link}" RequestNavigate="Hyperlink_RequestNavigate" >
+                                        <TextBlock Foreground="#FF0202CF" Text="{Binding Link}"/>
+                                    </Hyperlink>
+                                </TextBlock>
+                                <TextBlock Text="{Binding Date}" FontSize="10" HorizontalAlignment="{Binding Alignment2}"/>
                             </StackPanel>
                         </Border>
                     </Grid>
