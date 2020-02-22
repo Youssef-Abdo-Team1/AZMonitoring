@@ -109,6 +109,16 @@ namespace AZMonitoring.DAL
             AddChat(new Chat { IDPerson1 = "66", IDPerson2 = "1222" });
             AddChat(new Chat { IDPerson1 = "1222", IDPerson2 = "77" });
         }
+
+        internal void test_add()
+        {
+            _ = AddAdministration(new Administration
+            {
+                Name = "ادارة شرق",
+                Description = "شسسشسشسشسششس",
+                IDProvince = "الاسكندرية"
+            });
+            }
     }
 
     class Product

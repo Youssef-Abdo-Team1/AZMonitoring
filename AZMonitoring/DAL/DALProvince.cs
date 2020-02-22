@@ -13,21 +13,21 @@ namespace AZMonitoring.DAL
         {
             try
             {
-                Task.Run(async() =>
-                {
-                    HashSet<String> provinceNames = (await client.GetAsync(pathprovincenames)).ResultAs<HashSet<String>>();
-                    if (provinceNames != null && provinceNames.Count > 0)
-                    {
-                        provinceNames.Add(mProvince.Name);
-                        await client.SetAsync(pathprovincenames, provinceNames);
-                    }
-                    else
-                    {
-                        provinceNames = new HashSet<string>();
-                        provinceNames.Add(mProvince.Name);
-                        await client.SetAsync(pathprovincenames, provinceNames);
-                    }
-                });
+                await Task.Run(async () =>
+                 {
+                     HashSet<String> provinceNames = (await client.GetAsync(pathprovincenames)).ResultAs<HashSet<String>>();
+                     if (provinceNames != null && provinceNames.Count > 0)
+                     {
+                         provinceNames.Add(mProvince.Name);
+                         await client.SetAsync(pathprovincenames, provinceNames);
+                     }
+                     else
+                     {
+                         provinceNames = new HashSet<string>();
+                         provinceNames.Add(mProvince.Name);
+                         await client.SetAsync(pathprovincenames, provinceNames);
+                     }
+                 });
                 mProvince.HCAdministrationID = new StaticProvinceInfo();
                 mProvince.CulturalAgentDGID = new StaticProvinceInfo();
                 mProvince.LegalAgentDGID = new StaticProvinceInfo();
@@ -53,10 +53,10 @@ namespace AZMonitoring.DAL
                 mProvince.LegalAgentDGID.PositionID = await AddPosition(new Position { Name = "الكويل الشرعي (مدير عام)", PersonID = PLAGID.ID, Level = 2, IDProvince = mProvince.Name, });
                 mProvince.SWelfareDID.PositionID = await AddPosition(new Position { Name = "مدير رعاية الطلاب", PersonID = PWMID.ID, Level = 2, IDProvince = mProvince.Name, });
 
-                UpdatePersonPosition(PWMID.ID, mProvince.SWelfareDID.PositionID);
-                UpdatePersonPosition(PHCAID.ID, mProvince.HCAdministrationID.PositionID);
-                UpdatePersonPosition(PCAGID.ID, mProvince.CulturalAgentDGID.PositionID);
-                UpdatePersonPosition(PLAGID.ID, mProvince.LegalAgentDGID.PositionID);
+                _ = UpdatePersonPosition(PWMID.ID, mProvince.SWelfareDID.PositionID);
+                _ = UpdatePersonPosition(PHCAID.ID, mProvince.HCAdministrationID.PositionID);
+                _ = UpdatePersonPosition(PCAGID.ID, mProvince.CulturalAgentDGID.PositionID);
+                _ = UpdatePersonPosition(PLAGID.ID, mProvince.LegalAgentDGID.PositionID);
 
                 await client.SetAsync(pathprovince + mProvince.Name, mProvince);
                 return true;
@@ -151,6 +151,18 @@ namespace AZMonitoring.DAL
         {
             try { await client.OnAsync(pathprovince, (obj, snap, cont) => { Main.Initialize_Prov_Control_List(); }, (obj, snap, cont) => { Main.Initialize_Prov_Control_List(); }, (obj, snap, cont) => { Main.Initialize_Prov_Control_List(); }); }
             catch { }
+        }
+        internal async Task<bool> AddAdministrationsName(string name,string id)
+        {
+            try {
+                var ls = (await client.GetAsync(pathprovince + name + "/AdministrationsID")).ResultAs<List<string>>();
+                if(ls == null || ls.Count == 0) { ls = new List<string>(); }
+                ls.Add(id);
+                var x =await client.SetAsync(pathprovince + name + "/AdministrationsID/", ls);
+               
+                return true;
+            }
+            catch { return false; }
         }
     }
 }

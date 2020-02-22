@@ -37,6 +37,7 @@ namespace AZMonitoring
             //DB.Test_addpersons();
             //DB.Test_add_positions();
             //DB.Test_addProvinces();
+            DB.test_add();
             MainFrameContainer.Content = new Views.Dashboard.Dashboard_MainPage();
 
         }
