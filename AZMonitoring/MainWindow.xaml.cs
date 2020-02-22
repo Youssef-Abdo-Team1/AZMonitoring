@@ -24,8 +24,7 @@ namespace AZMonitoring
     public partial class MainWindow : Window
     {
         bool fro = false,ch = false,chts = false,ocprovlist = false;
-        DPerson LogedPerson;
-        public readonly Views.ChatingPage chatingPage = new Views.ChatingPage();
+        internal static Views.ChatingPage chatingPage;
         private DAL.DAL DB;
         public MainWindow()
         {
@@ -37,7 +36,6 @@ namespace AZMonitoring
             //DB.Test_addpersons();
             //DB.Test_add_positions();
             //DB.Test_addProvinces();
-            MainFrameContainer.Content = new Views.Dashboard.Dashboard_MainPage();
 
         }
         internal void Initialize_Data_Manage_Pages()
@@ -91,7 +89,7 @@ namespace AZMonitoring
         {
             if(chat != null)
             {
-                chatingPage.newChatWindow(chat, LogedPerson.ID);
+                chatingPage.newChatWindow(chat);
             }
             if (fro)
             {
@@ -170,7 +168,7 @@ namespace AZMonitoring
         }
         async void Logingin()
         {
-            MainLoginPanel.IsEnabled = false;
+            LoginBorder.IsEnabled = false;
             var p = await DB.GetLogedPerson(TXTLoginUsername.Text, TXTLoginPass.Password);
             if (p != null)
             {
@@ -184,6 +182,9 @@ namespace AZMonitoring
                 Initialize_Prov_Control_List();
                 Initialize_Data_Manage_Pages();
 
+                chatingPage = new Views.ChatingPage();
+
+                MainLoginPanel.IsEnabled = false;
                 MainLoginPanel.BeginAnimation(OpacityProperty, statics.GetCDAnim(300, 1, 0));
                 await Task.Run(() => { Thread.Sleep(300); });
                 MainLoginPanel.Visibility = Visibility.Hidden;
@@ -191,6 +192,9 @@ namespace AZMonitoring
                 MainDockPanel.BeginAnimation(OpacityProperty, statics.GetCDAnim(300, 0, 1));
                 await Task.Run(() => { Thread.Sleep(300); });
                 MainDockPanel.IsEnabled = true;
+                TXTLoginUsername.Text = TXTLoginPass.Password = "";
+                MainFrameContainer.Content = new Views.Dashboard.Dashboard_MainPage();
+                GC.Collect();
             }
             else
             {
@@ -289,30 +293,51 @@ namespace AZMonitoring
             resetControlers();
             MainAboutPBTN.Background = Getbfroms("#33000000");
         }
-
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
 
         }
-
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
             Logout();
         }
-
         private async void Logout()
         {
             if(MessageBox.Show("هل تريد تسجيل الخروج الان؟", "تسجيل الخروج", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No, MessageBoxOptions.RtlReading) == MessageBoxResult.Yes)
             {
-                
+                statics.LogedPerson.Image = null;
+                statics.LogedPerson = null;
+                statics.LogedPersonPosition = null;
+                statics.Provinces = null;
+                statics.Data_Mang_Pages = null;
+                MainDockPanel.IsEnabled = false;
+                MainDockPanel.BeginAnimation(OpacityProperty, statics.GetCDAnim(300, 1, 0));
+                await Task.Run(() => { Thread.Sleep(300); });
+                MainDockPanel.Visibility = Visibility.Hidden;
+
+                MainLoginPanel.Visibility = Visibility.Visible;
+                MainLoginPanel.BeginAnimation(OpacityProperty, statics.GetCDAnim(300, 0, 1));
+                MainLoginPanel.IsEnabled = true;
+                MainFrameContainer.Content = null;
+                resetControlers();
+                ResetColors();
+                OCFrame(false);
+                fro = ch = chts = ocprovlist = false;
+                GC.Collect();
             }
         }
-
         private void MenuItem_Click_2(object sender, RoutedEventArgs e)
         {
             AllChatsBTNMethod();
         }
-
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            if(WindowState == WindowState.Maximized)
+            {
+                bor.BorderThickness = new Thickness(8);
+            }
+            else { bor.BorderThickness = new Thickness(0); }
+        }
         private void MainDashboardBTN_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             MainFrameContainer.Content = new Views.Dashboard.Dashboard_MainPage();

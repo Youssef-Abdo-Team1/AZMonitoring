@@ -58,5 +58,34 @@ namespace AZMonitoring.DAL
                 return false;
             }
         }
+        internal async Task<Chat> GetChat(string ID)
+        {
+            try
+            {
+                return (await client.GetAsync(pathchat + ID)).ResultAs<Chat>();
+            }
+            catch (Exception ex) { MessageBox.Show($"الخطأ: \n{ex.Message}", "حدث خطأ اثناء الاتصال", MessageBoxButton.OK, MessageBoxImage.Error); return null; }
+        }
+        internal async Task<Message> GetMessage(string id)
+        {
+            try
+            {
+                return (await client.GetAsync(pathmessage + id)).ResultAs<Message>();
+            }
+            catch (Exception ex) { MessageBox.Show($"الخطأ: \n{ex.Message}", "حدث خطأ اثناء الاتصال", MessageBoxButton.OK, MessageBoxImage.Error); return null; }
+        }
+        internal async Task<List<Message>> GetMessages(List<string> messagesID)
+        {
+            try
+            {
+                var ls = new List<Message>();
+                foreach (var item in messagesID)
+                {
+                    ls.Add(await GetMessage(item));
+                }
+                return ls;
+            }
+            catch (Exception ex) { MessageBox.Show($"الخطأ: \n{ex.Message}", "حدث خطأ اثناء الاتصال", MessageBoxButton.OK, MessageBoxImage.Error); return null; }
+        }
     }
 }

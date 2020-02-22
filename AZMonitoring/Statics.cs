@@ -31,6 +31,7 @@ namespace AZMonitoring
             anim.KeyFrames.Add(eas2);
             return anim;
         }
+        internal static List<DChat> DChats { get; set; }
         internal static async Task<ImageSource> DounloadImage(string Photo)
         {
             try

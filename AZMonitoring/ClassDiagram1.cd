@@ -14,14 +14,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AZMonitoring.Province">
-    <Position X="11.25" Y="2.5" Width="2" />
+    <Position X="11.75" Y="2.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AABACAAAAAAiAAQAAIAAAAQAAACAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Structures\Province.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AZMonitoring.Administration">
-    <Position X="10.5" Y="5.25" Width="2" />
+    <Position X="10.75" Y="5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAggAAEAAAAAAQCAAQAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Structures\Administration.cs</FileName>
@@ -46,7 +46,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="AZMonitoring.GInstruct">
-    <Position X="13" Y="5.25" Width="2" />
+    <Position X="13" Y="5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAggAAEAAAAgAQAAAAAAAAQAAAAAAAQAAA=</HashCode>
       <FileName>Structures\GInstruct.cs</FileName>
@@ -88,18 +88,20 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AZMonitoring.DMessage">
-    <Position X="2.75" Y="10.5" Width="1.75" />
+    <Position X="0.75" Y="11" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAABAAAAAAAABIAgAAAABAAAAAgCAAAAAA=</HashCode>
+      <HashCode>AAAAAgAAAAAAEAAAIAAAABOAgAAAABAAAAAgSAAAABA=</HashCode>
       <FileName>Structures\DMeeage.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="AZMonitoring.DChat">
     <Position X="2.75" Y="7.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEAAAAAAAACAAAAAAAAUAAAAACBAAAAAAAQAAAAA=</HashCode>
+      <HashCode>AAAAEEAAAAAAESAAIAAAAAUAgAAAABAAAAAAAQAAABA=</HashCode>
       <FileName>Structures\DChat.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="AZMonitoring.DPerson">
     <Position X="1" Y="4.5" Width="1.5" />
@@ -110,7 +112,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="AZMonitoring.Instruct">
-    <Position X="11.75" Y="8" Width="2.25" />
+    <Position X="12" Y="8" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgACEAAACAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>Structures\Instruct.cs</FileName>

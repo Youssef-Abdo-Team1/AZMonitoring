@@ -143,5 +143,13 @@ namespace AZMonitoring.DAL
             }
             catch { return false; }
         }
+        internal async Task<string> GetPersonName(string id)
+        {
+            try
+            {
+                return (await client.GetAsync(pathperson + id + "/Name")).ResultAs<string>();
+            }
+            catch { return ""; }
+        }
     }
 }
