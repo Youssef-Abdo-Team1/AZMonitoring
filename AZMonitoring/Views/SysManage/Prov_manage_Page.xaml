@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AZMonitoring.Views.SysManage"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d"                                                                                                                                                                                                                  
       Foreground="White"
       FontFamily="Tahoma"
@@ -14,13 +15,13 @@
     <StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock Text="اختر الامر" VerticalAlignment="Center" FontWeight="Bold"/>
-            <ComboBox x:Name="CBSAED" Width="200" SelectionChanged="CBSAED_SelectionChanged" Margin="10">
+            <ComboBox x:Name="CBSAED" Width="200" materialDesign:HintAssist.HintOpacity=".26" Foreground="Black" SelectionChanged="CBSAED_SelectionChanged"  Margin="10">
                 <ComboBoxItem Content="اضافة"/>
                 <ComboBoxItem Content="تعديل"/>
                 <ComboBoxItem Content="حذف"/>
             </ComboBox>
             <TextBlock x:Name="TXTChprove" Text="اختر المحافظة" VerticalAlignment="Center" FontWeight="Bold"/>
-            <ComboBox x:Name="CBChProv" SelectionChanged="CBChProv_SelectionChanged"  Margin="10" Width="200">
+            <ComboBox x:Name="CBChProv" materialDesign:HintAssist.Hint="بحث" Foreground="Black" materialDesign:HintAssist.HintOpacity="1" SelectionChanged="CBChProv_SelectionChanged"  Margin="10" Width="200">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}"/>

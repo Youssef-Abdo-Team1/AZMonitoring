@@ -1,0 +1,441 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OpenTok</name>
+    </assembly>
+    <members>
+        <member name="T:OpenTokSDK.Broadcast">
+            Represents a broadcast of an OpenTok session.
+        </member>
+        <member name="T:OpenTokSDK.Broadcast.BroadcastStatus">
+            Defines values returned by the Status property of a Broadcast object.
+        </member>
+        <member name="F:OpenTokSDK.Broadcast.BroadcastStatus.STOPPED">
+            The broadcast is stopped
+        </member>
+        <member name="F:OpenTokSDK.Broadcast.BroadcastStatus.STARTED">
+            The broadcast is started
+        </member>
+        <member name="P:OpenTokSDK.Broadcast.Id">
+            The broadcast ID.
+        </member>
+        <member name="P:OpenTokSDK.Broadcast.SessionId">
+            The session ID of the OpenTok session associated with this broadcast.
+        </member>
+        <member name="P:OpenTokSDK.Broadcast.ProjectId">
+            The OpenTok API key associated with the broadcast.
+        </member>
+        <member name="P:OpenTokSDK.Broadcast.CreatedAt">
+            The time the broadcast started, expressed in milliseconds since the Unix epoch (January 1, 1970, 00:00:00 UTC).
+        </member>
+        <member name="P:OpenTokSDK.Broadcast.UpdatedAt">
+            The time the broadcast was updated, in milliseconds since the Unix epoch  (January 1, 1970, 00:00:00 UTC).
+        </member>
+        <member name="P:OpenTokSDK.Broadcast.Resolution">
+            The resolution of the broadcast: either "640x480" (SD, the default) or "1280x720" (HD).
+        </member>
+        <member name="P:OpenTokSDK.Broadcast.Status">
+            The status of the broadcast: either "started" or "stopped".
+        </member>
+        <member name="P:OpenTokSDK.Broadcast.MaxDuration">
+            The maximun duration of the broadcast
+        </member>
+        <member name="P:OpenTokSDK.Broadcast.RtmpList">
+            The RTMP List
+        </member>
+        <member name="P:OpenTokSDK.Broadcast.Hls">
+            HLS Url
+        </member>
+        <member name="P:OpenTokSDK.Broadcast.BroadcastUrls">
+            The broadcast HLS and RTMP URLs
+        </member>
+        <member name="M:OpenTokSDK.Broadcast.Stop">
+            Stops the live broadcasting if it is started.
+        </member>
+        <member name="T:OpenTokSDK.BroadcastLayout">
+            Represents a broadcast layout of an OpenTok session.
+        </member>
+        <member name="T:OpenTokSDK.BroadcastLayout.LayoutType">
+            Defines values for the role parameter of the GenerateToken method of the OpenTok class.
+        </member>
+        <member name="F:OpenTokSDK.BroadcastLayout.LayoutType.Pip">
+            Picture-in-Picture
+        </member>
+        <member name="F:OpenTokSDK.BroadcastLayout.LayoutType.BestFit">
+            Best Fit
+        </member>
+        <member name="F:OpenTokSDK.BroadcastLayout.LayoutType.VerticalPresentation">
+            Vertical Presentation
+        </member>
+        <member name="F:OpenTokSDK.BroadcastLayout.LayoutType.HorizontalPresentation">
+            Horizontal Presentation
+        </member>
+        <member name="F:OpenTokSDK.BroadcastLayout.LayoutType.Custom">
+            Custom Layout
+        </member>
+        <member name="P:OpenTokSDK.BroadcastLayout.Type">
+            The Layout type
+        </member>
+        <member name="P:OpenTokSDK.BroadcastLayout.Stylesheet">
+            The Stylesheet for the Custom Layout
+        </member>
+        <member name="T:OpenTokSDK.SignalProperties">
+            Defines signal payload for the Signal API.
+        </member>
+        <member name="T:OpenTokSDK.Rtmp">
+            Represents a string in an OpenTok session.
+        </member>
+        <member name="P:OpenTokSDK.Rtmp.Id">
+            The stream id.
+        </member>
+        <member name="P:OpenTokSDK.Rtmp.ServerUrl">
+            The server URL.
+        </member>
+        <member name="P:OpenTokSDK.Rtmp.StreamName">
+            The stream name.
+        </member>
+        <member name="T:OpenTokSDK.ArchiveStatus">
+            Defines values returned by the Status property of an Archive object. See the ListArchives()
+            method of the OpenTok class.
+        </member>
+        <member name="F:OpenTokSDK.ArchiveStatus.AVAILABLE">
+            The archive file is available for download from the OpenTok cloud. You can get the URL of
+            the download file by getting the Url property of the Archive object.
+        </member>
+        <member name="F:OpenTokSDK.ArchiveStatus.DELETED">
+            The archive file has been deleted.
+        </member>
+        <member name="F:OpenTokSDK.ArchiveStatus.FAILED">
+            The recording of the archive failed.
+        </member>
+        <member name="F:OpenTokSDK.ArchiveStatus.PAUSED">
+            The archive is in progress and no clients are publishing streams to the session.
+            When an archive is in progress and any client publishes a stream, the status is STARTED.
+            When an archive is PAUSED, nothing is recorded. When a client starts publishing a stream,
+            the recording starts (or resumes). If all clients disconnect from a session that is being
+            archived, the status changes to PAUSED, and after 60 seconds the archive recording stops
+            (and the status changes to STOPPED).
+        </member>
+        <member name="F:OpenTokSDK.ArchiveStatus.STARTED">
+            The archive recording has started and is in progress.
+        </member>
+        <member name="F:OpenTokSDK.ArchiveStatus.STOPPED">
+            The archive recording has stopped, but the file is not available.
+        </member>
+        <member name="F:OpenTokSDK.ArchiveStatus.UPLOADED">
+            The archive is available for download from the the upload target
+            Amazon S3 bucket or Windows Azure container you set up for your
+            <a href="https://tokbox.com/account">OpenTok project</a>.
+        </member>
+        <member name="F:OpenTokSDK.ArchiveStatus.EXPIRED">
+            The archive file is no longer available for download from the OpenTok cloud.
+        </member>
+        <member name="F:OpenTokSDK.ArchiveStatus.UNKOWN">
+            The status of the archive is unknown.
+        </member>
+        <member name="T:OpenTokSDK.OutputMode">
+            Defines values for the OutputMode property of an Archive object.
+        </member>
+        <member name="F:OpenTokSDK.OutputMode.COMPOSED">
+            All streams in the archive are recorded to a single (composed) file.
+        </member>
+        <member name="F:OpenTokSDK.OutputMode.INDIVIDUAL">
+            Each stream in the archive is recorded to its own individual file.
+        </member>
+        <member name="T:OpenTokSDK.Archive">
+            Represents an archive of an OpenTok session.
+        </member>
+        <member name="P:OpenTokSDK.Archive.CreatedAt">
+            The time at which the archive was created, in milliseconds since the Unix epoch.
+        </member>
+        <member name="P:OpenTokSDK.Archive.Duration">
+            The duration of the archive, in milliseconds.
+        </member>
+        <member name="P:OpenTokSDK.Archive.Id">
+            The archive ID.
+        </member>
+        <member name="P:OpenTokSDK.Archive.Name">
+            The name of the archive.
+        </member>
+        <member name="P:OpenTokSDK.Archive.PartnerId">
+            The OpenTok API key associated with the archive.
+        </member>
+        <member name="P:OpenTokSDK.Archive.SessionId">
+            The session ID of the OpenTok session associated with this archive.
+        </member>
+        <member name="P:OpenTokSDK.Archive.Reason">
+            For archives with the status ArchiveStatus.STOPPED or ArchiveStatus.FAILED, this string
+            describes the reason the archive stopped (such as "maximum duration exceeded") or failed.
+        </member>
+        <member name="P:OpenTokSDK.Archive.HasVideo">
+            Whether the archive includes a video track (true) or not (false).
+        </member>
+        <member name="P:OpenTokSDK.Archive.HasAudio">
+            Whether the archive includes an audio track (true) or not (false).
+        </member>
+        <member name="P:OpenTokSDK.Archive.Resolution">
+            The resolution of the archive.
+        </member>
+        <member name="P:OpenTokSDK.Archive.OutputMode">
+            Whether all streams in the archive are recorded to a single file
+            (<code>OutputMode.COMPOSED</code>) or to individual files
+            (<code>OutputMode.INDIVIDUAL</code>). To record streams to individual
+            files, pass <code>OutputMode.INDIVIDUAL</code> as the <code>outputMode</code>
+            parameter when calling the <code>OpenTok.StartArchive()</code> method.
+        </member>
+        <member name="P:OpenTokSDK.Archive.Size">
+            The size of the MP4 file. For archives that have not been generated, this value is set
+            to 0. We use long instead of int to support archives larger than 2GB.
+        </member>
+        <member name="P:OpenTokSDK.Archive.Status">
+            The status of the archive, as defined by the ArchiveStatus enum.
+        </member>
+        <member name="P:OpenTokSDK.Archive.Url">
+            The download URL of the available MP4 file. This is only set for an archive with the
+            status set to ArchiveStatus.AVAILABLE; for other archives, (including archives with the
+            status of ArchiveStatus.UPLOADED) this method returns null. The download URL is
+            obfuscated, and the file is only available from the URL for 10 minutes. To generate a
+            new URL, call the ListArchives() or GetArchive() method of the OpenTok object.
+        </member>
+        <member name="P:OpenTokSDK.Archive.Password">
+            The encryption password of the archive. 
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:OpenTokSDK.Archive.Stop" -->
+        <!-- Badly formed XML comment ignored for member "M:OpenTokSDK.Archive.Delete" -->
+        <member name="T:OpenTokSDK.ArchiveList">
+            A class for accessing an array of Archive objects.
+        </member>
+        <member name="P:OpenTokSDK.ArchiveList.TotalCount">
+            The total number of archives (associated with your OpenTok API key).
+        </member>
+        <member name="T:OpenTokSDK.Constants.OpenTokVersion">
+            For internal use.
+        </member>
+        <member name="T:OpenTokSDK.Exception.OpenTokException">
+            Defines exceptions in the OpenTok SDK.
+        </member>
+        <member name="M:OpenTokSDK.Exception.OpenTokException.#ctor">
+            Constructor. Do not use.
+        </member>
+        <member name="M:OpenTokSDK.Exception.OpenTokException.#ctor(System.String)">
+            Constructor. Do not use.
+        </member>
+        <member name="M:OpenTokSDK.Exception.OpenTokException.#ctor(System.String,System.Exception)">
+            Constructor. Do not use.
+        </member>
+        <member name="T:OpenTokSDK.Exception.OpenTokArgumentException">
+            Defines an exception object thrown when an invalid argument is passed into a method.
+        </member>
+        <member name="M:OpenTokSDK.Exception.OpenTokArgumentException.#ctor(System.String)">
+            Constructor. Do not use.
+        </member>
+        <member name="T:OpenTokSDK.Exception.OpenTokWebException">
+            Defines an exception object thrown when a REST API call results in an error response.
+        </member>
+        <member name="M:OpenTokSDK.Exception.OpenTokWebException.#ctor(System.String,System.Exception)">
+            Constructor. Do not use.
+        </member>
+        <member name="M:OpenTokSDK.Exception.OpenTokWebException.#ctor(System.String)">
+            Constructor. Do not use.
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:OpenTokSDK.OpenTok" -->
+        <member name="P:OpenTokSDK.OpenTok.ApiKey">
+            The OpenTok API key passed into the OpenTok() constructor. 
+        </member>
+        <member name="P:OpenTokSDK.OpenTok.ApiSecret">
+            The OpenTok API secret passed into the OpenTok() constructor. 
+        </member>
+        <member name="P:OpenTokSDK.OpenTok.Client">
+            For internal use. 
+        </member>
+        <member name="F:OpenTokSDK.OpenTok._debug">
+            Enables writing request/response details to console.
+            Don't use in a production environment.
+        </member>
+        <member name="M:OpenTokSDK.OpenTok.#ctor(System.Int32,System.String)">
+             Creates an OpenTok object.
+            
+             @param apiKey Your OpenTok API key. (See the
+             <a href="https://tokbox.com/account">TokBox account page</a>.)
+             @param apiSecret Your OpenTok API secret. (See the
+             <a href="https://tokbox.com/account">TokBox account page</a>.)
+        </member>
+        <member name="M:OpenTokSDK.OpenTok.#ctor(System.Int32,System.String,System.String)">
+            For TokBox internal use.
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:OpenTokSDK.OpenTok.CreateSession(System.String,OpenTokSDK.MediaMode,OpenTokSDK.ArchiveMode)" -->
+        <!-- Badly formed XML comment ignored for member "M:OpenTokSDK.OpenTok.GenerateToken(System.String,OpenTokSDK.Role,System.Double,System.String,System.Collections.Generic.List{System.String})" -->
+        <!-- Badly formed XML comment ignored for member "M:OpenTokSDK.OpenTok.StartArchive(System.String,System.String,System.Boolean,System.Boolean,OpenTokSDK.OutputMode,System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:OpenTokSDK.OpenTok.StopArchive(System.String)" -->
+        <member name="M:OpenTokSDK.OpenTok.ListArchives">
+             Returns a List of Archive objects, representing archives that are both
+             both completed and in-progress, for your API key. This list is limited to 1000 archives
+             starting with the first archive recorded. For a specific range of archives, call
+             listArchives(int offset, int count).
+            
+             @return A List of Archive objects.
+        </member>
+        <member name="M:OpenTokSDK.OpenTok.ListArchives(System.Int32,System.Int32)">
+             Returns a List of Archive objects, representing archives that are both
+             both completed and in-progress, for your API key.
+            
+             @param offset The index offset of the first archive. 0 is offset of the most recently
+             started archive. 1 is the offset of the archive that started prior to the most recent
+             archive.
+            
+             @param count The number of archives to be returned. The maximum number of archives
+             returned is 1000.
+            
+             @return A List of Archive objects.
+        </member>
+        <member name="M:OpenTokSDK.OpenTok.GetArchive(System.String)">
+             Gets an Archive object for the given archive ID.
+            
+             @param archiveId The archive ID.
+             @return The Archive object.
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:OpenTokSDK.OpenTok.DeleteArchive(System.String)" -->
+        <member name="M:OpenTokSDK.OpenTok.GetStream(System.String,System.String)">
+             Gets a Stream object for the given stream ID.
+            
+             @param sessionId The session ID of the OpenTok session.
+             
+             @param streamId The stream ID.
+             
+             @return The Stream object.
+        </member>
+        <member name="M:OpenTokSDK.OpenTok.ListStreams(System.String)">
+             Returns a List of Stream objects, representing streams that are in-progress,
+             for the Session Id.
+            
+             @param sessionId The session ID corresponding to the session.
+             
+             @return A List of Stream objects.
+        </member>
+        <member name="M:OpenTokSDK.OpenTok.ForceDisconnect(System.String,System.String)">
+             Force disconnects a specific client connected to an OpenTok session.
+            
+             @param sessionId The session ID corresponding to the session.
+             
+             @param connectionId The connectionId of the connection in a session..
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:OpenTokSDK.OpenTok.StartBroadcast(System.String,System.Boolean,System.Collections.Generic.List{OpenTokSDK.Rtmp},System.String,System.Int32,OpenTokSDK.BroadcastLayout)" -->
+        <!-- Badly formed XML comment ignored for member "M:OpenTokSDK.OpenTok.StopBroadcast(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:OpenTokSDK.OpenTok.GetBroadcast(System.String)" -->
+        <member name="M:OpenTokSDK.OpenTok.SetBroadcastLayout(System.String,OpenTokSDK.BroadcastLayout)">
+             Sets the layout type for the broadcast. For a description of layout types, see 
+             <a href="hhttps://tokbox.com/developer/guides/broadcast/live-streaming/#configuring-video-layout-for-opentok-live-streaming-broadcasts">Configuring
+              the video layout for OpenTok live streaming broadcasts</a>.
+             @param broadcastId The broadcast ID of the broadcasting session
+            
+             @param layout The BroadcastLayout that defines layout options for the broadcast.
+             
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:OpenTokSDK.OpenTok.SetStreamClassLists(System.String,System.Collections.Generic.List{OpenTokSDK.StreamProperties})" -->
+        <member name="M:OpenTokSDK.OpenTok.Signal(System.String,OpenTokSDK.SignalProperties,System.String)">
+             Sends a signal to clients (or a specific client) connected to an OpenTok session.
+             
+             @param sessionId The OpenTok sessionId where the signal will be sent.
+            
+             @param signalProperties This signalProperties defines the payload for the signal.
+             
+             @param connectionId An optional parameter used to send the signal to a specific connection in a session. 
+            
+        </member>
+        <member name="T:OpenTokSDK.Role">
+            Defines values for the role parameter of the GenerateToken method of the OpenTok class.
+        </member>
+        <member name="F:OpenTokSDK.Role.PUBLISHER">
+            A publisher can publish streams, subscribe to streams, and signal. (This is the default
+            value if you do not set a role when calling GenerateToken method of the OpenTok class.
+        </member>
+        <member name="F:OpenTokSDK.Role.SUBSCRIBER">
+            A subscriber can only subscribe to streams.
+        </member>
+        <member name="F:OpenTokSDK.Role.MODERATOR">
+            In addition to the privileges granted to a publisher, in clients using the OpenTok.js
+            library, a moderator can call the <code>forceUnpublish()</code> and
+            <code>forceDisconnect()</code> methods of the Session object.
+        </member>
+        <member name="T:OpenTokSDK.RoleExtensions">
+            For internal use.
+        </member>
+        <member name="T:OpenTokSDK.MediaMode">
+            Defines values for the mediaMode parameter of the CreateSession() method of the
+            OpenTok class.
+        </member>
+        <member name="F:OpenTokSDK.MediaMode.ROUTED">
+            The session will transmit streams using the OpenTok Media Router.
+        </member>
+        <member name="F:OpenTokSDK.MediaMode.RELAYED">
+            The session will attempt to transmit streams directly between clients. If two clients
+            cannot send and receive each others' streams, due to firewalls on the clients' networks,
+            their streams will be relayed using the OpenTok TURN Server.
+        </member>
+        <member name="T:OpenTokSDK.ArchiveMode">
+            Defines values for the archiveMode property of the Session object. You also use these values
+            for the archiveMode parameter of the OpenTok.CreateSession() method.
+        </member>
+        <member name="F:OpenTokSDK.ArchiveMode.MANUAL">
+            The session is not archived automatically. To archive the session, you can call the
+            OpenTok.StartArchive() method.
+        </member>
+        <member name="F:OpenTokSDK.ArchiveMode.ALWAYS">
+            The session is archived automatically (as soon as there are clients publishing streams
+            to the session).
+        </member>
+        <member name="T:OpenTokSDK.Session">
+            Represents an OpenTok session. Use the CreateSession() method of the OpenTok class to create
+            an OpenTok session. Use the Id property of the Session object to get the session ID.
+        </member>
+        <member name="P:OpenTokSDK.Session.Id">
+            The session ID, which uniquely identifies the session.
+        </member>
+        <member name="P:OpenTokSDK.Session.ApiKey">
+            Your OpenTok API key.
+        </member>
+        <member name="P:OpenTokSDK.Session.ApiSecret">
+            Your OpenTok API secret.
+        </member>
+        <member name="P:OpenTokSDK.Session.Location">
+            The location hint IP address.
+        </member>
+        <member name="P:OpenTokSDK.Session.MediaMode">
+            Defines whether the session will transmit streams using the OpenTok Media Router
+            (<code>MediaMode.ROUTED</code>) or attempt to transmit streams directly between clients
+            (<code>MediaMode.RELAYED</code>).
+        </member>
+        <member name="P:OpenTokSDK.Session.ArchiveMode">
+            Defines whether the session is automatically archived (<code>ArchiveMode.ALWAYS</code>)
+            or not (<code>ArchiveMode.MANUAL</code>).
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:OpenTokSDK.Session.GenerateToken(OpenTokSDK.Role,System.Double,System.String,System.Collections.Generic.List{System.String})" -->
+        <member name="P:OpenTokSDK.StreamProperties.Id">
+            The stream ID.
+        </member>
+        <member name="P:OpenTokSDK.StreamProperties.LayoutClassList">
+            The layout class list as a list of strings.
+        </member>
+        <member name="P:OpenTokSDK.Stream.LayoutClassList">
+            The layout class list as a list of strings.
+        </member>
+        <member name="P:OpenTokSDK.Stream.VideoType">
+            The video type as a string.
+        </member>
+        <member name="P:OpenTokSDK.Stream.Id">
+            The stream ID.
+        </member>
+        <member name="P:OpenTokSDK.Stream.Name">
+            The name of the stream.
+        </member>
+        <member name="T:OpenTokSDK.StreamList">
+            A class for accessing an array of Stream objects.
+        </member>
+        <member name="P:OpenTokSDK.StreamList.TotalCount">
+            The total number of streams (associated with the sessionId).
+        </member>
+        <member name="T:OpenTokSDK.Util.HttpClient">
+            For internal use.
+        </member>
+    </members>
+</doc>

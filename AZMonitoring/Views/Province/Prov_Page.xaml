@@ -4,13 +4,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AZMonitoring.Views"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       FontFamily="Tahoma"
       FontSize="18"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Prov_Page">
     <StackPanel>
-        <GroupBox x:Name="GBGA" FlowDirection="RightToLeft" Padding="10" BorderThickness="0,1,0,0" Header="الادارة المركزية لمحافظة القاهرة" Foreground="White">
+        <GroupBox x:Name="GBGA" FlowDirection="RightToLeft" Padding="10" Margin="5" Header="الادارة المركزية لمحافظة القاهرة" Foreground="White">
             <Grid Height="180">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -20,85 +21,93 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Border Margin="10"
-                        BorderThickness="1"
-                        BorderBrush="White" Background="#4C000000" Cursor="Hand" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
+                <materialDesign:Card Margin="10" Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Cursor="Hand" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="80"/>
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="3*"/>
                             <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
+                        <Border Margin="5" CornerRadius="40" BorderBrush="White" BorderThickness="1" Grid.RowSpan="2">
+                            <Border.Background>
+                                <ImageBrush x:Name="IMGHCA"/>
+                            </Border.Background>
+                        </Border>
                         <TextBlock Text="رئيس الادارة المركزية" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
                         <TextBlock x:Name="TXTHCAdmin" Text="رئيس الادارة المكزية" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="20"/>
                     </Grid>
-                </Border>
-                <Border Margin="10" 
-                        BorderThickness="1"
-                        BorderBrush="White" 
-                        Grid.Column="1" 
-                        Background="#4C000000" Cursor="Hand" MouseLeftButtonUp="Grid_MouseLeftButtonUp_1">
+                </materialDesign:Card>
+                <materialDesign:Card Margin="10" Background="{DynamicResource  PrimaryHueMidBrush}" Grid.Column="1" materialDesign:ShadowAssist.ShadowDepth="Depth3"  Cursor="Hand" MouseLeftButtonUp="Grid_MouseLeftButtonUp_1">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="80"/>
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="3*"/>
                             <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
+                        <Border Margin="5" CornerRadius="40" BorderBrush="White" BorderThickness="1" Grid.RowSpan="2">
+                            <Border.Background>
+                                <ImageBrush x:Name="IMGLAG"/>
+                            </Border.Background>
+                        </Border>
                         <TextBlock Text="الوكيل الشرعي (مدير عام)" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
                         <TextBlock x:Name="TXTLAgent" Text="رئيس الادارة المركزية" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="20"/>
                     </Grid>
-                </Border>
-                <Border Margin="10" 
-                        BorderThickness="1"
-                        BorderBrush="White" 
+                </materialDesign:Card>
+                <materialDesign:Card Margin="10" Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" 
                         Grid.Row="1" 
-                        Background="#4C000000" 
                         Cursor="Hand" 
                         MouseLeftButtonUp="Grid_MouseLeftButtonUp_2">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="80"/>
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="3*"/>
                             <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
+                        <Border Margin="5" CornerRadius="40" BorderBrush="White" BorderThickness="1" Grid.RowSpan="2">
+                            <Border.Background>
+                                <ImageBrush x:Name="IMGCAG"/>
+                            </Border.Background>
+                        </Border>
                         <TextBlock Text="الوكيل الثقافي (مدير عام)" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
                         <TextBlock x:Name="TXTCAgent" Text="رئيس الادارة المكزية" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="20"/>
                     </Grid>
-                </Border>
-                <Border Background="#4C000000" 
+                </materialDesign:Card>
+                <materialDesign:Card Margin="10" Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" 
                         Grid.Column="1" 
-                        BorderThickness="1"
-                        BorderBrush="White"
                         Cursor="Hand"
-                        Margin="10"
                         Grid.Row="1" 
                         MouseLeftButtonUp="Grid_MouseLeftButtonUp_3">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="80"/>
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="3*"/>
                             <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
+                        <Border Margin="5" CornerRadius="40" BorderBrush="White" BorderThickness="1" Grid.RowSpan="2">
+                            <Border.Background>
+                                <ImageBrush x:Name="IMGSW"/>
+                            </Border.Background>
+                        </Border>
                         <TextBlock Text="مدير رعاية الطلاب" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
                         <TextBlock x:Name="TXTSWelfare" Text="رئيس الادارة المكزية" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="20"/>
                     </Grid>
-                </Border>
+                </materialDesign:Card>
             </Grid>
         </GroupBox>
-        <GroupBox x:Name="GBA"  FlowDirection="RightToLeft" Padding="10" BorderThickness="0,1,0,0" Header=" الادارات العليمية لمحافظة القاهرة" Foreground="White">
-            <ListView x:Name="LVAdministrations" BorderBrush="{x:Null}" Background="#26000000">
+        <GroupBox x:Name="GBA"  FlowDirection="RightToLeft" Padding="10" Margin="5" Header=" الادارات العليمية لمحافظة القاهرة" Foreground="White">
+            <ListView x:Name="LVInstructs" Height="110" Background="#26000000" BorderBrush="{x:Null}">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"/>
@@ -119,8 +128,8 @@
                 </ListView.ItemTemplate>
             </ListView>
         </GroupBox>
-        <GroupBox x:Name="GBI"  FlowDirection="RightToLeft" Padding="10" BorderThickness="0,1,0,0" Header="التوجيه العام بمحافظة القاهرة" Foreground="White">
-            <ListView x:Name="LVInstructs" Background="#26000000" BorderBrush="{x:Null}">
+        <GroupBox x:Name="GBI"  FlowDirection="RightToLeft" Padding="10" Margin="5" Header="التوجيه بمحافظة القاهرة" Foreground="White">
+            <ListView x:Name="LVAdministrations" Height="110" BorderBrush="{x:Null}" Background="#26000000">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"/>
@@ -128,8 +137,10 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
-                        <Setter Property="Background" Value="AliceBlue"/>
+                        <Setter Property="Background" Value="#55ffffff"/>
                         <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="BorderBrush" Value="White"/>
+                        <Setter Property="BorderThickness" Value="1"/>
                         <Setter Property="Height" Value="100"/>
                         <Setter Property="Width" Value="160"/>
                     </Style>

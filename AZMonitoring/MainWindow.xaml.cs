@@ -1,4 +1,5 @@
 ﻿using AZMonitoring.Structures.Pages;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,18 +26,23 @@ namespace AZMonitoring
     {
         bool fro = false,ch = false,chts = false,ocprovlist = false;
         internal static Views.ChatingPage chatingPage;
+        private Views.All_Chats_Page achsp;
         private DAL.DAL DB;
+        private bool _ShowingDialog;
+        private bool _AllowClose;
         public MainWindow()
         {
             InitializeComponent();
             DB = new DAL.DAL();
             DB.CreateConnection(this);
             statics.staticframe = MainFrameContainer;
+            achsp = new Views.All_Chats_Page(this);
+            statics.myDH = GODH;
             //DB.test_addChats();
             //DB.Test_addpersons();
             //DB.Test_add_positions();
             //DB.Test_addProvinces();
-
+            //DB.test_addGinstruct();
         }
         internal void Initialize_Data_Manage_Pages()
         {
@@ -61,13 +67,25 @@ namespace AZMonitoring
                     if (statics.LogedPersonPosition.Level == 0)
                     {
                         statics.Provinces.AddRange(await DB.GetAllProvinces());
-                }
+                    }
                     else { statics.Provinces.Add(await DB.GetProvincebyName(statics.LogedPersonPosition.IDProvince)); }
-                MainListViewProv.ItemsSource = statics.Provinces;
+                    MainListViewProv.ItemsSource = statics.Provinces;
                     MainListViewProv.Items.Refresh();
                 });
             }
-        } 
+        }
+        internal async void Initialize_Chat(string snap)
+        {
+            if (statics.LogedPerson != null && statics.DChats != null)
+            {
+                await Dispatcher.InvokeAsync(async () => {
+                    var x = await DB.GetChat(snap);
+                    var y = await DChat.GetDChat(x);
+                    statics.DChats.Add(y);
+                    achsp.Refresh();
+                });
+            }
+        }
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
@@ -117,7 +135,7 @@ namespace AZMonitoring
                     OCFrame(false);
                     await Task.Run(() => { Thread.Sleep(300); });
                 }
-                ChatingFrame.Content = null;
+                ChatingFrame.Content = achsp;
                 ResetColors();
                 TXTAllChatsBTN.Background = Brushes.Gainsboro;
                 TXTAllChatsBTN.Foreground = Brushes.Teal;
@@ -158,9 +176,60 @@ namespace AZMonitoring
         {
             WindowState = WindowState.Minimized;
         }
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (MessageBox.Show("هل تريد الخروج من النظام الأن ؟", "خروج", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No, MessageBoxOptions.RightAlign) != MessageBoxResult.Yes){ e.Cancel = true; }
+            //if (MessageBox.Show("هل تريد الخروج من النظام الأن ؟", "خروج", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No, MessageBoxOptions.RightAlign) != MessageBoxResult.Yes){ e.Cancel = true; }
+            if (_AllowClose) return;
+
+            //NB: Because we are making an async call we need to cancel the closing event
+            e.Cancel = true;
+
+            //we are already showing the dialog, ignore
+            if (_ShowingDialog) return;
+
+            TextBlock txt1 = new TextBlock();
+            txt1.HorizontalAlignment = HorizontalAlignment.Center;
+            txt1.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF53B3B"));
+            txt1.Margin = new Thickness(4);
+            txt1.TextWrapping = TextWrapping.WrapWithOverflow;
+            txt1.FontSize = 18;
+            txt1.Text = "هل تريد الخروج ؟";
+
+            Button btn1 = new Button();
+            Style style = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
+            btn1.Style = style;
+            btn1.Width = 115;
+            btn1.Height = 30;
+            btn1.Margin = new Thickness(5);
+            btn1.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
+            btn1.CommandParameter = true;
+            btn1.Content = "نعم";
+
+            Button btn2 = new Button();
+            Style style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
+            btn2.Style = style2;
+            btn2.Width = 115;
+            btn2.Height = 30;
+            btn2.Margin = new Thickness(5);
+            btn2.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
+            btn2.CommandParameter = false;
+            btn2.Content = "لا";
+
+
+            DockPanel dck = new DockPanel();
+            dck.Children.Add(btn1);
+            dck.Children.Add(btn2);
+
+            StackPanel stk = new StackPanel();
+            stk.Width = 250;
+            stk.Children.Add(txt1);
+            stk.Children.Add(dck);
+            object result = await OpenDialogHost(stk);
+            if (result is bool boolResult && boolResult)
+            {
+                _AllowClose = true;
+                Close();
+            }
         }
         private void BTNLoginBTN_Click(object sender, RoutedEventArgs e)
         {
@@ -177,12 +246,14 @@ namespace AZMonitoring
                 DataContext = statics.LogedPerson;
                 var pp = await DB.GetPositionByID(statics.LogedPerson.IDPosition);
                 statics.LogedPersonPosition = pp;
+                statics.DChats = new List<DChat>();
+                DB.SetChatsListener(statics.LogedPerson.ID);
 
                 //initialize components
                 Initialize_Prov_Control_List();
                 Initialize_Data_Manage_Pages();
 
-                chatingPage = new Views.ChatingPage();
+                chatingPage = new Views.ChatingPage(this);
 
                 MainLoginPanel.IsEnabled = false;
                 MainLoginPanel.BeginAnimation(OpacityProperty, statics.GetCDAnim(300, 1, 0));
@@ -200,6 +271,7 @@ namespace AZMonitoring
             {
                 MessageBox.Show($"فشل في تسجيل الدخول", "فشل", MessageBoxButton.OK, MessageBoxImage.Error);
                 MainLoginPanel.IsEnabled = true;
+                LoginBorder.IsEnabled = true;
             }
         }
         async Task MainDockVisibility(bool openorclose, int d = 400)
@@ -251,7 +323,8 @@ namespace AZMonitoring
             {
                 try
                 {
-                    MainFrameContainer.Content = new Views.Prov_Page((Province)MainListViewProv.SelectedItem);
+                    statics.currentprov= (Province)MainListViewProv.SelectedItem;
+                    MainFrameContainer.Content = new Views.Prov_Page(statics.currentprov);
                 }
                 catch { }
 
@@ -310,6 +383,7 @@ namespace AZMonitoring
                 statics.LogedPersonPosition = null;
                 statics.Provinces = null;
                 statics.Data_Mang_Pages = null;
+                statics.DChats = null;
                 MainDockPanel.IsEnabled = false;
                 MainDockPanel.BeginAnimation(OpacityProperty, statics.GetCDAnim(300, 1, 0));
                 await Task.Run(() => { Thread.Sleep(300); });
@@ -318,6 +392,7 @@ namespace AZMonitoring
                 MainLoginPanel.Visibility = Visibility.Visible;
                 MainLoginPanel.BeginAnimation(OpacityProperty, statics.GetCDAnim(300, 0, 1));
                 MainLoginPanel.IsEnabled = true;
+                LoginBorder.IsEnabled = true;
                 MainFrameContainer.Content = null;
                 resetControlers();
                 ResetColors();
@@ -338,6 +413,10 @@ namespace AZMonitoring
             }
             else { bor.BorderThickness = new Thickness(0); }
         }
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+
+        }
         private void MainDashboardBTN_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             MainFrameContainer.Content = new Views.Dashboard.Dashboard_MainPage();
@@ -355,6 +434,20 @@ namespace AZMonitoring
         {
             if (openclose) { ChatingFrame.BeginAnimation(WidthProperty, statics.GetCDAnim(time, 0, 300)); }
             else { ChatingFrame.BeginAnimation(WidthProperty, statics.GetCDAnim(time, 300, 0)); }
+        }
+        internal async Task<object> GODH(object cont)
+        {
+            object v = null;
+            await Dispatcher.Invoke(async () => { v = await OpenDialogHost(cont); });
+            return v;
+        }
+        internal async Task<object> OpenDialogHost(object content)
+        {
+            if (_ShowingDialog) return null;
+            _ShowingDialog = true;
+            object result = await MaterialDesignThemes.Wpf.DialogHost.Show(content);
+            _ShowingDialog = false;
+            return result;
         }
         
     }

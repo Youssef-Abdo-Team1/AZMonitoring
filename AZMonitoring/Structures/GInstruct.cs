@@ -7,8 +7,8 @@ namespace AZMonitoring
 {
     public class GInstruct
     {
-        public string GeneralInstructorID { get; set; }
-        public string FirstInstructorID { get; set; }
+        public StaticInfo GeneralInstructorID { get; set; }
+        public StaticInfo FirstInstructorID { get; set; }
         public List<string> HeadsID { get; set; }
         public string ID { get; set; }
         public string Name { get; set; }

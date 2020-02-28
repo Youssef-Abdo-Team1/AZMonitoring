@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AZMonitoring.Views"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       FontFamily="Tahoma"
       FontSize="16"
@@ -13,41 +14,49 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
             <Border CornerRadius="50" Height="50" Width="50">
                 <Border.Background>
                     <ImageBrush x:Name="Img"/>
                 </Border.Background>
             </Border>
-            <TextBlock x:Name="TXTName" Margin="10,0" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="30" TextAlignment="Center"/>
-        </StackPanel>
-        <ListView x:Name="LISTCurrentChatMessages" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalAlignment="Bottom" Background="{x:Null}">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid HorizontalAlignment="Stretch">
-                        <Border CornerRadius="10" Padding="10"  Background="{Binding Background}" HorizontalAlignment="{Binding Alignment1}" MaxWidth="240">
-                            <StackPanel>
-                                <TextBlock Text="{Binding Text}" HorizontalAlignment="{Binding Alignment1}" FlowDirection="RightToLeft" TextWrapping="WrapWithOverflow" Foreground="Black" />
-                                <Image Source="{Binding Image}"/>
-                                <TextBlock FontSize="10" HorizontalAlignment="Center" >
+            <TextBlock x:Name="TXTName" Grid.Column="1" Margin="10,0" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="30" TextAlignment="Center"/>
+            <materialDesign:PackIcon x:Name="VideoChatIcon" materialDesign:ShadowAssist.ShadowDepth="Depth2" Kind="VideoCall" Grid.Column="2" Height="50" Width="50" Foreground="White" MouseLeftButtonUp="PackIcon_MouseLeftButtonUp"/>
+        </Grid>
+        <ScrollViewer x:Name="MessageScroller"  Grid.Row="1"  ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView x:Name="LISTCurrentChatMessages" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalAlignment="Bottom" Background="{x:Null}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid HorizontalAlignment="Stretch">
+                            <Border CornerRadius="10" Padding="10"  Background="{Binding Background}" HorizontalAlignment="{Binding Alignment1}" MaxWidth="240">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Text}" HorizontalAlignment="{Binding Alignment1}" FlowDirection="RightToLeft" TextWrapping="WrapWithOverflow" Foreground="Black" />
+                                    <Image Source="{Binding Image}"/>
+                                    <TextBlock FontSize="10" HorizontalAlignment="Center" >
                                     <Hyperlink NavigateUri="{Binding Link}" RequestNavigate="Hyperlink_RequestNavigate" >
                                         <TextBlock Foreground="#FF0202CF" Text="{Binding Link}"/>
                                     </Hyperlink>
                                 </TextBlock>
-                                <TextBlock Text="{Binding Date}" FontSize="10" HorizontalAlignment="{Binding Alignment2}"/>
-                            </StackPanel>
-                        </Border>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                                    <TextBlock Text="{Binding Date}" FontSize="10" HorizontalAlignment="{Binding Alignment2}"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollViewer>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="40"/>
@@ -58,7 +67,7 @@
             <Border Style="{DynamicResource BRD1}" Grid.Column="1">
                 <TextBox x:Name="TXTMassage" AcceptsReturn="True" AcceptsTab="True"  Background="{x:Null}" BorderThickness="0" TextWrapping="WrapWithOverflow" KeyUp="TextBox_KeyUp" BorderBrush="{x:Null}" />
             </Border>
-            <Button x:Name="BTNSend" Grid.Column="3" Margin="5" Content="" ToolTip="ارسال (Shift + Enter)" Style="{DynamicResource BTN1}"/>
+            <Button x:Name="BTNSend" Grid.Column="3" Click="BTNSend_Click" Margin="5" Content="" ToolTip="ارسال (Shift + Enter)" Style="{DynamicResource BTN1}"/>
         </Grid>
     </Grid>
 </Page>

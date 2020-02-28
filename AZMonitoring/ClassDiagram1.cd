@@ -14,9 +14,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AZMonitoring.Province">
-    <Position X="11.75" Y="2.5" Width="2" />
+    <Position X="11.5" Y="2" Width="2" />
     <TypeIdentifier>
-      <HashCode>AABACAAAAAAiAAQAAIAAAAQAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AABACAAAAAAiAAQAAIAAAAQAAACAAAAAAAAAAAgAAAA=</HashCode>
       <FileName>Structures\Province.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -125,7 +125,7 @@
       <FileName>Structures\DPosition.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AZMonitoring.StaticProvinceInfo">
+  <Class Name="AZMonitoring.StaticInfo">
     <Position X="13.75" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAACAAAAAAAAQAAAAAAAAAgAAAAAAAAAA=</HashCode>
@@ -133,7 +133,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AZMonitoring.Chats">
-    <Position X="2.75" Y="2.5" Width="1.5" />
+    <Position X="4" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
       <FileName>Structures\Chats.cs</FileName>

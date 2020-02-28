@@ -3,11 +3,13 @@ using Firebase.Auth;
 using Firebase.Storage;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -15,11 +17,16 @@ using System.Windows.Media.Imaging;
 
 namespace AZMonitoring
 {
+    public delegate void MyDelegate();
+    public delegate Task<object> MyDHDelegate(object content);
     public class statics
     {
+        internal static Province currentprov { get; set; }
+        internal static MyDelegate MessageRefreshDelegate { get; set; }
         internal static Frame staticframe { get; set; }
         internal static List<StPages> Data_Mang_Pages { get; set; }
         internal static List<Province> Provinces { get; set; }
+        internal static DChat CurrentChat { get; set; }
         internal static DPerson LogedPerson { get; set; }
         internal static Position LogedPersonPosition { get; set; }
         internal static DoubleAnimationUsingKeyFrames GetCDAnim(int Time, int invalue, int outvalue)
@@ -71,5 +78,31 @@ namespace AZMonitoring
             }
             catch { return ""; }
         }
+        internal static async Task<List<string>> CreateSession(int apikey, string apisecret)
+        {
+            try
+            {
+                var ls = new List<string>();
+                var p = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = Environment.CurrentDirectory + "\\SG\\OpenTokSG.exe",
+                        Arguments = apikey + " " + apisecret,
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        CreateNoWindow = true
+                    }
+                };
+                p.Start();
+                while (!p.StandardOutput.EndOfStream)
+                {
+                    ls.Add(p.StandardOutput.ReadLine());
+                }
+                return ls;
+            }
+            catch { MessageBox.Show("حدث حطأ اثناء انشاء الجلسة"); return null; }
+        }
+        internal static MyDHDelegate myDH { get; set; }
     }
 }

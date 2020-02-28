@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AZMonitoring
 {
-    public class StaticProvinceInfo
+    public class StaticInfo
     {
         public string Name { get; set; }
         public string PositionID { get; set; }

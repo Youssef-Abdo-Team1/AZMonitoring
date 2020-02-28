@@ -11,6 +11,7 @@ namespace AZMonitoring
         Photo,
         Video,
         File,
-        Broadcast
+        Broadcast,
+        VideoChat
     }
 }

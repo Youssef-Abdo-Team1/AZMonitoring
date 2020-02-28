@@ -28,10 +28,10 @@ namespace AZMonitoring.DAL
                          await client.SetAsync(pathprovincenames, provinceNames);
                      }
                  });
-                mProvince.HCAdministrationID = new StaticProvinceInfo();
-                mProvince.CulturalAgentDGID = new StaticProvinceInfo();
-                mProvince.LegalAgentDGID = new StaticProvinceInfo();
-                mProvince.SWelfareDID = new StaticProvinceInfo();
+                mProvince.HCAdministrationID = new StaticInfo();
+                mProvince.CulturalAgentDGID = new StaticInfo();
+                mProvince.LegalAgentDGID = new StaticInfo();
+                mProvince.SWelfareDID = new StaticInfo();
 
                 mProvince.HCAdministrationID.Name = PHCAID.Name;
                 mProvince.HCAdministrationID.Photo = PHCAID.Photo;

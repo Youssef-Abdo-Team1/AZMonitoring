@@ -45,5 +45,18 @@ namespace AZMonitoring.DAL
             }
             catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return false; }
         }
+        internal async Task<List<GInstruct>> GetGInstructs(List<string> IDS)
+        {
+            try
+            {
+                if (IDS == null || IDS.Count == 0) { return null; }
+                var ls = new List<GInstruct>();
+                IDS.ForEach(async item => {
+                    ls.Add(await GetGInstructbyID(item));
+                });
+                return ls;
+            }
+            catch { return null; }
+        }
     }
 }
