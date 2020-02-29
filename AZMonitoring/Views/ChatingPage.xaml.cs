@@ -57,8 +57,18 @@ namespace AZMonitoring.Views
         {
             if ((Keyboard.IsKeyDown(Key.RightShift) || Keyboard.IsKeyDown(Key.LeftShift)) && e.Key == Key.Enter)
             {
+                string st = TXTMassage.Text;
+                int s = TXTMassage.SelectionStart;
+                string s1 = st.Substring(0, s);
+                string s2 = st.Substring(s, st.Length - s);
+                s++;
+                TXTMassage.Text = s1 + "\n" + s2;
+                TXTMassage.SelectionStart = s;
+            }
+            else if (e.Key == Key.Enter)
+            {
                 e.Handled = true;
-                SendMassage(TXTMassage.Text);
+                if(TXTMassage.Text.Replace("\n","").Replace(" ","").Length > 0) { SendMassage(TXTMassage.Text); }
                 TXTMassage.Text = "";
             }
         }
@@ -77,42 +87,19 @@ namespace AZMonitoring.Views
 
         private void BTNSend_Click(object sender, RoutedEventArgs e)
         {
-            SendMassage(TXTMassage.Text);
+            if (TXTMassage.Text.Replace("\n", "").Replace(" ", "").Length > 0) { SendMassage(TXTMassage.Text); }
             TXTMassage.Text = "";
         }
 
-        private async void PackIcon_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void PackIcon_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            Frame frame = new Frame();
-            frame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-            frame.Height = 420;
-            frame.Width = 640;
+            main.OpenVideoChat(statics.CurrentChat.IDPerson1 == statics.LogedPerson.ID ? statics.CurrentChat.IDPerson2 : statics.CurrentChat.IDPerson1);
+            main.OCFrame(false);
+        }
 
-            var vd = new Views.VideoPages.VideoChatPage();
-            var txt = new TextBox();
-            var ls = await vd.Createvideochat();
-            txt.Text = $"{ls[0]}\n{ls[1]}";
-            try
-            { DB.AddMessage(statics.CurrentChat, new Message { Date = DateTime.Now, Content = $"{ls[0]}\n{ls[1]}", Read = false, Type = MessageType.VideoChat, Sender = statics.LogedPerson.ID }); } catch { }
-            frame.Content = vd;
+        private void BTNSendPH_Click(object sender, RoutedEventArgs e)
+        {
 
-            Button btn2 = new Button();
-            Style style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
-            btn2.Click += (s, ee) => { vd.disconnect(); };
-            btn2.Style = style2;
-            btn2.Width = 115;
-            btn2.Height = 30;
-            btn2.Margin = new Thickness(5);
-            btn2.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
-            btn2.CommandParameter = false;
-            btn2.Content = "إغلاق";
-
-
-            StackPanel stk = new StackPanel();
-            stk.Children.Add(frame);
-            stk.Children.Add(btn2);
-            stk.Children.Add(txt);
-            object result = await main.OpenDialogHost(stk);
         }
     }
 }

@@ -42,7 +42,8 @@ namespace AZMonitoring.Views.VideoPages
         }
         internal async Task<List<string>> Createvideochat()
         {
-            var ls = await statics.CreateSession(API_KEY, API_SECRET);
+            var ls = await statics.CreatePublisherSession(API_KEY, API_SECRET);
+            if (ls[0].Contains("Error:")) { return null; }
             SESSION_ID = ls[0];
             TOKEN = ls[1];
             Initiate();

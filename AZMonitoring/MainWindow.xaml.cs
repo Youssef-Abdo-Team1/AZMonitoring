@@ -1,4 +1,5 @@
 ﻿using AZMonitoring.Structures.Pages;
+using FireSharp.EventStreaming;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -248,6 +249,7 @@ namespace AZMonitoring
                 statics.LogedPersonPosition = pp;
                 statics.DChats = new List<DChat>();
                 DB.SetChatsListener(statics.LogedPerson.ID);
+                DB.SetStreamListener(addedsnaphundler, changedsnaphundler);
 
                 //initialize components
                 Initialize_Prov_Control_List();
@@ -385,6 +387,7 @@ namespace AZMonitoring
                 statics.Data_Mang_Pages = null;
                 statics.DChats = null;
                 MainDockPanel.IsEnabled = false;
+                DB.DisposeStreamListener();
                 MainDockPanel.BeginAnimation(OpacityProperty, statics.GetCDAnim(300, 1, 0));
                 await Task.Run(() => { Thread.Sleep(300); });
                 MainDockPanel.Visibility = Visibility.Hidden;
@@ -435,21 +438,124 @@ namespace AZMonitoring
             if (openclose) { ChatingFrame.BeginAnimation(WidthProperty, statics.GetCDAnim(time, 0, 300)); }
             else { ChatingFrame.BeginAnimation(WidthProperty, statics.GetCDAnim(time, 300, 0)); }
         }
-        internal async Task<object> GODH(object cont)
+        internal async Task<object> GODH(Panel cont)
         {
             object v = null;
             await Dispatcher.Invoke(async () => { v = await OpenDialogHost(cont); });
             return v;
         }
-        internal async Task<object> OpenDialogHost(object content)
+        internal async Task<object> OpenDialogHost(Panel content)
         {
             if (_ShowingDialog) return null;
             _ShowingDialog = true;
+            content.Margin = new Thickness(10);
+            content.MaxHeight = ActualHeight - 150;
+            content.MaxWidth = ActualWidth - 100;
             object result = await MaterialDesignThemes.Wpf.DialogHost.Show(content);
             _ShowingDialog = false;
             return result;
         }
-        
+        internal async void OpenVideoChat(string partner)
+        {
+            if (!await DB.CheckPersonStreamAvailable(partner))
+            {
+                var txt = new TextBlock();
+                txt.Text = "هذا المستخدم في حالة اتصال الان!! الرجاء المحاولة لاحقاً";
+
+                Button btn2 = new Button();
+                Style style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
+                btn2.Style = style2;
+                btn2.Width = 115;
+                btn2.Height = 30;
+                btn2.Margin = new Thickness(5);
+                btn2.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
+                btn2.CommandParameter = false;
+                btn2.Content = "إغلاق";
+
+
+                StackPanel stk = new StackPanel();
+                stk.Children.Add(txt);
+                stk.Children.Add(btn2);
+                object result = await OpenDialogHost(stk);
+                return;
+            }
+            else
+            {
+                Frame frame = new Frame();
+                frame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+                frame.Height = 420;
+                frame.Width = 640;
+
+                var vd = new Views.VideoPages.VideoChatPage();
+                var txt = new TextBox();
+                var ls = await vd.Createvideochat();
+                if (ls == null) { return; }
+                txt.Text = $"{ls[0]}\n{ls[1]}";
+                DB.DisposeStreamListener();
+                DB.SetVideoChat(partner, $"{ls[0]}\n{ls[1]}");
+                frame.Content = vd;
+
+                Button btn2 = new Button();
+                Style style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
+                btn2.Click += (s, ee) => { vd.disconnect(); DB.SetStreamListener(addedsnaphundler, changedsnaphundler); };
+                btn2.Style = style2;
+                btn2.Width = 115;
+                btn2.Height = 30;
+                btn2.Margin = new Thickness(5);
+                btn2.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
+                btn2.CommandParameter = false;
+                btn2.Content = "إغلاق";
+
+
+                StackPanel stk = new StackPanel();
+                stk.Children.Add(frame);
+                stk.Children.Add(btn2);
+                stk.Children.Add(txt);
+                object result = await OpenDialogHost(stk);
+            }
+        }
+        internal async void changedsnaphundler(ValueChangedEventArgs snap)
+        {
+            Dispatcher.Invoke(async() => {
+                try
+                {
+                    string[] sts = snap.Data.Split('\n');
+                    if (sts == null || !(sts.Length >= 3)) { return; }
+                    var d = statics.DChats.FirstOrDefault(item => item.IDPerson1 == sts[0] || item.IDPerson2 == sts[0]);
+                    Frame frame = new Frame();
+                    frame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+                    frame.Height = 420;
+                    frame.Width = 640;
+
+                    var vd = new Views.VideoPages.VideoChatPage();
+                    vd.EnterChat(sts[1], sts[2]);
+                    DB.DisposeStreamListener();
+                    frame.Content = vd;
+
+                    Button btn2 = new Button();
+                    Style style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
+                    btn2.Click += (s, ee) => { vd.disconnect(); DB.SetStreamListener(addedsnaphundler, changedsnaphundler); };
+                    btn2.Style = style2;
+                    btn2.Width = 115;
+                    btn2.Height = 30;
+                    btn2.Margin = new Thickness(5);
+                    btn2.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
+                    btn2.CommandParameter = false;
+                    btn2.Content = "إغلاق";
+
+
+                    StackPanel stk = new StackPanel();
+                    stk.Children.Add(frame);
+                    stk.Children.Add(btn2);
+                    object result = await OpenDialogHost(stk);
+                }
+                catch (Exception ex) { }
+            });
+        }
+        internal async void addedsnaphundler(ValueAddedEventArgs snap)
+        {
+
+        }
     }
 
 

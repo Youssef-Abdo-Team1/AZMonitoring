@@ -16,5 +16,13 @@ namespace AZMonitoring
         public string Description { get; set; }
         public string SSN { get; set; }
         public DateTime DOB { get; set; }
+
+        public string CurrentStream
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

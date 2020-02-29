@@ -12,13 +12,16 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using FireSharp.EventStreaming;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 
 namespace AZMonitoring
 {
     public delegate void MyDelegate();
-    public delegate Task<object> MyDHDelegate(object content);
+    public delegate Task<object> MyDHDelegate(Panel content);
+    public delegate void myadedsnapdeleget(ValueAddedEventArgs snap);
+    public delegate void mychangedsnapdeleget(ValueChangedEventArgs snap);
     public class statics
     {
         internal static Province currentprov { get; set; }
@@ -78,7 +81,7 @@ namespace AZMonitoring
             }
             catch { return ""; }
         }
-        internal static async Task<List<string>> CreateSession(int apikey, string apisecret)
+        internal static async Task<List<string>> CreatePublisherSession(int apikey, string apisecret)
         {
             try
             {
@@ -88,7 +91,57 @@ namespace AZMonitoring
                     StartInfo = new ProcessStartInfo
                     {
                         FileName = Environment.CurrentDirectory + "\\SG\\OpenTokSG.exe",
-                        Arguments = apikey + " " + apisecret,
+                        Arguments = $"/CSP {apikey} {apisecret}",
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        CreateNoWindow = true
+                    }
+                };
+                p.Start();
+                while (!p.StandardOutput.EndOfStream)
+                {
+                    ls.Add(p.StandardOutput.ReadLine());
+                }
+                return ls;
+            }
+            catch { MessageBox.Show("حدث حطأ اثناء انشاء الجلسة"); return null; }
+        }
+        internal static async Task<List<string>> CreateSubscriberSession(int apikey, string apisecret)
+        {
+            try
+            {
+                var ls = new List<string>();
+                var p = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = Environment.CurrentDirectory + "\\SG\\OpenTokSG.exe",
+                        Arguments = $"/CSS {apikey} {apisecret}",
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        CreateNoWindow = true
+                    }
+                };
+                p.Start();
+                while (!p.StandardOutput.EndOfStream)
+                {
+                    ls.Add(p.StandardOutput.ReadLine());
+                }
+                return ls;
+            }
+            catch { MessageBox.Show("حدث حطأ اثناء انشاء الجلسة"); return null; }
+        }
+        internal static async Task<List<string>> CreateModSession(int apikey, string apisecret)
+        {
+            try
+            {
+                var ls = new List<string>();
+                var p = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = Environment.CurrentDirectory + "\\SG\\OpenTokSG.exe",
+                        Arguments = $"/CSM {apikey} {apisecret}",
                         UseShellExecute = false,
                         RedirectStandardOutput = true,
                         CreateNoWindow = true

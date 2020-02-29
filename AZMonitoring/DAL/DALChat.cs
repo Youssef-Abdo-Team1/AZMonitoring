@@ -114,19 +114,23 @@ namespace AZMonitoring.DAL
         {
             try
             {
-                y = await client.OnAsync(pathchat + id + "/MessagesID", changed: async (obj, snap, cont) => {
+                y = await client.OnAsync(pathchat + id + "/MessagesID"
+                //    , changed: async (obj, snap, cont) => {
+                //    if (statics.CurrentChat.Messages == null) { statics.CurrentChat.Messages = new List<DMessage>(); }
+                //    if (statics.CurrentChat.MessagesID == null) { statics.CurrentChat.MessagesID = new List<string>(); }
+                //    statics.CurrentChat.MessagesID.Add(snap.Data);
+                //    statics.CurrentChat.Messages.Add(DMessage.GetDMessage(await GetMessage(snap.Data)));
+                //    statics.MessageRefreshDelegate.Invoke();
+                //}
+                , added: async (obj, snap, cont) =>
+                {
                     if (statics.CurrentChat.Messages == null) { statics.CurrentChat.Messages = new List<DMessage>(); }
                     if (statics.CurrentChat.MessagesID == null) { statics.CurrentChat.MessagesID = new List<string>(); }
                     statics.CurrentChat.MessagesID.Add(snap.Data);
                     statics.CurrentChat.Messages.Add(DMessage.GetDMessage(await GetMessage(snap.Data)));
                     statics.MessageRefreshDelegate.Invoke();
-                }, added: async (obj, snap, cont) => {
-                    if (statics.CurrentChat.Messages == null) { statics.CurrentChat.Messages = new List<DMessage>(); }
-                    if (statics.CurrentChat.MessagesID == null) { statics.CurrentChat.MessagesID = new List<string>(); }
-                    statics.CurrentChat.MessagesID.Add(snap.Data);
-                    statics.CurrentChat.Messages.Add(DMessage.GetDMessage(await GetMessage(snap.Data)));
-                    statics.MessageRefreshDelegate.Invoke();
-                });
+                }
+                );
             }
             catch { }
         }

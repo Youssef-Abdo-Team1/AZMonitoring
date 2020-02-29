@@ -47,7 +47,9 @@
                             <TextBlock x:Name="TXTOpenLastChatBTN" MouseLeftButtonUp="TXTOpenLastChatBTN_MouseLeftButtonUp" Style="{DynamicResource TXT1}" Padding="5,0" Text="" Background="Teal" Foreground="Gainsboro"/>
                             <TextBlock x:Name="TXTAllChatsBTN" MouseLeftButtonUp="TXTAllChatsBTN_MouseLeftButtonUp" Style="{DynamicResource TXT1}" Padding="5,0" Text="" Background="Teal" Foreground="Gainsboro"/>
                         </StackPanel>
-                        <StackPanel Grid.Column="1" MouseLeftButtonDown="Grid_MouseLeftButtonDown" HorizontalAlignment="Stretch" Background="Teal" />
+                        <StackPanel Grid.Column="1" MouseLeftButtonDown="Grid_MouseLeftButtonDown" HorizontalAlignment="Stretch" Background="Teal" >
+                            <TextBlock Text="البرنامج الالكتروني للتوجيه و المتابعة بالازهر الشريف" VerticalAlignment="Center" IsEnabled="False" Margin="0,3,300,0" FontWeight="Bold" TextAlignment="Center" Foreground="#FFFFF7F7" FontSize="18"/>
+                        </StackPanel>
 
                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" FlowDirection="RightToLeft">
                             <TextBlock x:Name="TXTExitBTN" MouseLeftButtonUp="TXTExitBTN_MouseLeftButtonUp" ToolTip="خروج" Style="{DynamicResource TXT1}" Padding="5,0" Text="" Background="Teal" Foreground="Gainsboro"/>
@@ -157,6 +159,7 @@
                         <StackPanel.Effect>
                             <DropShadowEffect BlurRadius="15" ShadowDepth="0" Opacity="0.8"/>
                         </StackPanel.Effect>
+                        <TextBlock Text="البرنامج الالكتروني للتوجيه و المتابعة بالازهر الشريف" VerticalAlignment="Center" IsEnabled="False" Margin="0,3,0,0" FontWeight="Bold" TextAlignment="Center" Foreground="#FFFFF7F7" FontSize="18"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Background="Teal" HorizontalAlignment="Right" FlowDirection="RightToLeft">
                         <TextBlock x:Name="TXTExit1BTN" MouseLeftButtonUp="TXTExitBTN_MouseLeftButtonUp" ToolTip="خروج" Style="{DynamicResource TXT1}" Padding="5,0" Text="" Background="Teal" Foreground="Gainsboro"/>

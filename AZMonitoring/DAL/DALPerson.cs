@@ -1,5 +1,6 @@
 ﻿using Firebase.Auth;
 using Firebase.Storage;
+using FireSharp.Response;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +13,7 @@ namespace AZMonitoring.DAL
 {
     partial class DAL
     {
+        EventStreamResponse personlisner;
         internal async Task<bool> AddPerson(Person newPerson)
         {
             try
@@ -149,6 +151,58 @@ namespace AZMonitoring.DAL
                 return (await client.GetAsync(pathperson + id + "/Name")).ResultAs<string>();
             }
             catch { return ""; }
+        }
+        internal async Task<string> GetCurrentStream(string personid)
+        {
+            try
+            {
+                return (await client.GetAsync(pathperson + personid + "/CurrentStream")).ResultAs<string>();
+            }
+            catch { return ""; }
+        }
+        internal async Task<bool> CheckPersonStreamAvailable(string personid)
+        {
+            try
+            {
+                string x = (await GetCurrentStream(personid));
+                return x == null ? true : (x.Replace(" ", "") == ""?true:false);
+            }
+            catch { return false; }
+        }
+        internal async void SetVideoChat(string partnerid,string stream)
+        {
+            try
+            {
+                await client.SetAsync(pathperson + statics.LogedPerson.ID + "/CurrentStream", $"{partnerid}\n{stream}");
+                await client.SetAsync(pathperson + partnerid + "/CurrentStream", $"{statics.LogedPerson.ID}\n{stream}");
+            }
+            catch(Exception ex) { }
+        }
+        internal async Task<bool> CloseVideoChat()
+        {
+            try
+            {
+                await client.UpdateAsync(pathperson + statics.LogedPerson.ID + "/CurrentStream", "");
+                return true;
+            }
+            catch { return false; }
+        }
+        internal async void SetStreamListener(myadedsnapdeleget myadedsnapdeleget = null,mychangedsnapdeleget mychangedsnapdeleget = null)
+        {
+            try
+            {
+                x = await client.OnAsync(pathperson + statics.LogedPerson.ID + "/CurrentStream/",(obj,snap,cont)=> { myadedsnapdeleget(snap); }, (obj, snap, cont) => { mychangedsnapdeleget(snap); });
+            }
+            catch { }
+        }
+        internal void DisposeStreamListener()
+        {
+            try
+            {
+                x.Dispose();
+                x = null;
+            }
+            catch { }
         }
     }
 }
