@@ -45,7 +45,7 @@ namespace AZMonitoring
             //DB.Test_add_positions();
             //DB.Test_addProvinces();
             //DB.test_addGinstruct();
-            DB.test_addinstruct();
+            //DB.test_addinstruct();
         }
         internal void Initialize_Data_Manage_Pages()
         {

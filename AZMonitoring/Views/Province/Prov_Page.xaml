@@ -89,7 +89,7 @@
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Tahoma" FontSize="18" TextAlignment="Center" TextWrapping="WrapWithOverflow"/>
+                        <TextBlock Text="{Binding Name}" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Tahoma" FontSize="18" TextAlignment="Center" TextWrapping="Wrap"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

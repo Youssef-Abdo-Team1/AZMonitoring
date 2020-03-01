@@ -25,15 +25,18 @@ namespace AZMonitoring.Views
         List<GInstruct> GInstructions;
         List<AZMonitoring.Administration> administrations;
         DAL.DAL DB = new DAL.DAL();
-        Administration.AdministrationPage administrationPage = new Administration.AdministrationPage();
+        Views.Ginstruct.GinstructPage GinstructPage;
+        Administration.AdministrationPage administrationPage;
         public Prov_Page()
         {
             InitializeComponent();
+            GinstructPage = new Ginstruct.GinstructPage();
+            administrationPage = new Administration.AdministrationPage();
         }
         private async void InitializeAdministrations()
         {
             administrations = new List<AZMonitoring.Administration>();
-            if (prov.AdministrationsID != null && prov.AdministrationsID.Count > 0)
+            if (prov.AdministrationsID != null)
             {
                 administrations.AddRange(await DB.GetAdministrationsAsync(prov.AdministrationsID));
             }
@@ -42,8 +45,8 @@ namespace AZMonitoring.Views
         }
         private async void InitializeGInstructs()
         {
-            GInstructions = null;
-            if (prov.GInstructsID != null && prov.GInstructsID.Count > 0)
+            GInstructions = new List<GInstruct>();
+            if (prov.GInstructsID != null)
             {
                 GInstructions = await DB.GetGInstructs(prov.GInstructsID);
             }
@@ -89,7 +92,8 @@ namespace AZMonitoring.Views
 
         private void ListViewItem_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
         {
-            
+            GinstructPage.InitializeFields((GInstruct)LVInstructs.SelectedItem);
+            statics.staticframe.Content = GinstructPage;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace AZMonitoring.Views.Administration
     public partial class AdministrationPage : Page
     {
 
-        AZMonitoring.Administration Administration { get; set; }
+        AZMonitoring.Administration Administration;
         List<Instruct> instructs;
         List<Institution> IPN;
         List<Institution> IPT;
@@ -74,9 +74,12 @@ namespace AZMonitoring.Views.Administration
         }
         async void InitializeInstructs()
         {
-            foreach (var item in Administration.InstrutsID)
+            if(Administration.InstrutsID != null)
             {
-                instructs.Add(await DB.GetInstructbyID(item));
+                foreach (var item in Administration.InstrutsID)
+                {
+                    instructs.Add(await DB.GetInstructbyID(item));
+                }
             }
             LVInstructs.Items.Refresh();
         }
@@ -97,28 +100,31 @@ namespace AZMonitoring.Views.Administration
         async void InitiateInstitutions()
         {
             Institution ins;
-            foreach (var item in Administration.InstitutionsID)
+            if (Administration.InstitutionsID != null)
             {
-                ins = await DB.GetInstitutionbyID(item);
-                if(ins != null)
+                foreach (var item in Administration.InstitutionsID)
                 {
-                    if(ins.Stage == Stages.PrimaryStage)
+                    ins = await DB.GetInstitutionbyID(item);
+                    if (ins != null)
                     {
-                        if(ins.Type == Type.Normal) { IPN.Add(ins); }
-                        else if (ins.Type == Type.Typical) { IPT.Add(ins); }
-                        else if (ins.Type == Type.Private) { IPS.Add(ins); }
-                    }
-                    else if(ins.Stage == Stages.PreparatoryStage)
-                    {
-                        if (ins.Type == Type.Normal) { IPRN.Add(ins); }
-                        else if (ins.Type == Type.Typical) { IPRT.Add(ins); }
-                        else if (ins.Type == Type.Private) { IPRS.Add(ins); }
-                    }
-                    else if(ins.Stage == Stages.SecondaryStage)
-                    {
-                        if (ins.Type == Type.Normal) { ISN.Add(ins); }
-                        else if (ins.Type == Type.Typical) { IST.Add(ins); }
-                        else if (ins.Type == Type.Private) { ISS.Add(ins); }
+                        if (ins.Stage == Stages.PrimaryStage)
+                        {
+                            if (ins.Type == Type.Normal) { IPN.Add(ins); }
+                            else if (ins.Type == Type.Typical) { IPT.Add(ins); }
+                            else if (ins.Type == Type.Private) { IPS.Add(ins); }
+                        }
+                        else if (ins.Stage == Stages.PreparatoryStage)
+                        {
+                            if (ins.Type == Type.Normal) { IPRN.Add(ins); }
+                            else if (ins.Type == Type.Typical) { IPRT.Add(ins); }
+                            else if (ins.Type == Type.Private) { IPRS.Add(ins); }
+                        }
+                        else if (ins.Stage == Stages.SecondaryStage)
+                        {
+                            if (ins.Type == Type.Normal) { ISN.Add(ins); }
+                            else if (ins.Type == Type.Typical) { IST.Add(ins); }
+                            else if (ins.Type == Type.Private) { ISS.Add(ins); }
+                        }
                     }
                 }
             }

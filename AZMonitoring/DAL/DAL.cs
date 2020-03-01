@@ -107,7 +107,7 @@ namespace AZMonitoring.DAL
         }
         internal async void test_addGinstruct()
         {
-            Person p = await GetPersonbyID("66");
+            Person p = await GetPersonbyID("77");
             await AddGInstruct(new GInstruct
             {
                 Name = "توجيه العلوم",
