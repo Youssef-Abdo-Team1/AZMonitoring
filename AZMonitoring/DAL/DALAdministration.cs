@@ -13,7 +13,7 @@ namespace AZMonitoring.DAL
             {
                 administration.ID = (await client.PushAsync(pathadministration, administration)).Result.name;
                 UpdateID(pathadministration + administration.ID, administration.ID);
-                await AddAdministrationsName(administration.IDProvince, administration.ID);
+                AddAdministrationsName(administration.IDProvince, administration.ID);
                 return administration.ID;
             }
             catch (Exception ex) { MessageBox.Show($"حدث خطأ في اضافة وظيفة\nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return ""; }
@@ -58,6 +58,17 @@ namespace AZMonitoring.DAL
                 return ls;
             }
             catch { return null; }
+        }
+        internal async void AddInstructToAdministration(string AID,string ID)
+        {
+            try
+            {
+                List<string> ls = (await client.GetAsync(pathadministration + AID + "/InstructsID")).ResultAs<List<string>>();
+                if (ls == null) { ls = new List<string>(); }
+                ls.Add(ID);
+                await client.SetAsync(pathadministration + AID + "/InstructsID", ls);
+            }
+            catch { }
         }
     }
 }

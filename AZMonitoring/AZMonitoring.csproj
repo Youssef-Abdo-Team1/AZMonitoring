@@ -145,6 +145,15 @@
     <Compile Include="DAL\DALInstruct.cs" />
     <Compile Include="DAL\DALInstitution.cs" />
     <Compile Include="SampleVideoRenderer.cs" />
+    <Compile Include="Views\Administration\AdministrationPage.xaml.cs">
+      <DependentUpon>AdministrationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\instituation\InstitutionPage.xaml.cs">
+      <DependentUpon>InstitutionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\intruct\InstructPage.xaml.cs">
+      <DependentUpon>InstructPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Setting\DivideValueConverter.cs" />
     <Compile Include="Structures\Chats.cs" />
     <Compile Include="DAL\DAL.cs" />
@@ -223,6 +232,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Administration\AdministrationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\All_Chats_Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -236,6 +249,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Ginstruct\GinstructPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\instituation\InstitutionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\intruct\InstructPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -339,6 +360,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">

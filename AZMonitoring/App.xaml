@@ -21,6 +21,46 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+            <Style x:Key="TXTTitle1" TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="/AZMonitoring;component/Resources/#LineAwesome"/>
+                <Setter Property="FontSize" Value="32"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="TextAlignment" Value="Center"/>
+            </Style>
+            <Style x:Key="TXTTitle2" TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="/AZMonitoring;component/Resources/#LineAwesome"/>
+                <Setter Property="FontSize" Value="26"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="TextAlignment" Value="Center"/>
+            </Style>
+            <Style x:Key="TXTTitle3" TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="/AZMonitoring;component/Resources/#LineAwesome"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="TextAlignment" Value="Center"/>
+            </Style>
+            <Style x:Key="TXTLTitle3" TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="/AZMonitoring;component/Resources/#LineAwesome"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Margin" Value="30,10"/>
+                <Setter Property="TextAlignment" Value="Left"/>
+            </Style>
+            <Style x:Key="TXTLTitle4" TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="/AZMonitoring;component/Resources/#LineAwesome"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Margin" Value="30,10"/>
+                <Setter Property="TextAlignment" Value="Left"/>
+            </Style>
             <Style x:Key="TXT2" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="12"/>
                 <Setter Property="Cursor" Value="Hand"/>

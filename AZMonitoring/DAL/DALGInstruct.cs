@@ -15,6 +15,7 @@ namespace AZMonitoring.DAL
             {
                 newGI.ID = (await client.PushAsync(pathginstruct, newGI)).Result.name;
                 UpdateID(pathginstruct + newGI.ID, newGI.ID);
+                AddGInstructToProvince(newGI.IDProvince, newGI.ID);
                 return newGI.ID;
             }
             catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return ""; }
@@ -51,12 +52,24 @@ namespace AZMonitoring.DAL
             {
                 if (IDS == null || IDS.Count == 0) { return null; }
                 var ls = new List<GInstruct>();
-                IDS.ForEach(async item => {
+                foreach (var item in IDS)
+                {
                     ls.Add(await GetGInstructbyID(item));
-                });
+                }
                 return ls;
             }
             catch { return null; }
+        }
+        internal async void AddInstructToGInstruct(string GIID,string ID)
+        {
+            try
+            {
+                List<string> ls = (await client.GetAsync(pathginstruct + GIID + "/InstructsID")).ResultAs<List<string>>();
+                if (ls == null) { ls = new List<string>(); }
+                ls.Add(ID);
+                await client.SetAsync(pathginstruct + GIID + "/InstructsID", ls);
+            }
+            catch { }
         }
     }
 }

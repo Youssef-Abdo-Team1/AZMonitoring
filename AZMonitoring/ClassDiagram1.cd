@@ -7,16 +7,16 @@
     <Position X="14.804" Y="2.588" Height="2.343" Width="1.304" />
   </Comment>
   <Class Name="AZMonitoring.Person">
-    <Position X="4" Y="4.75" Width="1.75" />
+    <Position X="3.25" Y="4.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>EQAAAAAACAAggCABAAAAAAQAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <HashCode>EQAAAAAACAAggCABAAAAAAQAAAAAAAQCAAAAAAAAAAA=</HashCode>
       <FileName>Structures\Person.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AZMonitoring.Province">
     <Position X="11.5" Y="2" Width="2" />
     <TypeIdentifier>
-      <HashCode>AABACAAAAAAiAAQAAIAAAAQAAACAAAAAAAAAAAgAAAA=</HashCode>
+      <HashCode>AABACAAAAAAiAAQAAIAAAAQAAACAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Structures\Province.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -96,7 +96,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="AZMonitoring.DChat">
-    <Position X="2.75" Y="7.5" Width="1.5" />
+    <Position X="2.75" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEEAAAAAAESAAIAAAAAUAgAAAABAAAAAAAQAAABA=</HashCode>
       <FileName>Structures\DChat.cs</FileName>
@@ -126,7 +126,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AZMonitoring.StaticInfo">
-    <Position X="13.75" Y="1" Width="1.5" />
+    <Position X="14.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAACAAAAAAAAQAAAAAAAAAgAAAAAAAAAA=</HashCode>
       <FileName>Structures\StaticProvinceInfo.cs</FileName>
@@ -156,7 +156,7 @@
   <Enum Name="AZMonitoring.MessageType">
     <Position X="7" Y="10.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAACAACAAAAAAAAAAAAAEAAAAAAAACAAAAAg=</HashCode>
+      <HashCode>AAAAAAAAAACAACAAAAAAAAAAAAAEAAAAAAEACAAAAAg=</HashCode>
       <FileName>Structures\MessageType.cs</FileName>
     </TypeIdentifier>
   </Enum>

@@ -22,7 +22,6 @@ namespace AZMonitoring.DAL
             pathadministration = "AZMonitoring/Administration/",
             pathadmin = "AZMonitoring/Admin/",
             pathginstruct = "AZMonitoring/GInstruct/",
-            pathginstructNames = "AZMonitoring/GInstruct/Names/",
             pathinstruct = "AZMonitoring/Instruct/",
             pathinstitution = "AZMonitoring/Institution/",
             pathposition = "AZMonitoring/Position/",
@@ -111,12 +110,16 @@ namespace AZMonitoring.DAL
             Person p = await GetPersonbyID("66");
             await AddGInstruct(new GInstruct
             {
-                Name = "توجيه التربيه الرياضيه",
+                Name = "توجيه العلوم",
                 Description = "الاهتمام بالشؤن الرياضيه",
                 FirstInstructorID = new StaticInfo {Name=p.Name,Photo=p.Photo,PositionID=p.IDPosition },
                 GeneralInstructorID = new StaticInfo { Name = p.Name, Photo = p.Photo, PositionID = p.IDPosition },
-                IDProvince= "الاسكندرية"
+                IDProvince= "القاهرة"
             });
+        }
+        internal async void test_addinstruct()
+        {
+            await AddInstruct(new Instruct { IDAdministration = "-M0dkQvTDnlH9WOHfCEq", IDGInstruct = "-M0jpVfbxZO5PVBQ6v6G", AdminstrationInstructorsID = new List<string> {"66", "77" } });
         }
 
     }

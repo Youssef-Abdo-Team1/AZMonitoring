@@ -23,7 +23,20 @@ namespace AZMonitoring.Views.Ginstruct
         public GinstructPage()
         {
             InitializeComponent();
-            InitializeFields();
+            this.DataContext = new GInstruct
+            {
+                FirstInstructorID = new StaticInfo
+                {
+                    Name = "Abdo mostafa",
+                    Photo = null
+                },
+                GeneralInstructorID = new StaticInfo
+                {
+                    Name = "Youssef",
+                    Photo = null
+                },
+                Name = "توجيه التربيه الرياضيه",
+            };
         }
 
         private void Border_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -35,14 +48,9 @@ namespace AZMonitoring.Views.Ginstruct
         {
 
         }
-        async void InitializeFields()
+        public void InitializeFields(GInstruct gInstruct)
         {
-            //statics.currentgInstruct =
-            //  IMGCAG.ImageSource = IMGHCA.ImageSource = IMGLAG.ImageSource = IMGSW.ImageSource = null;
-            //IMGHCA.ImageSource = await statics.DounloadImage(prov.HCAdministrationID.Photo);
-            //IMGCAG.ImageSource = await statics.DounloadImage(prov.CulturalAgentDGID.Photo);
-            //IMGLAG.ImageSource = await statics.DounloadImage(prov.LegalAgentDGID.Photo);
-            //IMGSW.ImageSource = await statics.DounloadImage(prov.SWelfareDID.Photo);
+            this.DataContext = gInstruct;
         }
     }
 }

@@ -4,117 +4,70 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AZMonitoring.Views.Ginstruct"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="800"
       Title="GinstructPage">
-
     <StackPanel>
         <GroupBox x:Name="GBGA" 
-                  FlowDirection="RightToLeft"
-                  Padding="10"
-                  BorderThickness="0,1,0,0"
-                  Header="الادارة المركزية لمحافظة القاهرة" 
-                  Foreground="White"
-                  Margin="8">
-            <Grid 
-                Height="110">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Border Margin="10"
-                    BorderThickness="1"
-                    BorderBrush="White" Background="#4C000000" Cursor="Hand" MouseLeftButtonUp="Border_MouseLeftButtonUp_1">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="80"/>
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="3*"/>
-                            <RowDefinition Height="2*"/>
-                        </Grid.RowDefinitions>
-                        <Border Margin="5" CornerRadius="40" BorderBrush="White" BorderThickness="1" Grid.RowSpan="2">
+                              FlowDirection="RightToLeft"
+                              Padding="5"
+                              BorderThickness="0,1,0,0"
+                              Header="{Binding Path=Name}" 
+                              Foreground="White">
+            <UniformGrid Rows="1">
+                <materialDesign:Card Padding="5" Margin="5" Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Cursor="Hand">
+                    <StackPanel Orientation="Horizontal" >
+                        <Border Margin="10" CornerRadius="25" BorderBrush="White" BorderThickness="1" Grid.RowSpan="2" Height="60" VerticalAlignment="Bottom" Width="60">
                             <Border.Background>
-                                <ImageBrush x:Name="IMGHCA"/>
+                                <ImageBrush ImageSource="{Binding Path=FirstInstructorID.Photo,IsAsync=True}"/>
                             </Border.Background>
                         </Border>
-                        <TextBlock Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"><Run FlowDirection="RightToLeft" Text="الموجه العام"/></TextBlock>
-                        <TextBlock x:Name="GeneralInstructor" Text="رئيس الادارة المكزية" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="20"/>
-                    </Grid>
-                </Border>
-                <Border Margin="10" 
-                    BorderThickness="1"
-                    BorderBrush="White" 
-                    Grid.Column="1" 
-                    Background="#4C000000" Cursor="Hand" MouseLeftButtonUp="Border_MouseLeftButtonUp">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="80"/>
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="3*"/>
-                            <RowDefinition Height="2*"/>
-                        </Grid.RowDefinitions>
-                        <Border Margin="5" CornerRadius="40" BorderBrush="White" BorderThickness="1" Grid.RowSpan="2">
+                        <StackPanel Orientation="Vertical" Margin="10">
+                            <TextBlock Text="الموجه الاول" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
+                            <TextBlock Text="{Binding Path=FirstInstructorID.Name}" VerticalAlignment="Center" FontSize="20"/>
+                        </StackPanel>
+                    </StackPanel>
+                </materialDesign:Card>
+                <materialDesign:Card Padding="5" Margin="5" Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Cursor="Hand" >
+                    <StackPanel Orientation="Horizontal" >
+                        <Border Margin="10" CornerRadius="25" BorderBrush="White" BorderThickness="1" Height="60" VerticalAlignment="Bottom" Width="60">
                             <Border.Background>
-                                <ImageBrush x:Name="IMGLAG"/>
+                                <ImageBrush ImageSource="{Binding Path=GeneralInstructorID.Photo,IsAsync=True}"/>
                             </Border.Background>
                         </Border>
-                        <TextBlock Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"><Run FlowDirection="RightToLeft" Text="الموجه الاول"/></TextBlock>
-                        <TextBlock x:Name="TXTLAgent" Text="رئيس الادارة المركزية" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" FontSize="20"/>
-                    </Grid>
-                </Border>
-            </Grid>
+                        <StackPanel Orientation="Vertical" Margin="10">
+                            <TextBlock Text="الموجه العام" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
+                            <TextBlock Text="{Binding Path=GeneralInstructorID.Name}" VerticalAlignment="Center" FontSize="20"/>
+                        </StackPanel>
+                    </StackPanel>
+                </materialDesign:Card>
+            </UniformGrid>
         </GroupBox>
         <GroupBox x:Name="GBA"  FlowDirection="RightToLeft" Padding="10" BorderThickness="0,1,0,0" Header="المسؤولين" Foreground="White">
-            <ListView x:Name="LVAdministrations" BorderBrush="{x:Null}" Background="#26000000">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListViewItem}">
-                        <Setter Property="Background" Value="AliceBlue"/>
-                        <Setter Property="Cursor" Value="Hand"/>
-                        <Setter Property="Height" Value="100"/>
-                        <Setter Property="Width" Value="160"/>
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.ItemTemplate>
+            <ItemsControl
+                            Name="ItemsList"
+                            ItemsSource="{Binding HeadsID}">
+                <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Tahoma" FontSize="18" TextAlignment="Center" TextWrapping="WrapWithOverflow"/>
+                        <StackPanel>
+                            <materialDesign:Card Padding="5" Margin="5" Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Cursor="Hand">
+                                <StackPanel Orientation="Horizontal" >
+                                    <Border Margin="10" CornerRadius="25" BorderBrush="White" BorderThickness="1" Grid.RowSpan="2" Height="60" VerticalAlignment="Bottom" Width="60">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding Path=Photo,IsAsync=True}"/>
+                                        </Border.Background>
+                                    </Border>
+                                    <StackPanel Orientation="Vertical" Margin="10">
+                                        <TextBlock Text="{Binding Path=PositionID }" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
+                                        <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" FontSize="20"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </materialDesign:Card>
+                        </StackPanel>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </GroupBox>
-        <GroupBox x:Name="GBI"  FlowDirection="RightToLeft" Padding="10" BorderThickness="0,1,0,0" Header="التوجيه العام بمحافظة القاهرة" Foreground="White" Margin="0,281,0,115.6">
-            <ListView x:Name="LVInstructs" Background="#26000000" BorderBrush="{x:Null}">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListViewItem}">
-                        <Setter Property="Background" Value="AliceBlue"/>
-                        <Setter Property="Cursor" Value="Hand"/>
-                        <Setter Property="Height" Value="100"/>
-                        <Setter Property="Width" Value="160"/>
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Tahoma" FontSize="18" TextAlignment="Center" TextWrapping="WrapWithOverflow"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </GroupBox>
-
     </StackPanel>
 </Page>

@@ -15,6 +15,8 @@ namespace AZMonitoring.DAL
             {
                 instruct.ID = (await client.PushAsync(pathinstruct, instruct)).Result.name;
                 UpdateID(pathginstruct + instruct.ID, instruct.ID);
+                AddInstructToGInstruct(instruct.IDGInstruct, instruct.ID);
+                AddInstructToAdministration(instruct.IDGInstruct, instruct.ID);
                 return instruct.ID;
             }
             catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return ""; }
@@ -77,6 +79,20 @@ namespace AZMonitoring.DAL
                 return true;
             }
             catch { return false; }
+        }
+        internal async Task<List<Instruct>> GetInstructs(List<string> IDS)
+        {
+            try
+            {
+                if (IDS == null || IDS.Count == 0) { return null; }
+                var ls = new List<Instruct>();
+                foreach (var item in IDS)
+                {
+                    ls.Add(await GetInstructbyID(item));
+                }
+                return ls;
+            }
+            catch { return null; }
         }
     }
 }

@@ -78,6 +78,5 @@ namespace AZMonitoring.DAL
             }
             catch { return false; }
         }
-
     }
 }

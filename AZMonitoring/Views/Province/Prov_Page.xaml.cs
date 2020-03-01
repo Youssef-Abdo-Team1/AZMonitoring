@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 
 namespace AZMonitoring.Views
 {
+
     /// <summary>
     /// Interaction logic for Prov_Page.xaml
     /// </summary>
@@ -22,17 +23,16 @@ namespace AZMonitoring.Views
     {
         Province prov;
         List<GInstruct> GInstructions;
-        List<Administration> administrations;
+        List<AZMonitoring.Administration> administrations;
         DAL.DAL DB = new DAL.DAL();
-        public Prov_Page(Province prov)
+        Administration.AdministrationPage administrationPage = new Administration.AdministrationPage();
+        public Prov_Page()
         {
             InitializeComponent();
-            this.prov = prov;
-            InitializeFields();
         }
         private async void InitializeAdministrations()
         {
-            administrations = new List<Administration>();
+            administrations = new List<AZMonitoring.Administration>();
             if (prov.AdministrationsID != null && prov.AdministrationsID.Count > 0)
             {
                 administrations.AddRange(await DB.GetAdministrationsAsync(prov.AdministrationsID));
@@ -40,7 +40,6 @@ namespace AZMonitoring.Views
             LVAdministrations.ItemsSource = administrations;
             LVAdministrations.Items.Refresh();
         }
-
         private async void InitializeGInstructs()
         {
             GInstructions = null;
@@ -51,27 +50,16 @@ namespace AZMonitoring.Views
             LVInstructs.ItemsSource = GInstructions;
             LVInstructs.Items.Refresh();
         }
-
-        void InitializeFields()
+        internal void InitializeFields(Province prov)
         {
+            this.prov = prov;
+            this.DataContext = prov;
             InitializeGInstructs();
             InitializeAdministrations();
             GBGA.Header = $"الإدارة المركزية لمنطقة {prov.Name} الازهرية";
             GBA.Header = $"الادارات التعليمية بممنطقة  {prov.Name} الازهرية";
             GBI.Header = $"التوجيه والمتابعة بمنطقة {prov.Name} الازهرية";
-            TXTCAgent.Text = prov.CulturalAgentDGID.Name;
-            TXTHCAdmin.Text = prov.HCAdministrationID.Name;
-            TXTLAgent.Text = prov.LegalAgentDGID.Name;
-            TXTSWelfare.Text = prov.SWelfareDID.Name;
-            IMGCAG.ImageSource = IMGHCA.ImageSource = IMGLAG.ImageSource = IMGSW.ImageSource = null;
-            i1(); i2(); i3(); i4();
         }
-        async void i1() { IMGHCA.ImageSource = await statics.DounloadImage(prov.HCAdministrationID.Photo); }
-        async void i2() { IMGCAG.ImageSource = await statics.DounloadImage(prov.CulturalAgentDGID.Photo); }
-        async void i3() { IMGLAG.ImageSource = await statics.DounloadImage(prov.LegalAgentDGID.Photo); }
-        async void i4() { IMGSW.ImageSource = await statics.DounloadImage(prov.SWelfareDID.Photo); }
-
-
         private void Grid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             statics.staticframe.Content = new Position_Person_Page(prov.HCAdministrationID.PositionID);
@@ -91,6 +79,17 @@ namespace AZMonitoring.Views
         private void Grid_MouseLeftButtonUp_3(object sender, MouseButtonEventArgs e)
         {
             statics.staticframe.Content = new Position_Person_Page(prov.SWelfareDID.PositionID);
+        }
+
+        private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            administrationPage.Initialize_Administration((AZMonitoring.Administration)LVAdministrations.SelectedItem);
+            statics.staticframe.Content = administrationPage;
+        }
+
+        private void ListViewItem_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
+        {
+            
         }
     }
 }

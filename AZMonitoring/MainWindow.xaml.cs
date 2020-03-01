@@ -31,6 +31,7 @@ namespace AZMonitoring
         private DAL.DAL DB;
         private bool _ShowingDialog;
         private bool _AllowClose;
+        Views.Prov_Page provpageobj = new Views.Prov_Page();
         public MainWindow()
         {
             InitializeComponent();
@@ -44,6 +45,7 @@ namespace AZMonitoring
             //DB.Test_add_positions();
             //DB.Test_addProvinces();
             //DB.test_addGinstruct();
+            DB.test_addinstruct();
         }
         internal void Initialize_Data_Manage_Pages()
         {
@@ -249,7 +251,7 @@ namespace AZMonitoring
                 statics.LogedPersonPosition = pp;
                 statics.DChats = new List<DChat>();
                 DB.SetChatsListener(statics.LogedPerson.ID);
-                DB.SetStreamListener(addedsnaphundler, changedsnaphundler);
+                DB.SetStreamListener(addedsnaphundler, Changedsnaphundler);
 
                 //initialize components
                 Initialize_Prov_Control_List();
@@ -326,7 +328,8 @@ namespace AZMonitoring
                 try
                 {
                     statics.currentprov= (Province)MainListViewProv.SelectedItem;
-                    MainFrameContainer.Content = new Views.Prov_Page(statics.currentprov);
+                    provpageobj.InitializeFields(statics.currentprov);
+                    MainFrameContainer.Content = provpageobj;
                 }
                 catch { }
 
@@ -497,7 +500,7 @@ namespace AZMonitoring
 
                 Button btn2 = new Button();
                 Style style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
-                btn2.Click += (s, ee) => { vd.disconnect(); DB.SetStreamListener(addedsnaphundler, changedsnaphundler); };
+                btn2.Click += (s, ee) => { vd.disconnect(); DB.SetStreamListener(addedsnaphundler, Changedsnaphundler); };
                 btn2.Style = style2;
                 btn2.Width = 115;
                 btn2.Height = 30;
@@ -514,7 +517,7 @@ namespace AZMonitoring
                 object result = await OpenDialogHost(stk);
             }
         }
-        internal async void changedsnaphundler(ValueChangedEventArgs snap)
+        internal void Changedsnaphundler(ValueChangedEventArgs snap)
         {
             Dispatcher.Invoke(async() => {
                 try
@@ -534,7 +537,7 @@ namespace AZMonitoring
 
                     Button btn2 = new Button();
                     Style style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
-                    btn2.Click += (s, ee) => { vd.disconnect(); DB.SetStreamListener(addedsnaphundler, changedsnaphundler); };
+                    btn2.Click += (s, ee) => { vd.disconnect(); DB.SetStreamListener(addedsnaphundler, Changedsnaphundler); };
                     btn2.Style = style2;
                     btn2.Width = 115;
                     btn2.Height = 30;

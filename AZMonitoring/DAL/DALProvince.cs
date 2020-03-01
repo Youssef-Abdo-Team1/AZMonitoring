@@ -9,7 +9,7 @@ namespace AZMonitoring.DAL
 {
     partial class DAL
     {
-        internal async Task<bool> AddProvince(Province mProvince,Person PHCAID,Person PLAGID,Person PCAGID,Person PWMID)
+        internal async Task<bool> AddProvince(Province mProvince, Person PHCAID, Person PLAGID, Person PCAGID, Person PWMID)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace AZMonitoring.DAL
                 mProvince.SWelfareDID.Name = PWMID.Name;
                 mProvince.SWelfareDID.Photo = PWMID.Photo;
 
-                mProvince.HCAdministrationID.PositionID = await AddPosition(new Position { Name = "مدير الادارة المركزية" , PersonID = PHCAID.ID , Level = 1, IDProvince = mProvince.Name, });
+                mProvince.HCAdministrationID.PositionID = await AddPosition(new Position { Name = "مدير الادارة المركزية", PersonID = PHCAID.ID, Level = 1, IDProvince = mProvince.Name, });
                 mProvince.CulturalAgentDGID.PositionID = await AddPosition(new Position { Name = "الكويل الثقافي (مدير عام)", PersonID = PCAGID.ID, Level = 2, IDProvince = mProvince.Name, });
                 mProvince.LegalAgentDGID.PositionID = await AddPosition(new Position { Name = "الكويل الشرعي (مدير عام)", PersonID = PLAGID.ID, Level = 2, IDProvince = mProvince.Name, });
                 mProvince.SWelfareDID.PositionID = await AddPosition(new Position { Name = "مدير رعاية الطلاب", PersonID = PWMID.ID, Level = 2, IDProvince = mProvince.Name, });
@@ -139,7 +139,7 @@ namespace AZMonitoring.DAL
                 try { p.AdministrationsID.ForEach(item => { }); } catch { }
                 List<string> names = await GetProvinceNames();
                 names.Remove(ID);
-                if(names.Count > 0) { await client.UpdateAsync(pathprovincenames, names); }
+                if (names.Count > 0) { await client.UpdateAsync(pathprovincenames, names); }
                 else { await client.DeleteAsync(pathprovincenames); }
                 await client.DeleteAsync(pathprovince + ID);
                 return true;
@@ -152,17 +152,29 @@ namespace AZMonitoring.DAL
             try { await client.OnAsync(pathprovince, (obj, snap, cont) => { Main.Initialize_Prov_Control_List(); }, (obj, snap, cont) => { Main.Initialize_Prov_Control_List(); }, (obj, snap, cont) => { Main.Initialize_Prov_Control_List(); }); }
             catch { }
         }
-        internal async Task<bool> AddAdministrationsName(string name,string id)
+        internal async Task<bool> AddAdministrationsName(string name, string id)
         {
-            try {
+            try
+            {
                 var ls = (await client.GetAsync(pathprovince + name + "/AdministrationsID")).ResultAs<List<string>>();
-                if(ls == null || ls.Count == 0) { ls = new List<string>(); }
+                if (ls == null || ls.Count == 0) { ls = new List<string>(); }
                 ls.Add(id);
-                var x =await client.SetAsync(pathprovince + name + "/AdministrationsID/", ls);
-               
+                var x = await client.SetAsync(pathprovince + name + "/AdministrationsID/", ls);
+
                 return true;
             }
             catch { return false; }
+        }
+        internal async void AddGInstructToProvince(string provid, string id)
+        {
+            try
+            {
+                List<string> ls = (await client.GetAsync(pathprovince + provid + "/GInstructsID")).ResultAs<List<string>>();
+                if (ls == null) { ls = new List<string>(); }
+                ls.Add(id);
+                await client.SetAsync(pathprovince + provid + "/GInstructsID", ls);
+            }
+            catch { }
         }
     }
 }
