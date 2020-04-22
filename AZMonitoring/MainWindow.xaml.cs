@@ -42,10 +42,12 @@ namespace AZMonitoring
             statics.myDH = GODH;
             //DB.test_addChats();
             //DB.Test_addpersons();
-            //DB.Test_add_positions();
+            //DB.test_add_positions();
             //DB.Test_addProvinces();
             //DB.test_addGinstruct();
             //DB.test_addinstruct();
+            //DB.test_addadministrations();
+            //DB.test_addinstituation();
         }
         internal void Initialize_Data_Manage_Pages()
         {
@@ -83,7 +85,7 @@ namespace AZMonitoring
             {
                 await Dispatcher.InvokeAsync(async () => {
                     var x = await DB.GetChat(snap);
-                    var y = await DChat.GetDChat(x);
+                    var y = DChat.GetDChat(x);
                     statics.DChats.Add(y);
                     achsp.Refresh();
                 });
@@ -95,15 +97,18 @@ namespace AZMonitoring
         }
         private void TXTOpenLastChatBTN_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (!ch)
+            if(statics.CurrentChat != null)
             {
-                OpenChatFrame();
-            }
-            else
-            {
-                ResetColors();
-                OCFrame(false);
-                fro = chts = ch = false;
+                if (!ch)
+                {
+                    OpenChatFrame();
+                }
+                else
+                {
+                    ResetColors();
+                    OCFrame(false);
+                    fro = chts = ch = false;
+                }
             }
         }
         public async void OpenChatFrame(DChat chat = null)
@@ -238,6 +243,18 @@ namespace AZMonitoring
         {
             Logingin();
         }
+        async void InitiateChats()
+        {
+            statics.DChats = new List<DChat>();
+            DB.SetChatsListener(statics.LogedPerson.ID);
+            if(statics.LogedPerson.Chats != null)
+            {
+                foreach (var item in await DB.GetChats(statics.LogedPerson.Chats))
+                {
+                    statics.DChats.Add(item);
+                }
+            }
+        }
         async void Logingin()
         {
             LoginBorder.IsEnabled = false;
@@ -249,10 +266,8 @@ namespace AZMonitoring
                 DataContext = statics.LogedPerson;
                 var pp = await DB.GetPositionByID(statics.LogedPerson.IDPosition);
                 statics.LogedPersonPosition = pp;
-                statics.DChats = new List<DChat>();
-                DB.SetChatsListener(statics.LogedPerson.ID);
                 DB.SetStreamListener(addedsnaphundler, Changedsnaphundler);
-
+                InitiateChats();
                 //initialize components
                 Initialize_Prov_Control_List();
                 Initialize_Data_Manage_Pages();
@@ -268,7 +283,7 @@ namespace AZMonitoring
                 await Task.Run(() => { Thread.Sleep(300); });
                 MainDockPanel.IsEnabled = true;
                 TXTLoginUsername.Text = TXTLoginPass.Password = "";
-                MainFrameContainer.Content = new Views.Dashboard.Dashboard_MainPage();
+                MainFrameContainer.Content = new Views.Position_Person_Page(statics.LogedPerson);
                 GC.Collect();
             }
             else
@@ -339,7 +354,7 @@ namespace AZMonitoring
         {
             if (ocprovlist) { CloseMainProvListView(); }
             MainListViewProv.SelectedIndex = -1;
-            MainSettingsBTN.Background = MainDashboardBTN.Background = MainSysManageBTN.Background = MainAboutPBTN.Background = Getbfroms("#0c000000");
+            MainSettingsBTN.Background = MainDashboardBTN.Background = MainSysManageBTN.Background = MainAboutPBTN.Background = MainStreamPBTN.Background = Getbfroms("#0c000000");
         }
         private void MainProvBTN_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -371,9 +386,16 @@ namespace AZMonitoring
             resetControlers();
             MainAboutPBTN.Background = Getbfroms("#33000000");
         }
+        private void MainStreamPBTN_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            MainFrameContainer.Content = new Views.Streaming.StramingMainPage();
+            resetControlers();
+            MainStreamPBTN.Background = Getbfroms("#33000000");
+        }
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            Views.Position_Person_Page profilePage = new Views.Position_Person_Page(statics.LogedPerson);
+            MainFrameContainer.Content = profilePage;
         }
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
@@ -425,7 +447,7 @@ namespace AZMonitoring
         }
         private void MainDashboardBTN_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            MainFrameContainer.Content = new Views.Dashboard.Dashboard_MainPage();
+            MainFrameContainer.Content = new Views.Position_Person_Page(statics.LogedPerson);
             resetControlers();
             MainDashboardBTN.Background = Getbfroms("#33000000");
         }
@@ -490,17 +512,15 @@ namespace AZMonitoring
                 frame.Width = 640;
 
                 var vd = new Views.VideoPages.VideoChatPage();
-                var txt = new TextBox();
                 var ls = await vd.Createvideochat();
                 if (ls == null) { return; }
-                txt.Text = $"{ls[0]}\n{ls[1]}";
                 DB.DisposeStreamListener();
                 DB.SetVideoChat(partner, $"{ls[0]}\n{ls[1]}");
                 frame.Content = vd;
 
                 Button btn2 = new Button();
                 Style style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
-                btn2.Click += (s, ee) => { vd.disconnect(); DB.SetStreamListener(addedsnaphundler, Changedsnaphundler); };
+                btn2.Click += (s, ee) => { DB.CloseVideoChat(partner); vd.disconnect(); };
                 btn2.Style = style2;
                 btn2.Width = 115;
                 btn2.Height = 30;
@@ -513,7 +533,6 @@ namespace AZMonitoring
                 StackPanel stk = new StackPanel();
                 stk.Children.Add(frame);
                 stk.Children.Add(btn2);
-                stk.Children.Add(txt);
                 object result = await OpenDialogHost(stk);
             }
         }
@@ -537,7 +556,7 @@ namespace AZMonitoring
 
                     Button btn2 = new Button();
                     Style style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
-                    btn2.Click += (s, ee) => { vd.disconnect(); DB.SetStreamListener(addedsnaphundler, Changedsnaphundler); };
+                    btn2.Click += (s, ee) => { vd.disconnect(); DB.CloseVideoChat(sts[0]); DB.SetStreamListener(addedsnaphundler, Changedsnaphundler); };
                     btn2.Style = style2;
                     btn2.Width = 115;
                     btn2.Height = 30;

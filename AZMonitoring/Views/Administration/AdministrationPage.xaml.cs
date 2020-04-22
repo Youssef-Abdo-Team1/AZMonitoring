@@ -143,9 +143,9 @@ namespace AZMonitoring.Views.Administration
             LVSStagesT.Items.Refresh();
             LVSStagesS.Items.Refresh();
         }
-        private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            
+            statics.staticframe.Content = new instituation.InstitutionPage((Institution) await DB.GetInstitutionbyID("-M1_DHkPbd5sRPA_px9a"));
         }
     }
 }

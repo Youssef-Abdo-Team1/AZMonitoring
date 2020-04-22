@@ -13,16 +13,22 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AZMonitoring.Views.Dashboard
+namespace AZMonitoring.Views.work
 {
     /// <summary>
-    /// Interaction logic for Dashboard_MainPage.xaml
+    /// Interaction logic for WorksPage.xaml
     /// </summary>
-    public partial class Dashboard_MainPage : Page
+    public partial class WorksPage : Page
     {
-        public Dashboard_MainPage()
+        public WorksPage(List<Work> works)
         {
             InitializeComponent();
+            LVInstructs.ItemsSource = works;
+        }
+
+        private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }

@@ -13,7 +13,7 @@
     <StackPanel>
         <GroupBox x:Name="GBGA" FlowDirection="RightToLeft" Padding="10" Margin="5" Header="الادارة المركزية لمحافظة القاهرة" Foreground="White">
             <UniformGrid Rows="2" Columns="2">
-                <materialDesign:Card Padding="5" Margin="5" Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Cursor="Hand">
+                <materialDesign:Card Padding="5" Margin="5" MouseDoubleClick="Grid_MouseLeftButtonUp" Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Cursor="Hand">
                     <StackPanel Orientation="Horizontal" >
                         <Border Margin="10" CornerRadius="30" BorderBrush="White" BorderThickness="1" Grid.RowSpan="2" Height="60" VerticalAlignment="Bottom" Width="60">
                             <Border.Background>
@@ -26,7 +26,7 @@
                         </StackPanel>
                     </StackPanel>
                 </materialDesign:Card>
-                <materialDesign:Card Padding="5" Margin="5" Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Cursor="Hand" >
+                <materialDesign:Card Padding="5" Margin="5" MouseDoubleClick="Grid_MouseLeftButtonUp_1" Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Cursor="Hand" >
                     <StackPanel Orientation="Horizontal" >
                         <Border Margin="10" CornerRadius="30" BorderBrush="White" BorderThickness="1" Height="60" VerticalAlignment="Bottom" Width="60">
                             <Border.Background>
@@ -39,7 +39,7 @@
                         </StackPanel>
                     </StackPanel>
                 </materialDesign:Card>
-                <materialDesign:Card Padding="5" Margin="5" Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Cursor="Hand" >
+                <materialDesign:Card Padding="5" Margin="5" MouseDoubleClick="Grid_MouseLeftButtonUp_2" Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Cursor="Hand" >
                     <StackPanel Orientation="Horizontal" >
                         <Border Margin="10" CornerRadius="30" BorderBrush="White" BorderThickness="1" Height="60" VerticalAlignment="Bottom" Width="60">
                             <Border.Background>
@@ -52,7 +52,7 @@
                         </StackPanel>
                     </StackPanel>
                 </materialDesign:Card>
-                <materialDesign:Card Padding="5" Margin="5" Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Cursor="Hand" >
+                <materialDesign:Card Padding="5" Margin="5" MouseDoubleClick="Grid_MouseLeftButtonUp_3" Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Cursor="Hand" >
                     <StackPanel Orientation="Horizontal" >
                         <Border Margin="10" CornerRadius="30" BorderBrush="White" BorderThickness="1" Height="60" VerticalAlignment="Bottom" Width="60">
                             <Border.Background>

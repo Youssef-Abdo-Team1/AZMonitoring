@@ -91,7 +91,6 @@ namespace AZMonitoring
             else
             {
                 d = new DMessage();
-                d.ID = item.ID;
                 d.Content = item.Content;
                 d.Date = item.Date;
                 d.Sender = item.Sender;

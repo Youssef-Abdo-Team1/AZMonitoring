@@ -52,7 +52,7 @@ namespace AZMonitoring.Views.VideoPages
         internal void EnterChat(string sessionid,string token)
         {
             SESSION_ID = sessionid;
-            TOKEN = sessionid;
+            TOKEN = token;
             Initiate();
         }
         void Initiate()

@@ -28,6 +28,7 @@ namespace AZMonitoring
         internal static MyDelegate MessageRefreshDelegate { get; set; }
         internal static Frame staticframe { get; set; }
         internal static List<StPages> Data_Mang_Pages { get; set; }
+        internal static List<StPages> Streaming_Pages { get; set; }
         internal static List<Province> Provinces { get; set; }
         internal static DChat CurrentChat { get; set; }
         internal static DPerson LogedPerson { get; set; }

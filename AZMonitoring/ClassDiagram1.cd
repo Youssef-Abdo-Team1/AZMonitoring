@@ -76,19 +76,19 @@
   <Class Name="AZMonitoring.Message">
     <Position X="5" Y="10.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAgAAAAAAAAAAgAAAAAAABAQAAAAAIAAA=</HashCode>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAgAAAAAAABAQAAAAAIAAA=</HashCode>
       <FileName>Structures\Message.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AZMonitoring.Chat">
     <Position X="5" Y="7.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAEAAAAACAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAgAAAAAAAAAAAAAAAAAAAAACAAQAAAAA=</HashCode>
       <FileName>Structures\Chat.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AZMonitoring.DMessage">
-    <Position X="0.75" Y="11" Width="1.75" />
+    <Position X="0.75" Y="10.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAgAAAAAAEAAAIAAAABOAgAAAABAAAAAgSAAAABA=</HashCode>
       <FileName>Structures\DMeeage.cs</FileName>
@@ -96,12 +96,11 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="AZMonitoring.DChat">
-    <Position X="2.75" Y="7.75" Width="1.5" />
+    <Position X="2.75" Y="7.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEEAAAAAAESAAIAAAAAUAgAAAABAAAAAAAQAAABA=</HashCode>
+      <HashCode>AAAAEEAAAAAAASAAAAAAAAQAAAAAAAAAAAAgAAAAABA=</HashCode>
       <FileName>Structures\DChat.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="AZMonitoring.DPerson">
     <Position X="1" Y="4.5" Width="1.5" />
@@ -125,18 +124,18 @@
       <FileName>Structures\DPosition.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AZMonitoring.StaticInfo">
-    <Position X="14.5" Y="0.75" Width="1.5" />
+  <Class Name="AZMonitoring.Room">
+    <Position X="6.75" Y="13.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAACAAAAAAAAQAAAAAAAAAgAAAAAAAAAA=</HashCode>
-      <FileName>Structures\StaticProvinceInfo.cs</FileName>
+      <HashCode>AAAIAAAAAIAggAACAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Room.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AZMonitoring.Chats">
-    <Position X="4" Y="2.5" Width="1.5" />
+  <Class Name="AZMonitoring.DRoom">
+    <Position X="4.5" Y="13.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
-      <FileName>Structures\Chats.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Droom.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="AZMonitoring.Stages">

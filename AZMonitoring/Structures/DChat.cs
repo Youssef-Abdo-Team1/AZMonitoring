@@ -11,42 +11,16 @@ using System.Windows.Media.Imaging;
 
 namespace AZMonitoring
 {
-    public class DChat : Chat, INotifyPropertyChanged
+    public class DChat : Chat
     {
-        private ImageSource img;
         DAL.DAL DB = new DAL.DAL();
-        public event PropertyChangedEventHandler PropertyChanged;
-        public ImageSource Image
-        {
-            get
-            {
-                return img;
-            }
-            set
-            {
-                img = value;
-                OnPropertyChanged("Image");
-            }
-        }
-        protected void OnPropertyChanged(string name)
-        {
-            var handler = PropertyChanged;
-            if (null != handler)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
-        }
         public string Name { get; set; }
         public string Photo { get; set; }
-        public List<DMessage> Messages { get; set; }
-        public string LastMessage { get { if (Messages != null && Messages.Count > 0) { return Messages.LastOrDefault().Text; }return "لا يوجد رسائل"; } }
-        public void SetImage()
+        public new List<DMessage> DMessages { get; set; }
+        public string LastMessage { get { if (DMessages != null && DMessages.Count > 0) { return DMessages.LastOrDefault().Text; }return "لا يوجد رسائل"; } }
+        public async void Initialize()
         {
-            Task.Run(async() => { Image = await statics.DounloadImage(Photo); });
-        }
-        public async Task Initialize()
-        {
-            Messages = new List<DMessage>();
+            DMessages = new List<DMessage>();
             if(IDPerson1 != statics.LogedPerson.ID)
             {
                 Photo = await DB.GetPersonPhoto(IDPerson1);
@@ -57,22 +31,24 @@ namespace AZMonitoring
                 Photo = await DB.GetPersonPhoto(IDPerson2);
                 Name = await DB.GetPersonName(IDPerson2);
             }
-            SetImage();
-            try {
-                (await DB.GetMessages(MessagesID)).ForEach(item => {
-                    Messages.Add(DMessage.GetDMessage(item));
-                });
+            if (Messages != null)
+            {
+                foreach (var item in Messages)
+                {
+                    DMessages.Add(DMessage.GetDMessage(item));
+                }
             }
-            catch { }
+            else { Messages = new List<Message>(); }
         }
-        public async static Task<DChat> GetDChat(Chat chat)
+        public static DChat GetDChat(Chat chat)
         {
             var d = new DChat();
             d.ID = chat.ID;
             d.IDPerson1 = chat.IDPerson1;
             d.IDPerson2 = chat.IDPerson2;
-            d.MessagesID = chat.MessagesID;
-            await d.Initialize();
+            d.MessagesCounter = chat.MessagesCounter;
+            d.Messages = chat.Messages;
+            //d.Initialize();
             return d;
         }
     }

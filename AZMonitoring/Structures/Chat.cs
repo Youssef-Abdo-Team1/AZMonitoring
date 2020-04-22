@@ -10,6 +10,8 @@ namespace AZMonitoring
         public string ID { get; set; }
         public string IDPerson1 { get; set; }
         public string IDPerson2 { get; set; }
-        public List<string> MessagesID { get; set; }
+        public List<Message> Messages { get; set; }
+
+        public int MessagesCounter { get; set; }
     }
 }

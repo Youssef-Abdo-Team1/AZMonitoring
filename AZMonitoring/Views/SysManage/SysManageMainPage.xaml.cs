@@ -16,6 +16,11 @@ using System.Windows.Shapes;
 
 namespace AZMonitoring.Views.SysManage
 {
+    public class StSPages
+    {
+        public Views.Streaming.YoutubeStream youtube { get; set; }
+        public string Header { get; set; }
+    }
     /// <summary>
     /// Interaction logic for SysManageMainPage.xaml
     /// </summary>

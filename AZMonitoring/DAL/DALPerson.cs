@@ -129,7 +129,8 @@ namespace AZMonitoring.DAL
         {
             try
             {
-                return (await client.GetAsync(pathperson + id + "/Photo")).ResultAs<string>();
+                var x = (await client.GetAsync(pathperson + id + "/Photo")).ResultAs<string>();
+                return x;
             }
             catch { return ""; }
         }
@@ -178,20 +179,20 @@ namespace AZMonitoring.DAL
             }
             catch(Exception ex) { }
         }
-        internal async Task<bool> CloseVideoChat()
+        internal async void CloseVideoChat(string partnerid)
         {
             try
             {
                 await client.UpdateAsync(pathperson + statics.LogedPerson.ID + "/CurrentStream", "");
-                return true;
+                await client.UpdateAsync(pathperson + partnerid + "/CurrentStream", "");
             }
-            catch { return false; }
+            catch { }
         }
         internal async void SetStreamListener(myadedsnapdeleget myadedsnapdeleget = null,mychangedsnapdeleget mychangedsnapdeleget = null)
         {
             try
             {
-                x = await client.OnAsync(pathperson + statics.LogedPerson.ID + "/CurrentStream/",(obj,snap,cont)=> { myadedsnapdeleget(snap); }, (obj, snap, cont) => { mychangedsnapdeleget(snap); });
+                //x = await client.OnAsync(pathperson + statics.LogedPerson.ID + "/CurrentStream/",(obj,snap,cont)=> { myadedsnapdeleget(snap); }, (obj, snap, cont) => { mychangedsnapdeleget(snap); });
             }
             catch { }
         }

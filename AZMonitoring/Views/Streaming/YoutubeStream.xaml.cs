@@ -13,26 +13,26 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AZMonitoring.Views.instituation
+namespace AZMonitoring.Views.Streaming
 {
     /// <summary>
-    /// Interaction logic for InstitutionPage.xaml
+    /// Interaction logic for YoutubeStream.xaml
     /// </summary>
-    public partial class InstitutionPage : Page
+    public partial class YoutubeStream : Page
     {
-        Institution Institution { get; set; }
-        public InstitutionPage(Institution institution)
+        string Link { get; set; }
+        public YoutubeStream(string Link)
         {
             InitializeComponent();
-
-            this.Institution = institution;
-            DataContext = this.Institution;
-            ini();
+            this.Link = Link;
         }
-        async void ini()
+        public void Connect()
         {
-            TXTTeacher.Text = "محمد رأفت";
-            TXTSH.Text = "سحر عبد الله";
+            try { WB.Navigate(Link); } catch { }
+        }
+        public void Disconnect()
+        {
+            try { WB.NavigateToString(""); } catch { }
         }
     }
 }

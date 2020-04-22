@@ -5,9 +5,8 @@ using System.Text;
 
 namespace AZMonitoring
 {
-    public class Chats
+    public class DRoom : Room
     {
-        public string IDChat { get; set; }
-        public string IDPerson { get; set; }
+        public List<AZMonitoring.Person> Persons { get; set; }
     }
 }

@@ -48,8 +48,8 @@ namespace AZMonitoring.Views
         {
             TXTName.Text = statics.CurrentChat.Name;
             Img.ImageSource = null;
-            LISTCurrentChatMessages.ItemsSource = statics.CurrentChat.Messages;
-            Img.ImageSource = statics.CurrentChat.Image;
+            LISTCurrentChatMessages.ItemsSource = statics.CurrentChat.DMessages;
+            //Img.ImageSource = statics.CurrentChat.Photo;
             LISTCurrentChatMessages.Items.Refresh();
         }
 

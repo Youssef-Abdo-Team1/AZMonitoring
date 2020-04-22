@@ -4,11 +4,73 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AZMonitoring.Views"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Position_Person_Page">
     <Grid>
-        <TextBlock x:Name="TXTtest" Text="dfsdfsd" FontSize="36" TextAlignment="Center"/>
-        <TextBlock Style="{DynamicResource TXT1}" MouseLeftButtonUp="FrameBack" Text="" ToolTip="رجوع" Margin="5" Height="30" Width="30" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Background="#19000000" TextAlignment="Center"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1.3*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="1" HorizontalAlignment="Stretch" Margin="10" Background="#f5f5f5">
+            <TextBlock x:Name="Edite" Text="تعديل الحساب" Style="{DynamicResource TXT2}" Foreground="{StaticResource SecondaryAccentForegroundBrush}" TextAlignment="Justify"
+                       Margin="20" MouseLeftButtonDown="Edite_Profile"/>
+            <Border FlowDirection="LeftToRight" Margin="10 25" CornerRadius="50" BorderBrush="{StaticResource SecondaryAccentForegroundBrush}"  BorderThickness="1" Height="100" VerticalAlignment="Bottom" Width="100">
+                <Border.Background>
+                    <ImageBrush x:Name="img" ImageSource="{Binding Path=Photo,IsAsync=True}"/>
+                </Border.Background>
+            </Border>
+            <Button x:Name="UploadImage" Click="UploadImage_Click" Content="رفع صوره" Width="80" FontSize="12" Padding="0" Visibility="Collapsed"/>
+            <TextBox x:Name="Name" Margin="30 15 30 15" materialDesign:HintAssist.Hint="اسم المستخدم" 
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" HorizontalContentAlignment="Center" 
+                     Text="{Binding Path=Name}" IsReadOnly="True" Padding="5"/>
+            <TextBox x:Name="UserNumber" Margin="30 15 30 15" materialDesign:HintAssist.Hint="رقم السجل" 
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" HorizontalContentAlignment="Center" 
+                     Text="{Binding Path=ID}" Padding="5" IsReadOnly="True"/>
+            <PasswordBox x:Name="OldPassword" Margin="30 15 30 15"  materialDesign:HintAssist.Hint="كلمة السر القديمة" 
+                         Style="{StaticResource  MaterialDesignFloatingHintPasswordBox}" HorizontalContentAlignment="Center" 
+                         Padding="5" Visibility="Collapsed"/>
+            <PasswordBox x:Name="NewPassword" Margin="30 15 30 15"  materialDesign:HintAssist.Hint="كلمة السر الجديده" 
+                         Style="{StaticResource  MaterialDesignFloatingHintPasswordBox}" HorizontalContentAlignment="Center" 
+                         Padding="5" Visibility="Collapsed"/>
+            <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
+                <Grid x:Name="SaveBtn" MouseLeftButtonDown="SaveBtn_Click" Visibility="Visible" Width="100" Margin="10" >
+                    <Button
+                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                    Height="40"
+                    materialDesign:ButtonAssist.CornerRadius="20"
+                    ToolTip="حفظ التعديلات">
+                        <TextBlock
+                        Text="حفظ" />
+                    </Button>
+                </Grid>
+                <Grid x:Name="CancelBtn" Visibility="Visible" Width="100" Margin="10">
+                    <Button
+                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                    Height="40"
+                    materialDesign:ButtonAssist.CornerRadius="20"
+                    ToolTip="الغاب التعديلات">
+                        <TextBlock
+                        Text="الغاء" />
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </StackPanel>
+        <Frame x:Name="WorkFrame" Grid.Column="0" NavigationUIVisibility="Hidden">
+
+        </Frame>
+        <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                Height="40" ToolTip="رجوع"  HorizontalAlignment="Left" VerticalAlignment="Top"
+                Margin="10"
+                materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                MouseLeftButtonUp="FrameBack"
+                materialDesign:ButtonAssist.CornerRadius="20">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Style="{DynamicResource TXT1}" Text=""  Foreground="White" TextAlignment="Center"/>
+                <TextBlock Text="   رجوع" FontSize="18" />
+            </StackPanel>
+        </Button>
     </Grid>
 </Page>

@@ -16,6 +16,19 @@
                               Header="{Binding Path=Name}" 
                               Foreground="White">
             <UniformGrid Rows="1">
+                <materialDesign:Card Padding="5" Margin="5" MouseDoubleClick="Border_MouseLeftButtonUp" Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Cursor="Hand" >
+                    <StackPanel Orientation="Horizontal" >
+                        <Border Margin="10" CornerRadius="25" BorderBrush="White" BorderThickness="1" Height="60" VerticalAlignment="Bottom" Width="60">
+                            <Border.Background>
+                                <ImageBrush ImageSource="{Binding Path=GeneralInstructorID.Photo,IsAsync=True}"/>
+                            </Border.Background>
+                        </Border>
+                        <StackPanel Orientation="Vertical" Margin="10">
+                            <TextBlock Text="الموجه العام" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
+                            <TextBlock Text="{Binding Path=GeneralInstructorID.Name}" VerticalAlignment="Center" FontSize="20"/>
+                        </StackPanel>
+                    </StackPanel>
+                </materialDesign:Card>
                 <materialDesign:Card Padding="5" Margin="5" Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Cursor="Hand">
                     <StackPanel Orientation="Horizontal" >
                         <Border Margin="10" CornerRadius="25" BorderBrush="White" BorderThickness="1" Grid.RowSpan="2" Height="60" VerticalAlignment="Bottom" Width="60">
@@ -29,29 +42,16 @@
                         </StackPanel>
                     </StackPanel>
                 </materialDesign:Card>
-                <materialDesign:Card Padding="5" Margin="5" Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Cursor="Hand" >
-                    <StackPanel Orientation="Horizontal" >
-                        <Border Margin="10" CornerRadius="25" BorderBrush="White" BorderThickness="1" Height="60" VerticalAlignment="Bottom" Width="60">
-                            <Border.Background>
-                                <ImageBrush ImageSource="{Binding Path=GeneralInstructorID.Photo,IsAsync=True}"/>
-                            </Border.Background>
-                        </Border>
-                        <StackPanel Orientation="Vertical" Margin="10">
-                            <TextBlock Text="الموجه العام" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
-                            <TextBlock Text="{Binding Path=GeneralInstructorID.Name}" VerticalAlignment="Center" FontSize="20"/>
-                        </StackPanel>
-                    </StackPanel>
-                </materialDesign:Card>
             </UniformGrid>
         </GroupBox>
-        <GroupBox x:Name="GBA"  FlowDirection="RightToLeft" Padding="10" BorderThickness="0,1,0,0" Header="المسؤولين" Foreground="White">
-            <ItemsControl
+        <GroupBox x:Name="GBA"  FlowDirection="RightToLeft"  Padding="10" BorderThickness="0,1,0,0" Header="المسؤولين" Foreground="White">
+            <ListView SelectionChanged="ItemsList_SelectionChanged"
                             Name="ItemsList"
                             ItemsSource="{Binding HeadsID}">
-                <ItemsControl.ItemTemplate>
+                <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <materialDesign:Card Padding="5" Margin="5" Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Cursor="Hand">
+                            <materialDesign:Card Padding="5" Margin="5"  Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Cursor="Hand">
                                 <StackPanel Orientation="Horizontal" >
                                     <Border Margin="10" CornerRadius="25" BorderBrush="White" BorderThickness="1" Grid.RowSpan="2" Height="60" VerticalAlignment="Bottom" Width="60">
                                         <Border.Background>
@@ -66,8 +66,8 @@
                             </materialDesign:Card>
                         </StackPanel>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                </ListView.ItemTemplate>
+            </ListView>
         </GroupBox>
     </StackPanel>
 </Page>

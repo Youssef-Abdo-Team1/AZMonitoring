@@ -15,6 +15,7 @@ namespace AZMonitoring.DAL
             {
                 position.ID = (await client.PushAsync(pathposition, position)).Result.name;
                 UpdateID(pathposition + position.ID, position.ID);
+                if(position.PersonID != null && position.PersonID != "") { await client.SetAsync(pathperson + position.PersonID + "/IDPosition", position.ID); }
                 return position.ID;
             }
             catch (Exception ex) { MessageBox.Show($"حدث خطأ في اضافة وظيفة\nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return ""; }

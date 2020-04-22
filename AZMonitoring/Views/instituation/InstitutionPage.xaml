@@ -3,11 +3,86 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:AZMonitoring.Views.instituation"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="InstitutionPage">
-    <Grid>
-        <TextBlock x:Name="TXT"/>
-    </Grid>
+    <StackPanel Margin="20">
+        <materialDesign:Card Padding="5" Margin="5" Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Cursor="Hand">
+            <StackPanel Margin="20" >
+                <TextBlock Text="{Binding Path=Name}" FontWeight="Bold" FontSize="22" Margin="10" HorizontalAlignment="Center"/>
+                <TextBlock Text="إدارة المعهد" FontSize="20" HorizontalAlignment="Center" Margin="5"/>
+                <materialDesign:Card Padding="5" Margin="5" Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Cursor="Hand">
+                    <StackPanel Orientation="Horizontal" >
+                        <Border Margin="10" CornerRadius="25" BorderBrush="White" BorderThickness="1" Grid.RowSpan="2" Height="60" VerticalAlignment="Bottom" Width="60">
+                            <Border.Background>
+                                <ImageBrush ImageSource="{Binding Path=Sheikh.Photo,IsAsync=True}"/>
+                            </Border.Background>
+                        </Border>
+                        <StackPanel Orientation="Vertical" Margin="10">
+                            <TextBlock VerticalAlignment="Center" FontWeight="Bold" FontSize="22"><Run FlowDirection="RightToLeft" Text="شيخ المعهد"/></TextBlock>
+                            <TextBlock x:Name="TXTSH" VerticalAlignment="Center" FontSize="20"/>
+                        </StackPanel>
+                    </StackPanel>
+                </materialDesign:Card>
+                <materialDesign:Card Padding="5" Margin="5" Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Cursor="Hand">
+                    <StackPanel Orientation="Horizontal" >
+                        <Border Margin="10" CornerRadius="25" BorderBrush="White" BorderThickness="1" Grid.RowSpan="2" Height="60" VerticalAlignment="Bottom" Width="60">
+                            <Border.Background>
+                                <ImageBrush ImageSource="{Binding Path=Sheikh.Photo,IsAsync=True}"/>
+                            </Border.Background>
+                        </Border>
+                        <StackPanel Orientation="Vertical" Margin="10">
+                            <TextBlock VerticalAlignment="Center" FontWeight="Bold" FontSize="22"><Run FlowDirection="RightToLeft" Text="المعلم"/></TextBlock>
+                            <TextBlock x:Name="TXTTeacher" VerticalAlignment="Center" FontSize="20"/>
+                        </StackPanel>
+                    </StackPanel>
+                </materialDesign:Card>
+            </StackPanel>
+        </materialDesign:Card>
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10" Background="#4db6ac">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" FontWeight="Bold" FontSize="18" Text="عدد الطلاب المقيدين بالمعهد : " Padding="10"/>
+                <TextBlock Text="{Binding Path=StudentsCount}" VerticalAlignment="Center" FontSize="20" Padding="10"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" FontWeight="Bold" FontSize="18" Text="عدد الفصول بالمعهد : " Padding="10"/>
+                <TextBlock Text="{Binding Path=ClassesCount}" VerticalAlignment="Center" FontSize="20" Padding="10"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" FontWeight="Bold" FontSize="18" Text="نوع المعهد  : " Padding="10"/>
+                <TextBlock Text="{Binding Path=Type}" VerticalAlignment="Center" FontSize="20" Padding="10"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" FontWeight="Bold" FontSize="18" Text="نبذه مختصره عن المعهد  : " Padding="10"/>
+                <TextBlock Text="{Binding Path=Description}" VerticalAlignment="Center" FontSize="20" Padding="10"/>
+            </StackPanel>
+            <GroupBox x:Name="GBA" Padding="10" FontSize="16" BorderThickness="0,1,0,0" Header="المعلمين التابعين للمعهد " Foreground="White" >
+                <ItemsControl
+                            Name="ItemsList"
+                            ItemsSource="{Binding TeachersID}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <materialDesign:Card Padding="5" Margin="5" Background="{DynamicResource  PrimaryHueMidBrush}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Cursor="Hand">
+                                    <StackPanel Orientation="Horizontal" >
+                                        <Border Margin="10" CornerRadius="25" BorderBrush="White" BorderThickness="1" Grid.RowSpan="2" Height="60" VerticalAlignment="Bottom" Width="60">
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="{Binding Path=Photo,IsAsync=True}"/>
+                                            </Border.Background>
+                                        </Border>
+                                        <StackPanel Orientation="Vertical" Margin="10">
+                                            <TextBlock Text="{Binding Path=PositionID }" VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
+                                            <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" FontSize="20"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </materialDesign:Card>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </GroupBox>
+        </StackPanel>
+    </StackPanel>
 </Page>

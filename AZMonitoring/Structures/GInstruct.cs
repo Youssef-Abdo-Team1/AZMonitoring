@@ -9,7 +9,7 @@ namespace AZMonitoring
     {
         public StaticInfo GeneralInstructorID { get; set; }
         public StaticInfo FirstInstructorID { get; set; }
-        public List<string> HeadsID { get; set; }
+        public List<StaticInfo> HeadsID { get; set; }
         public string ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
