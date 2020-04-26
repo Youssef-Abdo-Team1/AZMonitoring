@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static AZMonitoring.statics;
 
 namespace AZMonitoring.Views
 {
@@ -24,7 +25,6 @@ namespace AZMonitoring.Views
         Province prov;
         List<GInstruct> GInstructions;
         List<AZMonitoring.Administration> administrations;
-        DAL.DAL DB = new DAL.DAL();
         Administration.AdministrationPage administrationPage;
         public Prov_Page()
         {

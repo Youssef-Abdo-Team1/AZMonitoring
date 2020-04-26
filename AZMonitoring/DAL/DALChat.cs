@@ -1,5 +1,6 @@
 ﻿using Firebase.Database;
 using FireSharp.Response;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,8 @@ namespace AZMonitoring.DAL
 {
     partial class DAL
     {
-        IDisposable y,x;
+        IDisposable y;
+        EventStreamResponse x;
         internal async Task<string> AddChat(Chat newchat)
         {
             try
@@ -43,15 +45,12 @@ namespace AZMonitoring.DAL
             }
             catch (Exception ex) { MessageBox.Show($"الخطأ: \n{ex.Message}", "حدث خطأ اثناء الاتصال", MessageBoxButton.OK, MessageBoxImage.Error); return ""; }
         }
-        internal void AddMessage(DChat Chat, Message message)
+        internal async void AddMessage(string Chatid, Message message)
         {
             try
             {
-                string pathmessage = pathchat + Chat.ID + "/Messages/" + Chat.MessagesCounter;
-                //if(Chat.DMessages == null || Chat.DMessages.Count < 1) { Chat.DMessages = new List<DMessage>(); }
-                client.SetAsync(pathmessage, message);
-                Chat.MessagesCounter++;
-                client.UpdateAsync(pathchat + Chat.ID + "/MessagesCounter", Chat.MessagesCounter);
+                await firebase.Child(pathchat + Chatid + "/Messages/").PostAsync(JsonConvert.SerializeObject(message));
+                //await client.PushAsync(pathchat + Chatid + "/Messages/", message);
             }
             catch (Exception ex)
             {
@@ -62,8 +61,7 @@ namespace AZMonitoring.DAL
         {
             try
             {
-                var x = (await client.GetAsync(pathchat + ID)).ResultAs<Chat>();
-                return x;
+                return (await client.GetAsync(pathchat + ID)).ResultAs<Chat>();
             }
             catch (Exception ex) { MessageBox.Show($"الخطأ: \n{ex.Message}", "حدث خطأ اثناء الاتصال", MessageBoxButton.OK, MessageBoxImage.Error); return null; }
         }
@@ -72,7 +70,7 @@ namespace AZMonitoring.DAL
             var ls = new List<DChat>();
             foreach (var item in IDs)
             {
-                 ls.Add(DChat.GetDChat(await GetChat(item)));
+                 ls.Add(await DChat.GetDChat(await GetChat(item)));
             }
             return ls;
         }
@@ -101,61 +99,33 @@ namespace AZMonitoring.DAL
         //    }
         //    catch (Exception ex) { MessageBox.Show($"الخطأ: \n{ex.Message}", "حدث خطأ اثناء الاتصال", MessageBoxButton.OK, MessageBoxImage.Error); return null; }
         //}
-        internal void SetChatsListener(string userid)
+        internal async void SetChatsListener(string userid,AddChatDelegate @delegate)
         {
             try
             {
-                x = firebase.Child($"{pathperson}{userid}/Chats")
-                    .AsObservable<string>()
-                    .Subscribe(async d =>
-                    statics.DChats.Add(DChat.GetDChat(await GetChat("dsf")))
-                    );
+                x = await client.OnAsync($"{pathperson}{userid}/Chats", changed: async (ss, snap, ds) => { @delegate.Invoke(await GetChat(snap.Data)); });
             }
             catch { }
         }
         internal void ClearLisner()
         {
-            x.Dispose();
-            x = null;
+            x?.Dispose();
         }
-        internal void SetMessagesListener(string id)
+        internal void SetMessagesListener(string id, AddMessageDelegate @delegate)
         {
             try
             {
-                
+
                 y = firebase.Child($"AZMonitoring/Chat/{id}/Messages")
                     .AsObservable<Message>()
-                    .Subscribe(d => 
-                    statics.DChats.FirstOrDefault(item => item.ID == id)
-                    .DMessages.Add(DMessage.GetDMessage(d.Object)));
-                //client.ListenAsync
-                //y = await client.OnAsync(pathchat + id + "/MessagesID"
-                ////    , changed: async (obj, snap, cont) => {
-                ////    if (statics.CurrentChat.Messages == null) { statics.CurrentChat.Messages = new List<DMessage>(); }
-                ////    if (statics.CurrentChat.MessagesID == null) { statics.CurrentChat.MessagesID = new List<string>(); }
-                ////    statics.CurrentChat.MessagesID.Add(snap.Data);
-                ////    statics.CurrentChat.Messages.Add(DMessage.GetDMessage(await GetMessage(snap.Data)));
-                ////    statics.MessageRefreshDelegate.Invoke();
-                ////}
-                //, added: (FireSharp.EventStreaming.ValueAddedEventHandler)(async (obj, snap, cont) =>
-                //{
-                //    if (statics.CurrentChat.DMessages == null) { statics.CurrentChat.DMessages = new List<DMessage>(); }
-                //    if (statics.CurrentChat.DMessages == null) { statics.CurrentChat.DMessages = new List<string>(); }
-                //    statics.CurrentChat.DMessages.Add((string)snap.Data);
-                //    statics.CurrentChat.DMessages.Add(DMessage.GetDMessage(await GetMessage(snap.Data)));
-                //    statics.MessageRefreshDelegate.Invoke();
-                //})
-                //);
+                    .Subscribe(d => @delegate.Invoke(d.Object));
             }
             catch { }
         }
+
         internal void ClearMessageLisner()
         {
-            try {
-                y.Dispose();
-                y = null;
-            }
-            catch { }
+            y?.Dispose();
         }
     }
 }

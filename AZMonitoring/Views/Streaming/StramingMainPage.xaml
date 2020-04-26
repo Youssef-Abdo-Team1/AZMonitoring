@@ -8,7 +8,12 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="StramingMainPage">
 
-    <StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <TextBlock Text="صفحة البث المباشر و التعليم عن بعد" Style="{DynamicResource TXTTitle1}"/>
         <ListView x:Name="PagesListView" 
                   Grid.Row="1" 
@@ -48,13 +53,11 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-            <Frame x:Name="ContinerFrame" 
-               Grid.Row="2" 
-               NavigationUIVisibility="Hidden" 
-               Margin="5,63,5,2" Grid.RowSpan="2">
-                
-            </Frame>
-        </ScrollViewer>
-    </StackPanel>
+        <Border Margin="10" Grid.Row="2"  BorderBrush="Black" BorderThickness="4" CornerRadius="10">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="0" BlurRadius="8"/>
+            </Border.Effect>
+            <Frame x:Name="ContinerFrame" NavigationUIVisibility="Hidden" />
+        </Border>
+    </Grid>
 </Page>

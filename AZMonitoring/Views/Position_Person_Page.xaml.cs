@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static AZMonitoring.statics;
 
 namespace AZMonitoring.Views
 {
@@ -25,7 +26,6 @@ namespace AZMonitoring.Views
         public BitmapImage pickerImage;
         private FileInfo SelectedFile { get; set; }
         Person person { get; set; }
-        DAL.DAL DB = new DAL.DAL();
         public Position_Person_Page(string positionID)
         {
             InitializeComponent();

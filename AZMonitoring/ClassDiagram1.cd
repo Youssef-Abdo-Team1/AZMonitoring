@@ -83,32 +83,30 @@
   <Class Name="AZMonitoring.Chat">
     <Position X="5" Y="7.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAgAAAAAAAAAAAAAAAAAAAAACAAQAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
       <FileName>Structures\Chat.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AZMonitoring.DMessage">
     <Position X="0.75" Y="10.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAgAAAAAAEAAAIAAAABOAgAAAABAAAAAgSAAAABA=</HashCode>
+      <HashCode>AAAAAgAAAAAAACAAAAAAABKAAAAAAAAAAAAgSAAAAAA=</HashCode>
       <FileName>Structures\DMeeage.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="AZMonitoring.DChat">
     <Position X="2.75" Y="7.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEEAAAAAAASAAAAAAAAQAAAAAAAAAAAAgAAAAABA=</HashCode>
+      <HashCode>AAAAAEAAAAAAASAgAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Structures\DChat.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AZMonitoring.DPerson">
     <Position X="1" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAEAAAIAAEAAAAgAAAAJAAAAAAAAAIAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>Structures\DPerson.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="AZMonitoring.Instruct">
     <Position X="12" Y="8" Width="2.25" />
@@ -128,14 +126,35 @@
     <Position X="6.75" Y="13.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAIAAAAAIAggAACAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
-      <FileName>Room.cs</FileName>
+      <FileName>Structures\Room.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AZMonitoring.DRoom">
     <Position X="4.5" Y="13.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
-      <FileName>Droom.cs</FileName>
+      <FileName>Structures\Droom.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AZMonitoring.OpenTokConfig">
+    <Position X="7" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAAAAACAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Structures\OpenTokConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AZMonitoring.StaticInfo">
+    <Position X="0.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAQAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>StaticInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AZMonitoring.LiveStream">
+    <Position X="11.25" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAQQAAAAA=</HashCode>
+      <FileName>LiveStream.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="AZMonitoring.Stages">

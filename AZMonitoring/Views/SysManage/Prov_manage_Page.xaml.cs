@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static AZMonitoring.statics;
 
 namespace AZMonitoring.Views.SysManage
 {
@@ -23,7 +24,6 @@ namespace AZMonitoring.Views.SysManage
     public partial class Prov_manage_Page : Page
     {
         Person hca,lag,cag,wm;
-        private readonly DAL.DAL DB = new DAL.DAL();
         public Prov_manage_Page()
         {
             InitializeComponent();

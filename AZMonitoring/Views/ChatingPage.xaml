@@ -24,7 +24,7 @@
             </Grid.ColumnDefinitions>
             <Border CornerRadius="50" Height="50" Width="50">
                 <Border.Background>
-                    <ImageBrush x:Name="Img"/>
+                    <ImageBrush x:Name="Img" ImageSource="{Binding Photo,IsAsync=True}"/>
                 </Border.Background>
             </Border>
             <TextBlock x:Name="TXTName" Grid.Column="1" Margin="10,0" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="30" TextAlignment="Center"/>

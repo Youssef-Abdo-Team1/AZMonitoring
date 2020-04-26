@@ -17,6 +17,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static AZMonitoring.statics;
 
 namespace AZMonitoring
 {
@@ -27,8 +28,8 @@ namespace AZMonitoring
     {
         bool fro = false,ch = false,chts = false,ocprovlist = false;
         internal static Views.ChatingPage chatingPage;
+        Views.Streaming.StramingMainPage StramingMainPage = new Views.Streaming.StramingMainPage();
         private Views.All_Chats_Page achsp;
-        private DAL.DAL DB;
         private bool _ShowingDialog;
         private bool _AllowClose;
         Views.Prov_Page provpageobj = new Views.Prov_Page();
@@ -84,9 +85,7 @@ namespace AZMonitoring
             if (statics.LogedPerson != null && statics.DChats != null)
             {
                 await Dispatcher.InvokeAsync(async () => {
-                    var x = await DB.GetChat(snap);
-                    var y = DChat.GetDChat(x);
-                    statics.DChats.Add(y);
+                    statics.DChats.Add(await DChat.GetDChat(await DB.GetChat(snap)));
                     achsp.Refresh();
                 });
             }
@@ -194,14 +193,23 @@ namespace AZMonitoring
 
             //we are already showing the dialog, ignore
             if (_ShowingDialog) return;
-
+            if(await OpenChecking("هل تريد الخروج ؟"))
+            {
+                if (statics.LogedPerson != null) { await DB.SetOffline(statics.LogedPerson.ID); }
+                _AllowClose = true;
+                Close();
+            }
+            
+        }
+        internal async Task<bool> OpenChecking(string ss, UIElement obj = null)
+        {
             TextBlock txt1 = new TextBlock();
             txt1.HorizontalAlignment = HorizontalAlignment.Center;
             txt1.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF53B3B"));
             txt1.Margin = new Thickness(4);
             txt1.TextWrapping = TextWrapping.WrapWithOverflow;
             txt1.FontSize = 18;
-            txt1.Text = "هل تريد الخروج ؟";
+            txt1.Text = ss ;
 
             Button btn1 = new Button();
             Style style = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
@@ -230,35 +238,51 @@ namespace AZMonitoring
 
             StackPanel stk = new StackPanel();
             stk.Width = 250;
+            if(obj != null) { stk.Children.Add(obj); }
             stk.Children.Add(txt1);
             stk.Children.Add(dck);
             object result = await OpenDialogHost(stk);
             if (result is bool boolResult && boolResult)
             {
-                _AllowClose = true;
-                Close();
+                return true;
             }
+            return false;
         }
         private void BTNLoginBTN_Click(object sender, RoutedEventArgs e)
         {
             Logingin();
         }
-        async void InitiateChats()
+        void InitiateChats()
         {
             statics.DChats = new List<DChat>();
-            DB.SetChatsListener(statics.LogedPerson.ID);
-            if(statics.LogedPerson.Chats != null)
-            {
-                foreach (var item in await DB.GetChats(statics.LogedPerson.Chats))
-                {
-                    statics.DChats.Add(item);
-                }
-            }
+            DB.SetChatsListener(statics.LogedPerson.ID,AddChat);
+            //if(statics.LogedPerson.Chats != null)
+            //{
+            //    foreach (var item in await DB.GetChats(statics.LogedPerson.Chats))
+            //    {
+            //        statics.DChats.Add(item);
+            //    }
+            //    achsp.Refresh();
+            //}
+        }
+        void AddChat(Chat chat)
+        {
+            Dispatcher.Invoke(async() => {
+                statics.DChats.Add(await DChat.GetDChat(chat));
+                achsp.Refresh();
+            });
         }
         async void Logingin()
         {
             LoginBorder.IsEnabled = false;
             var p = await DB.GetLogedPerson(TXTLoginUsername.Text, TXTLoginPass.Password);
+            if (Check.IsChecked.Value)
+            {
+                Properties.Settings.Default.SaveMe = true;
+                Properties.Settings.Default.User = TXTLoginUsername.Text;
+                Properties.Settings.Default.Pass = TXTLoginPass.Password;
+                Properties.Settings.Default.Save();
+            }
             if (p != null)
             {
                 //initialize loged person
@@ -266,8 +290,9 @@ namespace AZMonitoring
                 DataContext = statics.LogedPerson;
                 var pp = await DB.GetPositionByID(statics.LogedPerson.IDPosition);
                 statics.LogedPersonPosition = pp;
-                DB.SetStreamListener(addedsnaphundler, Changedsnaphundler);
+                DB.SetStreamListener(statics.LogedPerson.ID, OpenComingVCSream);
                 InitiateChats();
+                DB.SetOnline(statics.LogedPerson.ID);
                 //initialize components
                 Initialize_Prov_Control_List();
                 Initialize_Data_Manage_Pages();
@@ -283,7 +308,11 @@ namespace AZMonitoring
                 await Task.Run(() => { Thread.Sleep(300); });
                 MainDockPanel.IsEnabled = true;
                 TXTLoginUsername.Text = TXTLoginPass.Password = "";
-                MainFrameContainer.Content = new Views.Position_Person_Page(statics.LogedPerson);
+                //MainFrameContainer.Content = new Views.Position_Person_Page(statics.LogedPerson);
+                var x = new Views.instituation.InstitutionPage();
+                x.ini(new Institution { ID = "id", ClassesCount = 33, Description = "Descrip", IDAdministration = "Admin", Name = "Name", SheikhID = "kLd1to8mHbddDFiFVisu8Q7279g1", Stage = Stages.PreparatoryStage, StudentsCount = 344, Type = Type.Private });
+                MainFrameContainer.Content = x;
+
                 GC.Collect();
             }
             else
@@ -388,7 +417,7 @@ namespace AZMonitoring
         }
         private void MainStreamPBTN_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            MainFrameContainer.Content = new Views.Streaming.StramingMainPage();
+            MainFrameContainer.Content = StramingMainPage;
             resetControlers();
             MainStreamPBTN.Background = Getbfroms("#33000000");
         }
@@ -405,7 +434,7 @@ namespace AZMonitoring
         {
             if(MessageBox.Show("هل تريد تسجيل الخروج الان؟", "تسجيل الخروج", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No, MessageBoxOptions.RtlReading) == MessageBoxResult.Yes)
             {
-                statics.LogedPerson.Image = null;
+                DB.SetOffline(statics.LogedPerson.ID);
                 statics.LogedPerson = null;
                 statics.LogedPersonPosition = null;
                 statics.Provinces = null;
@@ -480,12 +509,44 @@ namespace AZMonitoring
             _ShowingDialog = false;
             return result;
         }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Properties.Settings.Default.SaveMe)
+            {
+                Check.IsChecked = true;
+                TXTLoginUsername.Text = Properties.Settings.Default.User;
+                TXTLoginPass.Password = Properties.Settings.Default.Pass;
+                Logingin();
+            }
+        }
         internal async void OpenVideoChat(string partner)
         {
             if (!await DB.CheckPersonStreamAvailable(partner))
             {
                 var txt = new TextBlock();
                 txt.Text = "هذا المستخدم في حالة اتصال الان!! الرجاء المحاولة لاحقاً";
+
+                Button btn2 = new Button();
+                Style style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
+                btn2.Style = style2;
+                btn2.Width = 115;
+                btn2.Height = 30;
+                btn2.Margin = new Thickness(5);
+                btn2.Command = MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand;
+                btn2.CommandParameter = false;
+                btn2.Content = "إغلاق";
+
+
+                StackPanel stk = new StackPanel();
+                stk.Children.Add(txt);
+                stk.Children.Add(btn2);
+                object result = await OpenDialogHost(stk);
+                return;
+            }
+            else if (!await DB.IsOnline(partner)) 
+            {
+                var txt = new TextBlock();
+                txt.Text = "هذا المستخدم غير متصل بالانترنت حالياً!! الرجاء المحاولة لاحقاً";
 
                 Button btn2 = new Button();
                 Style style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
@@ -515,7 +576,7 @@ namespace AZMonitoring
                 var ls = await vd.Createvideochat();
                 if (ls == null) { return; }
                 DB.DisposeStreamListener();
-                DB.SetVideoChat(partner, $"{ls[0]}\n{ls[1]}");
+                DB.SetVideoChat(partner, new OpenTokConfig {SENDER_ID = statics.LogedPerson.ID, SESSION_ID = ls[0], TOKEN = ls[1] });
                 frame.Content = vd;
 
                 Button btn2 = new Button();
@@ -536,27 +597,31 @@ namespace AZMonitoring
                 object result = await OpenDialogHost(stk);
             }
         }
-        internal void Changedsnaphundler(ValueChangedEventArgs snap)
+        internal void OpenComingVCSream(OpenTokConfig config)
         {
             Dispatcher.Invoke(async() => {
                 try
                 {
-                    string[] sts = snap.Data.Split('\n');
-                    if (sts == null || !(sts.Length >= 3)) { return; }
-                    var d = statics.DChats.FirstOrDefault(item => item.IDPerson1 == sts[0] || item.IDPerson2 == sts[0]);
+
                     Frame frame = new Frame();
                     frame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+                    if (MessageBox.Show($"يريد {await DB.GetPersonName(config.SENDER_ID)} الاتصال بك مكالمة فيديو","مكالمة فيديو قادمة!!",MessageBoxButton.YesNo) == MessageBoxResult.No)
+                    {
+                        DB.CloseComingVideoChat(config.SENDER_ID);
+                        return;
+                    }
+                    await Task.Run(()=>{Thread.Sleep(500); });
                     frame.Height = 420;
                     frame.Width = 640;
 
                     var vd = new Views.VideoPages.VideoChatPage();
-                    vd.EnterChat(sts[1], sts[2]);
+                    vd.EnterChat(config.SESSION_ID, config.TOKEN);
                     DB.DisposeStreamListener();
                     frame.Content = vd;
 
                     Button btn2 = new Button();
                     Style style2 = Application.Current.FindResource("MaterialDesignFlatButton") as Style;
-                    btn2.Click += (s, ee) => { vd.disconnect(); DB.CloseVideoChat(sts[0]); DB.SetStreamListener(addedsnaphundler, Changedsnaphundler); };
+                    btn2.Click += (s, ee) => { vd.disconnect(); DB.CloseComingVideoChat(config.SENDER_ID); DB.SetStreamListener(statics.LogedPerson.ID, OpenComingVCSream); };
                     btn2.Style = style2;
                     btn2.Width = 115;
                     btn2.Height = 30;

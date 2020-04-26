@@ -6,6 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
+        Loaded="Window_Loaded"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
@@ -62,7 +63,7 @@
                                             <StackPanel Orientation="Horizontal" Margin="0,-20,0,0">
                                                 <Border Width="24" Height="24" CornerRadius="50" BorderBrush="Black" BorderThickness="1">
                                                     <Border.Background>
-                                                        <ImageBrush x:Name="IMGLogedUserIMAGE" ImageSource="{Binding Image}" Stretch="UniformToFill"/>
+                                                        <ImageBrush x:Name="IMGLogedUserIMAGE" ImageSource="{Binding Photo,IsAsync=True}" Stretch="UniformToFill"/>
                                                     </Border.Background>
                                                 </Border>
                                                 <TextBlock x:Name="TXTLogedUserName" Text="{Binding Name, Mode=OneWay}"  VerticalAlignment="Center" Foreground="Black" FontSize="15" Margin="3" Style="{DynamicResource TXT2}" FontWeight="Normal"/>
@@ -143,7 +144,7 @@
                                 </Border>
                             </StackPanel>
                         </Border>
-                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="15" BorderThickness="1" Background="#72FFFFFF" BorderBrush="Teal">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="15" BorderThickness="1" Background="#FFDEDEDE" BorderBrush="Teal">
                             <ScrollViewer.Effect>
                                 <DropShadowEffect BlurRadius="5" ShadowDepth="0" Opacity="0.8" Color="Teal"/>
                             </ScrollViewer.Effect>
@@ -181,6 +182,7 @@
                             <Border Style="{DynamicResource BRD1}">
                                 <PasswordBox x:Name="TXTLoginPass"  materialDesign:HintAssist.Hint="كلمة السر" Style="{StaticResource  MaterialDesignFloatingHintPasswordBox}"/>
                             </Border>
+                            <CheckBox x:Name="Check" Content="حفظ معلومات التسجيل"/>
                             <Button x:Name="BTNLoginBTN" Click="BTNLoginBTN_Click" Content="تسجيل الدخول" Margin="5" Padding="5"/>
                             <TextBlock x:Name="TXTLogingotoSignup" MouseLeftButtonUp="TXTLogingotoSignup_MouseLeftButtonUp" Text="اذا كونت لا تملك حساب بالفعل إضغط هنا" Style="{DynamicResource TXT2}"/>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="90">

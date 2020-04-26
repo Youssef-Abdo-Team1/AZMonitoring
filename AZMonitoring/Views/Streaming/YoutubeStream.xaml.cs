@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Win32.UI.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,18 +22,41 @@ namespace AZMonitoring.Views.Streaming
     public partial class YoutubeStream : Page
     {
         string Link { get; set; }
-        public YoutubeStream(string Link)
+        public YoutubeStream(string Link, string type)
         {
             InitializeComponent();
-            this.Link = Link;
+            if (type == "YoutubeID") { this.Link = "https://www.youtube-nocookie.com/embed/" + Link + "?rel=0&amp;showinfo=0"; }
+            else if (type == "YoutubeLink")
+            {
+                if (Link.Contains("youtu.be/"))
+                {
+                    var s = Link.Split(new string[]{"/"}, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (var item in s)
+                    {
+                        if(item.Length == 11)
+                        {
+                            this.Link = "https://www.youtube-nocookie.com/embed/" + item + "?rel=0&amp;showinfo=0";
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    var st = Link.Split(new string[] { "v=" }, StringSplitOptions.RemoveEmptyEntries);
+                    this.Link = "https://www.youtube-nocookie.com/embed/" + st[1].Substring(0, 11) + "?rel=0&amp;showinfo=0";
+                }
+            }
+            else { this.Link = Link; }
         }
         public void Connect()
         {
-            try { WB.Navigate(Link); } catch { }
+            try {
+                 wvo.Source = (Uri)new WebBrowserUriTypeConverter().ConvertFromString(Link);
+            } catch { }
         }
         public void Disconnect()
         {
-            try { WB.NavigateToString(""); } catch { }
+            try { wvo.Source = (Uri)new WebBrowserUriTypeConverter().ConvertFromString(""); } catch { }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,24 +16,61 @@ using System.Windows.Shapes;
 
 namespace AZMonitoring.Views.instituation
 {
+    class DInstitution :INotifyPropertyChanged
+    {
+        string shiekhname,shiekhphoto;
+        public Institution Institution { get; private set; }
+        public string ShiekhPhoto { get { return shiekhname; } 
+            set {
+                shiekhname = value;
+                OnPropertyRaised("ShiekhPhoto");
+            } }
+        public string ShiekhName {
+            get { return shiekhphoto; }
+            set { shiekhphoto = value; OnPropertyRaised("ShiekhName"); }
+        }
+        public List<string> MyProperty { get; set; }
+        public DInstitution(Institution institution)
+        {
+            Institution = institution;
+            Initialize();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyRaised(string propertyname)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyname));
+            }
+        }
+
+        async void Initialize()
+        {
+            ShiekhName = await statics.DB.GetPersonName(Institution.SheikhID);
+            ShiekhPhoto = await statics.DB.GetPersonPhoto(Institution.SheikhID);
+        }
+    }
     /// <summary>
     /// Interaction logic for InstitutionPage.xaml
     /// </summary>
     public partial class InstitutionPage : Page
     {
-        Institution Institution { get; set; }
-        public InstitutionPage(Institution institution)
+        DInstitution Institution { get; set; }
+        public InstitutionPage()
         {
             InitializeComponent();
-
-            this.Institution = institution;
-            DataContext = this.Institution;
-            ini();
         }
-        async void ini()
+        public async void ini(Institution institution)
         {
-            TXTTeacher.Text = "محمد رأفت";
-            TXTSH.Text = "سحر عبد الله";
+            DataContext = null;
+            Institution = new DInstitution(institution);
+            DataContext = Institution;
+        }
+
+        private void Card_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }

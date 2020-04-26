@@ -19,12 +19,17 @@ using System.Windows.Media.Imaging;
 namespace AZMonitoring
 {
     public delegate void MyDelegate();
+    public delegate void AddMessageDelegate(Message message);
+    public delegate void AddChatDelegate(Chat message);
+    public delegate void GetChatStream(OpenTokConfig config);
     public delegate Task<object> MyDHDelegate(Panel content);
     public delegate void myadedsnapdeleget(ValueAddedEventArgs snap);
     public delegate void mychangedsnapdeleget(ValueChangedEventArgs snap);
+    public delegate void myLiveStreamdeleget(LiveStream stream);
     public class statics
     {
         internal static Province currentprov { get; set; }
+        internal static DAL.DAL DB { get; set; }
         internal static MyDelegate MessageRefreshDelegate { get; set; }
         internal static Frame staticframe { get; set; }
         internal static List<StPages> Data_Mang_Pages { get; set; }

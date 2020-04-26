@@ -11,41 +11,14 @@ using System.Windows.Navigation;
 
 namespace AZMonitoring
 {
-    public class DMessage : Message, INotifyPropertyChanged
+    public class DMessage : Message
     {
-        private ImageSource img;
-        DAL.DAL DB = new DAL.DAL();
-        public event PropertyChangedEventHandler PropertyChanged;
-        public ImageSource Image
-        {
-            get
-            {
-                return img;
-            }
-            set
-            {
-                img = value;
-                OnPropertyChanged("Image");
-            }
-        }
-        protected void OnPropertyChanged(string name)
-        {
-            var handler = PropertyChanged;
-            if (null != handler)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
-        }
         public string Text { get; set; }
         public string Link { get; set; }
+        public string Photo { get; set; }
         public HorizontalAlignment Alignment1 { get; set; }
         public HorizontalAlignment Alignment2 { get; set; }
         public SolidColorBrush Background { get ; set; }
-
-        public void SetImage()
-        {
-            Task.Run(async () => { Image = await statics.DounloadImage(Content); });
-        }
 
         internal void Initiate()
         {
@@ -65,7 +38,7 @@ namespace AZMonitoring
             else if (Type == MessageType.Photo)
             {
                 Text = "صورة";
-                SetImage();
+                Photo = Content;
             }
             if (Sender == statics.LogedPerson.ID)
             {
@@ -83,20 +56,7 @@ namespace AZMonitoring
         }
         internal static DMessage GetDMessage(Message item)
         {
-            var d = item as DMessage;
-            if(d != null)
-            {
-
-            }
-            else
-            {
-                d = new DMessage();
-                d.Content = item.Content;
-                d.Date = item.Date;
-                d.Sender = item.Sender;
-                d.Read = item.Read;
-                d.Type = item.Type;
-            }
+            var d = new DMessage { Content = item.Content, Date = item.Date, Sender = item.Sender, Read = item.Read, Type = item.Type };
             d.Initiate();
             return d;
         }

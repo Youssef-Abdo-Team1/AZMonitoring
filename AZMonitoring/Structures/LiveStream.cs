@@ -5,10 +5,11 @@ using System.Text;
 
 namespace AZMonitoring
 {
-    public class Chat
+    public class LiveStream
     {
+        public string Title { get; set; }
+        public string Link { get; set; }
         public string ID { get; set; }
-        public string IDPerson1 { get; set; }
-        public string IDPerson2 { get; set; }
+        public string Description { get; set; }
     }
 }

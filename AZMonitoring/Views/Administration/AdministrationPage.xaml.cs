@@ -37,9 +37,6 @@ namespace AZMonitoring.Views.Administration
         public AdministrationPage()
         {
             InitializeComponent();
-
-            DB = new DAL.DAL();
-
             instructs = new List<Instruct>();
             LVInstructs.ItemsSource = instructs;
 
@@ -145,7 +142,7 @@ namespace AZMonitoring.Views.Administration
         }
         private async void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            statics.staticframe.Content = new instituation.InstitutionPage((Institution) await DB.GetInstitutionbyID("-M1_DHkPbd5sRPA_px9a"));
+            //statics.staticframe.Content = new instituation.InstitutionPage((Institution) await DB.GetInstitutionbyID("-M1_DHkPbd5sRPA_px9a"));
         }
     }
 }

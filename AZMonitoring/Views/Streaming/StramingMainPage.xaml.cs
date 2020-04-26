@@ -35,9 +35,9 @@ namespace AZMonitoring.Views.Streaming
         void InitializeFields()
         {
             youtubes = new List<StSPages>();
-            youtubes.Add(new StSPages {youtube = new YoutubeStream("https://player.vimeo.com/video/200102702"), Header = "سور الكهف" });
-            youtubes.Add(new StSPages { youtube = new YoutubeStream("https://player.vimeo.com/video/200102702"), Header = "سورة الكهف المنشاوي" });
-            youtubes.Add(new StSPages { youtube = new YoutubeStream("https://player.vimeo.com/video/200102702") , Header = "الشيخ الشعراوي معجزات الاسراء والمعراج"});
+            youtubes.Add(new StSPages {youtube = new YoutubeStream("https://www.youtube.com/watch?v=50PGoDDnGwA&list=RDCMUC1FYFqgdW_1LueJTmXn-8cg&start_radio=1&t=187", "YoutubeLink"), Header = "سور الكهف" });
+            youtubes.Add(new StSPages { youtube = new YoutubeStream("EEIk7gwjgIM", "YoutubeID"), Header = "سورة الكهف المنشاوي" });
+            youtubes.Add(new StSPages { youtube = new YoutubeStream("https://youtu.be/3pA6ezncBGo/sadss", "YoutubeLink") , Header = "الشيخ الشعراوي معجزات الاسراء والمعراج"});
             PagesListView.ItemsSource = youtubes;
             PagesListView.Items.Refresh();
             PagesListView.SelectedIndex = 0;

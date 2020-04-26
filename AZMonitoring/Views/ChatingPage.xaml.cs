@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static AZMonitoring.statics;
 
 namespace AZMonitoring.Views
 {
@@ -22,8 +23,8 @@ namespace AZMonitoring.Views
     /// </summary>
     public partial class ChatingPage : Page
     {
-        DAL.DAL DB = new DAL.DAL();
         MainWindow main;
+        List<DMessage> messages;
         public ChatingPage(MainWindow main)
         {
             InitializeComponent();
@@ -36,20 +37,30 @@ namespace AZMonitoring.Views
                 });
             };
         }
-
+        void addMessage(Message message)
+        {
+            if(message != null) {
+                Dispatcher.Invoke(() => {
+                    messages.Add(DMessage.GetDMessage(message));
+                    LISTCurrentChatMessages.Items.Refresh();
+                    MessageScroller.ScrollToEnd();
+                });
+            }
+        }
         public void newChatWindow(DChat chat)
         {
+            messages = new List<DMessage>();
             statics.CurrentChat = chat;
+            DataContext = chat;
             DB.ClearMessageLisner();
-            DB.SetMessagesListener(chat.ID);
+            DB.SetMessagesListener(chat.ID,addMessage);
             Initialize();
         }
         private void Initialize()
         {
             TXTName.Text = statics.CurrentChat.Name;
             Img.ImageSource = null;
-            LISTCurrentChatMessages.ItemsSource = statics.CurrentChat.DMessages;
-            //Img.ImageSource = statics.CurrentChat.Photo;
+            LISTCurrentChatMessages.ItemsSource = messages;
             LISTCurrentChatMessages.Items.Refresh();
         }
 
@@ -75,7 +86,7 @@ namespace AZMonitoring.Views
 
         private void SendMassage(string text)
         {
-            try { DB.AddMessage(statics.CurrentChat, new Message { Date = DateTime.Now, Content = text, Read = false, Type = MessageType.Text, Sender = statics.LogedPerson.ID }); }
+            try { DB.AddMessage(statics.CurrentChat.ID, new Message { Date = DateTime.Now, Content = text, Read = false, Type = MessageType.Text, Sender = statics.LogedPerson.ID }); }
             catch { }
         }
 

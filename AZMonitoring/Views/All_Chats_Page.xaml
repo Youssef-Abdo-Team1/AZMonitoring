@@ -22,11 +22,11 @@
                         </Grid.RowDefinitions>
                         <Border CornerRadius="40" Grid.RowSpan="2" BorderBrush="White" BorderThickness="1">
                             <Border.Background>
-                                <ImageBrush ImageSource="{Binding Image}"/>
+                                <ImageBrush ImageSource="{Binding Photo}"/>
                             </Border.Background>
                         </Border>
                         <TextBlock Text="{Binding Name}" Grid.Column="1" Foreground="White" FontSize="24" Margin="10,0"/>
-                        <TextBlock Text="{Binding LastMessage}" Grid.Column="1" Grid.Row="1" Foreground="White" FontSize="14" Margin="10,0"/>
+                        <TextBlock Text="{Binding Position}" Grid.Column="1" Grid.Row="1" Foreground="White" FontSize="14" Margin="10,0"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

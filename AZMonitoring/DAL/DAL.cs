@@ -34,18 +34,36 @@ namespace AZMonitoring.DAL
           {
               AuthTokenAsyncFactory = () => Task.FromResult("IZLDtMrlpCiu25KHovLrbZzLirslRdoTvuj7wsZ7")
           });
+        public DAL()
+        {
 
+        }
+        internal void SetOnline(string userid)
+        {
+            try
+            {
+                client.SetAsync(pathperson + userid + "/Online", true);
+            }
+            catch (Exception ex) { MessageBox.Show($"الخطأ: \n{ex.Message}", "حدث خطأ اثناء الاتصال", MessageBoxButton.OK, MessageBoxImage.Error); }
+        }
+        internal async Task SetOffline(string userid)
+        {
+            try
+            {
+                await client.SetAsync(pathperson + userid + "/Online", DateTime.Now);
+            }
+            catch (Exception ex) { MessageBox.Show($"الخطأ: \n{ex.Message}", "حدث خطأ اثناء الاتصال", MessageBoxButton.OK, MessageBoxImage.Error); }
+        }
         private static MainWindow Main { get; set; }
 
         private static IFirebaseClient client;
-        private readonly static IFirebaseConfig Config = new FireSharp.Config.FirebaseConfig { AuthSecret = "IZLDtMrlpCiu25KHovLrbZzLirslRdoTvuj7wsZ7", BasePath = "https://fir-test1-fb35d.firebaseio.com/" };
 
 
         internal void CreateConnection(MainWindow main,string emailAddress = null,string password = null)
         {
             try
             {
-                client = new FireSharp.FirebaseClient(Config);
+                client = new FireSharp.FirebaseClient(new FirebaseConfig { AuthSecret = "IZLDtMrlpCiu25KHovLrbZzLirslRdoTvuj7wsZ7", BasePath = "https://fir-test1-fb35d.firebaseio.com/" });
                 Main = main;
                 SetProvinceListener();
             }
@@ -61,30 +79,6 @@ namespace AZMonitoring.DAL
             catch { }
         }
 
-
-
-        internal async void Test()
-        {
-            var x = new Product
-            {
-                Name = "abc",
-                sizes = new List<string>(),
-                prices = new List<int>()
-            };
-            x.sizes.Add("s");
-            x.sizes.Add("M");
-            x.sizes.Add("L");
-            x.sizes.Add("xL");
-            x.prices.Add(56);
-            x.prices.Add(53);
-            x.prices.Add(52);
-            x.prices.Add(53);
-            await client.SetAsync("test/clothing/abc", x);
-            var y = (await client.GetAsync("test/clothing/abc")).ResultAs<Product>();
-            y.sizes.Add("xxL");
-            y.prices.Add(65);
-            await client.UpdateAsync("test/clothing/abc", y);
-        }
         internal async void test_addinstituation()
         {
             await AddInstitution(new Institution { Name = "معهد حفيظة الألفي", StudentsCount = 455, IDAdministration = "-M1_7qiFwCUGM3lU5DE4", TeachersID = new List<string> { "M1_CEt1YBUr5YHpOh8e" }, Stage = Stages.PrimaryStage, Type = Type.Normal, SheikhID = "-M1_CDQFwQS5CAs7SBq_" });
@@ -123,18 +117,11 @@ namespace AZMonitoring.DAL
             Person a1 = await GetPersonbyID("78965");
             Person a2 = await GetPersonbyID("6665");
             Person a3 = await GetPersonbyID("2545");
-            var Ls = new List<StaticInfo>();
-            Ls.Add(new StaticInfo { Name = a1.Name, Photo = a1.Photo, PositionID = a1.IDPosition });
-            Ls.Add(new StaticInfo { Name = a2.Name, Photo = a2.Photo, PositionID = a2.IDPosition });
-            Ls.Add(new StaticInfo { Name = a3.Name, Photo = a3.Photo, PositionID = a3.IDPosition });
             var gi = new GInstruct
             {
                 Name = "توجيه العلوم",
                 Description = "الاهتمام بالشؤن الرياضيه",
-                FirstInstructorID = new StaticInfo { Name = p.Name, Photo = p.Photo, PositionID = p.IDPosition },
-                GeneralInstructorID = new StaticInfo { Name = gp.Name, Photo = gp.Photo, PositionID = gp.IDPosition },
                 IDProvince = "القاهرة",
-                HeadsID = Ls
             };
             await AddGInstruct(gi);
         }
@@ -149,12 +136,5 @@ namespace AZMonitoring.DAL
             await AddAdministration(new Administration { IDProvince = "القاهرة", Name = "غرب" });
             await AddAdministration(new Administration { IDProvince = "القاهرة", Name = "شمال" });
         }
-    }
-
-    class Product
-    {
-        public string Name { get; set; }
-        public List<string> sizes { get; set; }
-        public List<int> prices { get; set; }
     }
 }

@@ -14,6 +14,14 @@ namespace AZMonitoring.DAL
     partial class DAL
     {
         EventStreamResponse personlisner;
+        internal async Task<bool> IsOnline(string id)
+        {
+            try
+            {
+                return (await client.GetAsync(pathperson + id + "/Online")).ResultAs<string>() == "true" ? true : false;
+            }
+            catch { return false; }
+        }
         internal async Task<bool> AddPerson(Person newPerson)
         {
             try
@@ -45,7 +53,7 @@ namespace AZMonitoring.DAL
         {
             try
             {
-                var snap = await client.GetAsync(pathperson + PersonID + "/Position");
+                var snap = await client.GetAsync(pathperson + PersonID + "/IDPosition");
                 return snap.ResultAs<string>();
             }
             catch (Exception ex) { MessageBox.Show($"حدث خطأ \nكود الخطأ\n{ex.Message}", "حطأ", MessageBoxButton.OK, MessageBoxImage.Error); return null; }
@@ -166,44 +174,65 @@ namespace AZMonitoring.DAL
             try
             {
                 string x = (await GetCurrentStream(personid));
-                return x == null ? true : (x.Replace(" ", "") == ""?true:false);
+                return x == null ? true : (x.Replace(" ", "") == "" || x.Replace(" ", "")  == "active" ? true:false);
             }
             catch { return false; }
         }
-        internal async void SetVideoChat(string partnerid,string stream)
+        internal async void SetVideoChat(string partnerid,OpenTokConfig config)
         {
             try
             {
-                await client.SetAsync(pathperson + statics.LogedPerson.ID + "/CurrentStream", $"{partnerid}\n{stream}");
-                await client.SetAsync(pathperson + partnerid + "/CurrentStream", $"{statics.LogedPerson.ID}\n{stream}");
+                await client.SetAsync(pathperson + statics.LogedPerson.ID + "/CurrentStream", $"InCall");
+                await client.SetAsync(pathperson + partnerid + "/CurrentStream", "ReceivingCall");
+                await client.SetAsync(pathperson + partnerid + "/OpenTokConfig", config);
             }
             catch(Exception ex) { }
+        }
+        internal async void CloseComingVideoChat(string partnerid)
+        {
+            try
+            {
+                await client.SetAsync(pathperson + statics.LogedPerson.ID + "/CurrentStream", "active");
+                await client.SetAsync(pathperson + partnerid + "/CurrentStream", "active");
+                await client.DeleteAsync(pathperson + statics.LogedPerson.ID + "/OpenTokConfig");
+
+            }
+            catch { }
         }
         internal async void CloseVideoChat(string partnerid)
         {
             try
             {
-                await client.UpdateAsync(pathperson + statics.LogedPerson.ID + "/CurrentStream", "");
-                await client.UpdateAsync(pathperson + partnerid + "/CurrentStream", "");
+                await client.SetAsync(pathperson + statics.LogedPerson.ID + "/CurrentStream", "active");
+                await client.SetAsync(pathperson + partnerid + "/CurrentStream", "active");
+
             }
             catch { }
         }
-        internal async void SetStreamListener(myadedsnapdeleget myadedsnapdeleget = null,mychangedsnapdeleget mychangedsnapdeleget = null)
+        internal async void SetStreamListener(string id,GetChatStream @delegate)
         {
             try
             {
-                //x = await client.OnAsync(pathperson + statics.LogedPerson.ID + "/CurrentStream/",(obj,snap,cont)=> { myadedsnapdeleget(snap); }, (obj, snap, cont) => { mychangedsnapdeleget(snap); });
+                personlisner = await client.OnAsync($"{pathperson}{id}/CurrentStream", changed: async (ck,snap,sad)=> {
+                    if (snap.Data == "ReceivingCall")
+                    {
+                        @delegate.Invoke(await GetStreamConfig(id));
+                    }
+                });
             }
             catch { }
+        }
+        private async Task<OpenTokConfig> GetStreamConfig(string id)
+        {
+            try
+            {
+                return (await client.GetAsync(pathperson + id + "/OpenTokConfig")).ResultAs<OpenTokConfig>();
+            }
+            catch { return null; }
         }
         internal void DisposeStreamListener()
         {
-            try
-            {
-                x.Dispose();
-                x = null;
-            }
-            catch { }
+            personlisner?.Dispose();
         }
     }
 }

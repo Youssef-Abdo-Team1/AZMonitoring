@@ -22,8 +22,8 @@ namespace AZMonitoring.Views.VideoPages
     /// </summary>
     public partial class VideoChatPage : Page
     {
-        private const int API_KEY = 46521662;
-        private const string API_SECRET = "6cf19ef46cf1aa5980d5b4aaf10b91dc500dadec";
+        private const int API_KEY = 46645842;
+        private const string API_SECRET = "0bc30787c4fafa2bccc7ee7e4b0c8703cff12707";
         private string SESSION_ID = "2_MX40NjUyMTY2Mn5-MTU4MjcwMDgwOTMyM356b0N5LzYzdEp0UGVSNXlZZzlaYmUvV1l-UH4";
         private string TOKEN = "T1==cGFydG5lcl9pZD00NjUyMTY2MiZzaWc9YmViMTM5YWFmMGY3MmJiMjRkZTlhNmM1NDZmZGMyNzg1YmVmMzM3ZDpzZXNzaW9uX2lkPTJfTVg0ME5qVXlNVFkyTW41LU1UVTRNamN3TURnd09UTXlNMzU2YjBONUx6WXpkRXAwVUdWU05YbFpaemxhWW1VdlYxbC1VSDQmY3JlYXRlX3RpbWU9MTU4MjcwMDgwOSZyb2xlPXB1Ymxpc2hlciZub25jZT0xNTgyNzAwODA5LjMyNzk5MTc3ODY2NDY=";
 
